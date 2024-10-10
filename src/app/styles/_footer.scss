@@ -1,0 +1,63 @@
+@import 'library';
+@import 'mixins';
+.footer {
+    width: 100%;
+    height: $footer-height-xs;
+
+    @include centerContent;
+    background-color: $footer-bg-clr;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        
+        width: $xs-width;
+        height: 100%;
+    }
+
+    &__info-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__info {
+        color: white;
+        text-align: center;
+    }
+
+    &__divider {
+        width: 100%;
+        background-color: white;
+    }
+
+    &__logo {
+        height: $footer-logo-height;
+    }
+
+    @media screen and (min-width: 768px) {
+        & {
+            height: $footer-height-md;
+        }
+        &__wrapper {
+            align-items: start;
+            width: $md-width;
+        }
+
+        &__info-wrapper {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    @media screen and (min-width: 1124px) {
+        & {
+            height: $footer-height-lg;
+        }
+
+        &__wrapper {
+            width: $lg-width;
+        }
+    }
+}

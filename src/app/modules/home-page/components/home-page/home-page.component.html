@@ -1,0 +1,58 @@
+<header class="header">
+    <nav class="header__wrapper">
+        <a href="">
+            <img class="header__logo" src="assets/bank-logo.svg" alt="bank-logo" />
+        </a>
+
+
+        <ul class="header__links-list">
+            <div>
+                <li></li>
+            </div>
+            <li class="header__links-list-item">
+                <mat-icon>person</mat-icon>
+                <a class="link">Личный кабинет</a>
+            </li>
+        </ul>
+
+        <button class="header__menu" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="header__menu">menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span class="link">Личный кабинет</span>
+            </button>
+        </mat-menu>
+    </nav>
+</header>
+
+<main class="main">
+    <div class="main__wrapper">
+        <div class="main__welcome-info">
+            <h2 class="main__header">{{title}}</h2>
+            <p class="main__info">Супер-кешбек до 30%, переводы без комиссии</p>
+        </div>
+
+        <img class="main__img" src="../../../../../assets/welcome-img.jpg" />
+
+        <button class="main__button" mat-flat-button>Оформить карту</button>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer__wrapper">
+        <img class="footer__logo" src="../../../../../assets/bank-text-logo.svg" />
+        <mat-divider class="footer__divider"></mat-divider>
+        
+        <div class="footer__info-wrapper">
+            <p class="footer__info">Made by geek035</p>
+            <p class="footer__info">
+                <a class="link">Политика соглашения</a>
+            </p>
+            <p class="footer__info">
+                <a class="link">Техническая поддержка</a>
+            </p>
+        </div>
+    </div>
+</footer>

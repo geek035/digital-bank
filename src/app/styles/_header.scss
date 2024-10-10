@@ -1,0 +1,69 @@
+@import 'library';
+@import 'mixins';
+
+.header {
+    @include centerContent;
+
+    width: 100%;
+    height: $header-height;
+
+    position: fixed;
+
+    box-shadow: 0 2px 8px black;
+    background-color: white;
+
+    &__wrapper {
+        width: 100%;
+        height: 100%;
+        max-width: $xs-width;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__links-list {
+        display: none;
+    }
+
+    &__links-list-item {
+        display: flex;
+        align-items: center;
+    }
+    
+    &__logo {
+        height: $header-height / 2;
+    }
+
+    &__menu {
+        border: 0;
+        cursor: pointer;
+        width: $header-height / 2;
+        height: $header-height / 2;
+        font-size: $header-height / 2;
+    }
+    
+    @media screen and (min-width: 768px) {
+        &__wrapper {
+            max-width: $md-width;
+        }
+
+        &__menu {
+            display: none;
+        }
+
+        &__links-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    @media screen and (min-width: 1124px) {
+        &__wrapper {
+            max-width: $lg-width;
+        }
+    }
+}

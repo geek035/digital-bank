@@ -1,0 +1,28 @@
+@import 'library.scss';
+
+.link {
+    text-decoration: none;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    cursor: pointer;
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: $links-clr;
+    transition: width 0.5s ease;
+}
+
+.link:hover {
+    color: $links-clr;
+}
+
+.link:hover::after {
+    width: 100%;
+}
