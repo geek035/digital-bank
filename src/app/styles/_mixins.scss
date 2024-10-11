@@ -1,5 +1,25 @@
+@import 'library';
+
 @mixin centerContent() {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@mixin setWidth(
+    $xs-wth: $xs-width,
+    $md-wth: $md-width,
+    $lg-wth: $lg-width) {
+
+    width: 100%;
+    max-width: $xs-wth;
+
+    @media screen and (min-width: 768px)
+     and (max-width: 1123px) {
+        max-width: $md-wth;
+    }
+
+    @media screen and (min-width: 1124px) {
+        max-width: $lg-wth;
+    }
 }

@@ -12,7 +12,8 @@
         flex-direction: column;
         justify-content: space-around;
         
-        width: $xs-width;
+        @include setWidth;
+        
         height: 100%;
     }
 
@@ -42,7 +43,6 @@
         }
         &__wrapper {
             align-items: start;
-            width: $md-width;
         }
 
         &__info-wrapper {
@@ -54,10 +54,6 @@
     @media screen and (min-width: 1124px) {
         & {
             height: $footer-height-lg;
-        }
-
-        &__wrapper {
-            width: $lg-width;
         }
     }
 }

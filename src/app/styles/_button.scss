@@ -1,0 +1,10 @@
+@import 'library';
+
+.button {
+    border: 1px solid black;
+    transition: background-color .3s ease-out;
+}
+
+.button:hover {
+    background-color: $bg-color-02;
+}

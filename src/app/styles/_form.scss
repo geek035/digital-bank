@@ -1,0 +1,42 @@
+@import 'library';
+
+.form {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__field {
+        width: 100%;
+    }
+
+    &__buttons-wrapper {
+        width: fit-content;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+    }
+
+    &__button {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 768px) {
+        & {
+            font-size: 1.2rem;
+        }
+        &__buttons-wrapper {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        &__button {
+            width: fit-content;
+        }
+    }
+}
+

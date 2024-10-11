@@ -1,0 +1,30 @@
+<section class="logging-box">
+    <h2 class="logging-box__header">Авторизация</h2>
+    <form class="form">
+        <mat-form-field class="form__field">
+            <mat-label>Логин</mat-label>
+            <input matInput />
+            <mat-error *ngIf="">
+                Erro 1
+            </mat-error>
+            <mat-error *ngIf="">
+                Error 2
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form__field">
+            <mat-label>Пароль</mat-label>
+            <input matInput />
+            <mat-error *ngIf="">
+                Error 1
+            </mat-error>
+            <mat-error *ngIf="">
+                Error 2
+            </mat-error>
+        </mat-form-field>
+        <div class="form__buttons-wrapper">
+            <button class="button form__button" type="submit" mat-flat-button>Авторизоваться</button>
+            <button class="button form__button" type="button" mat-flat-button>Восстановить пароль</button>
+            <button class="button form__button" type="button" mat-flat-button>Регистрация</button>
+        </div>
+    </form>
+</section>

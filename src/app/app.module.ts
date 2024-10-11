@@ -4,9 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonToggleModule } from '@angular/material/button-toggle'
-import { MatIconModule } from '@angular/material/icon'
 import { HomePageModule } from './modules/home-page/home-page.module';
+import { AuthorizationModule } from './modules/authorization/authorization.module';
 
 
 @NgModule({
@@ -18,6 +17,7 @@ import { HomePageModule } from './modules/home-page/home-page.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HomePageModule,
+    AuthorizationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
