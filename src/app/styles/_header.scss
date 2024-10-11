@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'library';
 @import 'mixins';
 
@@ -8,6 +10,7 @@
     height: $header-height;
 
     position: fixed;
+    z-index: 1;
 
     box-shadow: 0 2px 8px black;
     background-color: white;
@@ -32,15 +35,15 @@
     }
     
     &__logo {
-        height: $header-height / 2;
+        height: math.div($header-height, 2);
     }
 
     &__menu {
         border: 0;
         cursor: pointer;
-        width: $header-height / 2;
-        height: $header-height / 2;
-        font-size: $header-height / 2;
+        width: math.div($header-height, 2);
+        height: math.div($header-height, 2);
+        font-size: math.div($header-height, 2);
     }
     
     @media screen and (min-width: 768px) {
