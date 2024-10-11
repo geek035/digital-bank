@@ -1,28 +1,34 @@
 <section class="logging-box">
     <h2 class="logging-box__header">Авторизация</h2>
-    <form class="form">
+    <form [formGroup]="formGroup" class="form">
         <mat-form-field class="form__field">
-            <mat-label>Логин</mat-label>
-            <input matInput />
-            <mat-error *ngIf="">
-                Erro 1
+            <mat-label>Логин/Email</mat-label>
+            <input type="text" formControlName="username" matInput />
+            <mat-error *ngIf="_username.hasError('required')">
+                Заполните поле
             </mat-error>
-            <mat-error *ngIf="">
-                Error 2
+            <mat-error *ngIf="_username.hasError('invalidEmail')">
+                Неверный Email
+            </mat-error>
+            <mat-error *ngIf="_username.hasError('invalidUsername')">
+                Неверный логин
             </mat-error>
         </mat-form-field>
         <mat-form-field class="form__field">
             <mat-label>Пароль</mat-label>
-            <input matInput />
-            <mat-error *ngIf="">
-                Error 1
+            <input type="password" formControlName="password" matInput />
+            <mat-error *ngIf="_password.hasError('required')">
+                Заполните поле
             </mat-error>
             <mat-error *ngIf="">
                 Error 2
             </mat-error>
         </mat-form-field>
         <div class="form__buttons-wrapper">
-            <button class="button form__button" type="submit" mat-flat-button>Авторизоваться</button>
+            <button class="button form__button" 
+                type="submit" 
+                mat-flat-button
+                (click)="onSubmit()">Авторизоваться</button>
             <button class="button form__button" type="button" mat-flat-button>Восстановить пароль</button>
             <button class="button form__button" type="button" mat-flat-button>Регистрация</button>
         </div>
