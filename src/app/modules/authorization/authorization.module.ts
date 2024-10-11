@@ -5,6 +5,10 @@ import { RegistrationComponent } from './components/registration/registration.co
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthorizationService } from 'src/app/core/services/authorization-service/authorization.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-  ]
+    MatSnackBarModule,
+    CommonComponentsModule,
+  ],
+  providers: [AuthorizationService]
 })
 export class AuthorizationModule { }

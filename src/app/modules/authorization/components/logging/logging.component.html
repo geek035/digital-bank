@@ -1,6 +1,8 @@
 <section class="logging-box">
     <h2 class="logging-box__header">Авторизация</h2>
+    
     <form [formGroup]="formGroup" class="form">
+        <app-spinner [showSpinner]="showSpinner"></app-spinner>
         <mat-form-field class="form__field">
             <mat-label>Логин/Email</mat-label>
             <input type="text" formControlName="username" matInput />

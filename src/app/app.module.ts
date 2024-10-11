@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageModule } from './modules/home-page/home-page.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     HomePageModule,
     AuthorizationModule,
   ],
