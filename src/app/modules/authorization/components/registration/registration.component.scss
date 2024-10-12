@@ -1,0 +1,31 @@
+@import '../../../../styles/form';
+@import '../../../../styles/button';
+@import '../../../../styles/mixins';
+
+$xs-registration-box-width: 320px;
+$md-registration-box-width: 500px;
+$lg-registration-box-width: 500px;
+
+:host {
+    @include centerContent;
+
+    width: 100%;
+    min-height: 100vh;
+    padding-top: $header-height;
+    padding-bottom: 2rem;
+}
+
+.registration-box {
+    @include setWidth(
+        $xs-registration-box-width,
+        $md-registration-box-width,
+        $lg-registration-box-width,
+    );
+
+    @media screen and (min-width: 768px) {
+        
+        &__header {
+            font-size: 1.8rem;
+        }
+    }
+}

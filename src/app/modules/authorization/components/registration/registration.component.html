@@ -1,1 +1,194 @@
-<p>registration works!</p>
+<section class="registration-box">
+    <h2 class="registration-box__header">Регистрация</h2>
+    <form [formGroup]="formGroup" class="form">
+        <app-spinner [showSpinner]="showSpinner"></app-spinner>
+
+        <!--Telephone Field-->
+        <mat-form-field class="form__field" floatLabel="always">
+            <mat-label>Телефон</mat-label>
+            <input type="text" formControlName="telephone" matInput mask=" (000)000-00-00" prefix="+7" />
+            <mat-error *ngIf="_telephone.hasError('required')">
+                Заполните поле
+            </mat-error>
+
+            <mat-error *ngIf="_telephone.hasError('invalidPhone')
+                && !_telephone.hasError('required')">
+                Телефон введен неверно
+            </mat-error>
+        </mat-form-field>
+
+        <!--Username Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Логин</mat-label>
+            <input type="text" formControlName="username" matInput />
+            <mat-error *ngIf="_username.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_username.hasError('forbiddenSymbols') 
+                && !_username.hasError('required')">
+                Значение содержит запрещенные символы
+            </mat-error>
+            <mat-error *ngIf="_username.errors?.['maxlength']">
+                Превышено максимальное количество символов
+            </mat-error>
+            <mat-error *ngIf="_username.hasError('existingUser')">
+                Логин уже используется
+            </mat-error>
+        </mat-form-field>
+
+        <!--Email Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Email</mat-label>
+            <input type="text" formControlName="email" matInput />
+            <mat-error *ngIf="_email.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_email.hasError('invalidEmail') &&
+                !_email.hasError('required')">
+                Неверный формат email
+            </mat-error>
+        </mat-form-field>
+
+        <!--SecondName Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Фамилия</mat-label>
+            <input type="text" formControlName="secondName" matInput />
+            <mat-error *ngIf="_secondName.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_secondName.errors?.['minlength']
+                && !_secondName.hasError('invalidFullName')">
+                Меньше минимально возможного количества символов
+            </mat-error>
+            <mat-error *ngIf="_secondName.errors?.['maxlength']">
+                Превышено максимальное количество символов
+            </mat-error>
+            <mat-error *ngIf="_secondName.hasError('invalidFullName')
+                && !_secondName.hasError('required')">
+                Значение содержит запрещенные символы
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form__fields-group">
+            <!--FirstName Field-->
+            <mat-form-field class="form__field">
+                <mat-label>Имя</mat-label>
+                <input type="text" formControlName="firstName" matInput />
+                <mat-error *ngIf="_firstName.hasError('required')">
+                    Заполните поле
+                </mat-error>
+                <mat-error *ngIf="_firstName.errors?.['minlength']
+                    && !_firstName.hasError('invalidFullName')">
+                    Меньше минимально возможного количества символов
+                </mat-error>
+                <mat-error *ngIf="_firstName.errors?.['maxlength']">
+                    Превышено максимальное количество символов
+                </mat-error>
+                <mat-error *ngIf="_firstName.hasError('invalidFullName')
+                    && !_firstName.hasError('required')">
+                    Значение содержит запрещенные символы
+                </mat-error>
+            </mat-form-field>
+            <!--MiddleName Field-->
+            <mat-form-field class="form__field">
+                <mat-label>Отчество</mat-label>
+                <input type="text" formControlName="middleName" matInput />
+                <mat-error *ngIf="_middleName.hasError('required')">
+                    Заполните поле
+                </mat-error>
+                <mat-error *ngIf="_middleName.errors?.['minlength']
+                    && !_middleName.hasError('invalidFullName')">
+                    Меньше минимально возможного количества символов
+                </mat-error>
+                <mat-error *ngIf="_middleName.errors?.['maxlength']">
+                    Превышено максимальное количество символов
+                </mat-error>
+                <mat-error *ngIf="_middleName.hasError('invalidFullName')
+                    && !_middleName.hasError('required')">
+                    Значение содержит запрещенные символы
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Birtday Field-->
+        <mat-form-field class="form__field">
+            <mat-label>День рождения</mat-label>
+            <input matInput [matDatepicker]="picker" type="text" formControlName="birthday" readonly />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <mat-error *ngIf="_birthday.hasError('required')">
+                Заполните поле
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-radio-group class="form__field form__field_radio-buttons" formControlName="gender">
+            <mat-radio-button value="1" [checked]="true">Мужчина</mat-radio-button>
+            <mat-radio-button value="2">Женщина</mat-radio-button>
+        </mat-radio-group>
+
+        <!--Address Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Адрес</mat-label>
+            <input type="text" formControlName="address" matInput />
+            <mat-error *ngIf="_address.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_address.hasError('maxlength')">
+                Превышено максимальное количество символов
+            </mat-error>
+        </mat-form-field>
+
+        <!--Password Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Придумайте пароль</mat-label>
+            <input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" matInput />
+            <button type="button" matSuffix mat-icon-button aria-label="Показать пароль"
+                (click)="showPasswordSymbols()">
+                <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="_password.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_password.hasError('minlength')">
+                Меньше минимально возможного количества символов
+            </mat-error>
+            <mat-error *ngIf="_password.hasError('maxlength')">
+                Превышено максимальное количество символов
+            </mat-error>
+            <mat-error *ngIf="_password.hasError('noCapitalLetter')
+                && !_password.hasError('required')">
+                Пароль должен содержать по крайней мере одну заглавную букву
+            </mat-error>
+            <mat-error *ngIf="_password.hasError('noSpecialSymbol')
+                && !_password.hasError('required')">
+                Пароль должен содержать по крайней мере один специальный символ
+            </mat-error>
+        </mat-form-field>
+
+
+        <!--RepeatedPassword Field-->
+        <mat-form-field class="form__field">
+            <mat-label>Повторите пароль</mat-label>
+            <input [type]="passwordVisible ? 'text' : 'password'" formControlName="repeatedPassword" matInput />
+            <button type="button" matSuffix mat-icon-button aria-label="Показать пароль"
+                (click)="showPasswordSymbols()">
+                <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="_repeatedPassword.hasError('required')">
+                Заполните поле
+            </mat-error>
+            <mat-error *ngIf="_repeatedPassword.hasError('noMatchPasswords')">
+                Пароли не совпадают
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form__buttons-wrapper">
+            <button class="button form__button" type="submit" mat-flat-button
+                (click)="onSubmit()">Зарегистрироваться</button>
+
+            <button (click)="onCancelClick()" class="button form__button" type="button" mat-flat-button>Назад</button>
+        </div>
+    </form>
+</section>

@@ -1,12 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fadeInOut } from 'src/app/animations/_fade';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  animations: [
-    fadeInOut
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
   public title = 'Дебетовая карта от К-Банка';
