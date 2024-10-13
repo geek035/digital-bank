@@ -46,22 +46,23 @@ export class LoggingComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.showSpinner = true;
+      this.showSpinner = true;      
       this._changeDetectorRef.markForCheck();
-      this._authorizationService.authorizate('s', 's').subscribe({
+
+      const login = this._username.value;
+      const password = this._password.value; 
+
+      this._authorizationService.authorizate(login, password).subscribe({
         next: (response) => {
           this.showSpinner = false;
-
-          /* 
-            Добавить редирект в личный кабинет;
-          */
-
           this._changeDetectorRef.markForCheck();
+          
+          this._router.navigate(['/mybank']);
         },
         error: (err) => {
           this.showSpinner = false;
           this._changeDetectorRef.markForCheck();
-          this.openSnackBar(
+          this._snackBar.open(
             'Ошибка авторизации. Пользователь не зарегистрирован',
             'ок'
           );
@@ -76,10 +77,6 @@ export class LoggingComponent implements OnInit {
 
   onRecoverPasswordClick() {
     this._router.navigate(['/recover-password']);
-  }
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
   }
 
   get _username(): AbstractControl {

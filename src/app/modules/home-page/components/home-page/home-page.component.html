@@ -11,7 +11,7 @@
             </div>
             <li class="header__links-list-item">
                 <mat-icon>person</mat-icon>
-                <a class="link">Личный кабинет</a>
+                <button mat-button (click)="onRedirectClick()">Личный кабинет</button>
             </li>
         </ul>
 
@@ -21,7 +21,7 @@
         <mat-menu #menu="matMenu" xPosition="before">
             <button mat-menu-item>
                 <mat-icon>person</mat-icon>
-                <span class="link">Личный кабинет</span>
+                <span (click)="onRedirectClick()">Личный кабинет</span>
             </button>
         </mat-menu>
     </nav>

@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageModule } from './modules/home-page/home-page.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AutherizationInterceptor } from './core/interceptors/autherization/autherization.interceptor';
+import { MyBankModule } from './modules/mybank/mybank.module';
 
 
 @NgModule({
@@ -20,8 +22,15 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     HomePageModule,
     AuthorizationModule,
+    MyBankModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutherizationInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

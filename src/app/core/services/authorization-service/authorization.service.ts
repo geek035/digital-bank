@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { IAuthorizationToken } from 'src/app/interfaces/authorization/authorization-token';
 import { IAuthorizationRequest } from 'src/app/interfaces/authorization/authorization-request';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +11,32 @@ import { switchMap } from 'rxjs/operators';
 export class AuthorizationService {
   constructor(private readonly http: HttpClient) {}
 
-  authorizate(login: string, password: string): Observable<null | string> {
+  authorizate(login: string, password: string): Observable<string> {
     const payload: IAuthorizationRequest = {
       login: login,
       password: password,
     };
 
     return this.http
-      .post<IAuthorizationToken | string>(`/api/authorization/token`, payload)
+      .post<IAuthorizationToken>(`/api/authorization/token`, payload)
       .pipe(
         switchMap((response) => {
           sessionStorage.setItem('tokens', JSON.stringify(response));
-          return of(null);
+          return of('success authorization');
         })
       );
+  }
+
+  logOut(): Observable<string> {
+    const token = sessionStorage.getItem('tokens');
+
+    if (token) {
+      sessionStorage.removeItem('tokens');
+      return this.http.delete('/api/authorization/logout').pipe(
+        switchMap((_) => of('logout success')),
+        catchError((err: HttpErrorResponse) => throwError(err)));
+    }
+
+    return of('not logged in');
   }
 }

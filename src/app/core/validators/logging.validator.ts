@@ -14,7 +14,7 @@ export function loginValidator(): ValidatorFn {
         return emailPattern.test(value) ? null : { invalidEmail: true };
     }
 
-    const loginPattern = /^[a-zA-Z0-9_]{1,}$/;
+    const loginPattern = /^[а-яА-Яa-zA-Z_0-9]+$/;
 
     return loginPattern.test(value) ? null : { invalidUsername: true }; 
   };

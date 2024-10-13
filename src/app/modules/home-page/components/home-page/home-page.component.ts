@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -8,9 +9,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   public title = 'Дебетовая карта от К-Банка';
-  constructor() { }
+  constructor(
+    private readonly _router: Router,
+  ) { }
 
   ngOnInit(): void {
     
+  }
+
+  onRedirectClick() {
+    this._router.navigate(['/logging']);
   }
 }
