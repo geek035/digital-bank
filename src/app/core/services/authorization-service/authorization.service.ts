@@ -17,11 +17,13 @@ export class AuthorizationService {
       password: password,
     };
 
-    return this.http.post<IAuthorizationToken | string>(`/api/authorization/token`, payload).pipe(
-      switchMap((response) => {
-        sessionStorage.setItem('tokens', JSON.stringify(response));
-        return of(null);
-      }),
-    );
+    return this.http
+      .post<IAuthorizationToken | string>(`/api/authorization/token`, payload)
+      .pipe(
+        switchMap((response) => {
+          sessionStorage.setItem('tokens', JSON.stringify(response));
+          return of(null);
+        })
+      );
   }
 }

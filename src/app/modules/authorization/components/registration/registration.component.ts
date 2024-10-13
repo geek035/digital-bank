@@ -11,11 +11,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegistrationService } from 'src/app/core/services/regtistration-service/registration.service';
 import { emailValidator } from 'src/app/core/validators/email.validator';
 import { fullNameValidator } from 'src/app/core/validators/full-name.validator';
 import { passwordValidator } from 'src/app/core/validators/password.validator';
-import { telephoneValidator } from 'src/app/core/validators/telephone.validator';
-import { usernameValidator } from 'src/app/core/validators/username.validator';
+import { loginValidator } from 'src/app/core/validators/login.validator';
+import { phoneNumberValidator } from 'src/app/core/validators/phoneNumber.validator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogRegistrationComponent } from '../dialog-registration/dialog-registration.component';
 
 @Component({
   selector: 'app-registration',
@@ -25,16 +29,16 @@ import { usernameValidator } from 'src/app/core/validators/username.validator';
 })
 export class RegistrationComponent implements OnInit {
   public formGroup = new FormGroup({
-    telephone: new FormControl('', {
-      validators: [Validators.required, telephoneValidator()],
+    phoneNumber: new FormControl('', {
+      validators: [Validators.required, phoneNumberValidator()],
       updateOn: 'blur',
     }),
-    username: new FormControl('', {
+    login: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(50),
-        usernameValidator(),
+        loginValidator(),
       ],
       updateOn: 'blur',
     }),
@@ -51,7 +55,7 @@ export class RegistrationComponent implements OnInit {
       ],
       updateOn: 'blur',
     }),
-    secondName: new FormControl('', {
+    lastName: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(4),
@@ -69,18 +73,15 @@ export class RegistrationComponent implements OnInit {
       ],
       updateOn: 'blur',
     }),
-    birthday: new FormControl('', {
+    birthdate: new FormControl('', {
       validators: [Validators.required],
       updateOn: 'blur',
     }),
-    gender: new FormControl('', {
+    sex: new FormControl('', {
       validators: [Validators.required],
     }),
     address: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validators.maxLength(100),
-      ],
+      validators: [Validators.required, Validators.maxLength(100)],
       updateOn: 'blur',
     }),
     password: new FormControl('', {
@@ -104,13 +105,37 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _router: Router,
+    private readonly _registrationService: RegistrationService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
-    if (this._password.value !== this._repeatedPassword.value) {
-      this._repeatedPassword.setErrors({noMatchPasswords: true })
+    if (!this._sex.value) {
+      this._snackBar.open('Выберите пол', 'ok');
+    } else if (this._password.value !== this._repeatedPassword.value) {
+      this._repeatedPassword.setErrors({ noMatchPasswords: true });
+    } else if (this.formGroup.valid) {
+      this.showSpinner = true;
+      this._changeDetectorRef.markForCheck();
+
+      const payload = this.formGroup.value;
+
+      this._registrationService.registerNewUser(payload).subscribe({
+        next: (_) => {
+          this.showSpinner = false;
+          this._changeDetectorRef.markForCheck();
+          this._dialog.open(DialogRegistrationComponent);
+        },
+        error: (err) => {
+          this.showSpinner = false;
+          this._changeDetectorRef.markForCheck();
+          this._login.setErrors({ existingUser: true })
+          this._snackBar.open(err.message, 'ок');
+        },
+      });
     }
   }
 
@@ -122,12 +147,12 @@ export class RegistrationComponent implements OnInit {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  get _telephone(): AbstractControl {
-    return this.formGroup.get('telephone') as AbstractControl;
+  get _phoneNumber(): AbstractControl {
+    return this.formGroup.get('phoneNumber') as AbstractControl;
   }
 
-  get _username(): AbstractControl {
-    return this.formGroup.get('username') as AbstractControl;
+  get _login(): AbstractControl {
+    return this.formGroup.get('login') as AbstractControl;
   }
 
   get _email(): AbstractControl {
@@ -138,24 +163,24 @@ export class RegistrationComponent implements OnInit {
     return this.formGroup.get('firstName') as AbstractControl;
   }
 
-  get _secondName(): AbstractControl {
-    return this.formGroup.get('secondName') as AbstractControl;
+  get _lastName(): AbstractControl {
+    return this.formGroup.get('lastName') as AbstractControl;
   }
 
   get _middleName(): AbstractControl {
     return this.formGroup.get('middleName') as AbstractControl;
   }
 
-  get _birthday(): AbstractControl {
-    return this.formGroup.get('birthday') as AbstractControl;
+  get _birthdate(): AbstractControl {
+    return this.formGroup.get('birthdate') as AbstractControl;
   }
 
   get _address(): AbstractControl {
     return this.formGroup.get('address') as AbstractControl;
   }
 
-  get _gender(): AbstractControl {
-    return this.formGroup.get('gender') as AbstractControl;
+  get _sex(): AbstractControl {
+    return this.formGroup.get('sex') as AbstractControl;
   }
 
   get _password(): AbstractControl {

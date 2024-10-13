@@ -13,10 +13,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
-
+import { RegistrationService } from 'src/app/core/services/regtistration-service/registration.service';
+import { DialogRegistrationComponent } from './components/dialog-registration/dialog-registration.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [LoggingComponent, RegistrationComponent],
+  declarations: [LoggingComponent, RegistrationComponent, DialogRegistrationComponent],
   imports: [
     CommonModule,
     CommonComponentsModule,
@@ -29,10 +31,13 @@ import { MatIconModule } from '@angular/material/icon';
     MatNativeDateModule,
     MatRadioModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     AuthorizationService,
-    { provide: MAT_DATE_LOCALE, useValue:'ru-RU' },
+    RegistrationService,
+    MatDialog,
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
   ],
 })
 export class AuthorizationModule {}

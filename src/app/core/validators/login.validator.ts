@@ -1,9 +1,10 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
-export function telephoneValidator(): ValidatorFn {
+export function loginValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: boolean } | null => {
     const value = control.value;
+    const loginPatter = /^[а-яА-Яa-zA-Z_0-9]+$/;
 
-    return value.length == 10 ? null : { invalidPhone: true };
+    return loginPatter.test(value) ? null : { forbiddenSymbols: true };
   };
 }
