@@ -14,6 +14,7 @@ import { RegistrationService } from 'src/app/core/services/regtistration-service
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RegistrationComponent } from './registration.component';
 import { DialogRegistrationComponent } from '../dialog-registration/dialog-registration.component';
+import { RegistrationRoutingModule } from './registration-routing.module';
 
 @NgModule({
   declarations: [RegistrationComponent, DialogRegistrationComponent],
@@ -30,6 +31,7 @@ import { DialogRegistrationComponent } from '../dialog-registration/dialog-regis
     MatRadioModule,
     MatIconModule,
     MatDialogModule,
+    RegistrationRoutingModule,
   ],
   providers: [
     RegistrationService,

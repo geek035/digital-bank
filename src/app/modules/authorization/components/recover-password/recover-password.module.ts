@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RecoverPasswordComponent } from './recover-password.component';
 import { RecoverPasswordService } from 'src/app/core/services/recover-password/recover-password.service';
+import { RecoverPasswordRoutingModule } from './recover-password-routing.module';
 
 @NgModule({
   declarations: [RecoverPasswordComponent],
@@ -21,6 +22,7 @@ import { RecoverPasswordService } from 'src/app/core/services/recover-password/r
     MatSnackBarModule,
     MatIconModule,
     MatTabsModule,
+    RecoverPasswordRoutingModule,
   ],
   providers: [
     RecoverPasswordService,

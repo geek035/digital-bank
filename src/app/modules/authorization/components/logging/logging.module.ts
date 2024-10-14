@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
 import { MatIconModule } from '@angular/material/icon';
 import { LoggingComponent } from './logging.component';
+import { LoggingRoutingModule } from './logging-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LoggingComponent } from './logging.component';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatIconModule,
+    LoggingRoutingModule,
   ],
   providers: [
     AuthorizationService,
