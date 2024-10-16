@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
 } from '@angular/core';
@@ -105,11 +104,10 @@ export class RegistrationComponent implements OnInit {
   private _subscription: Subscription | null = null;
 
   constructor(
-    private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _router: Router,
     private readonly _registrationService: RegistrationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _dialog: MatDialog,
+    private readonly _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -124,22 +122,24 @@ export class RegistrationComponent implements OnInit {
 
       const payload = this.formGroup.value;
 
-      this._subscription = this._registrationService.registerNewUser(payload).subscribe({
-        next: (_) => {
-          this.showSpinner.next(false);
-          this._dialog.open(DialogRegistrationComponent);
-        },
-        error: (err) => {
-          this.showSpinner.next(false);
-          this._login.setErrors({ existingUser: true })
-          this._snackBar.open(err.message, 'ок');
-        },
-      });
+      this._subscription = this._registrationService
+        .registerNewUser(payload)
+        .subscribe({
+          next: (_) => {
+            this.showSpinner.next(false);
+            this._dialog.open(DialogRegistrationComponent);
+          },
+          error: (err) => {
+            this.showSpinner.next(false);
+            this._login.setErrors({ existingUser: true });
+            this._snackBar.open(err.message, 'ок');
+          },
+        });
     }
   }
 
   ngOnDestroy() {
-    (this._subscription && this._subscription.unsubscribe());
+    this._subscription && this._subscription.unsubscribe();
   }
 
   onCancelClick() {

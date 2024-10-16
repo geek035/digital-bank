@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
 } from '@angular/core';
@@ -40,7 +39,6 @@ export class LoggingComponent implements OnInit {
   constructor(
     private readonly _authorizationService: AuthorizationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _router: Router
   ) {}
 
@@ -60,7 +58,6 @@ export class LoggingComponent implements OnInit {
         },
         error: (err) => {
           this.showSpinner.next(false);
-          this._changeDetectorRef.markForCheck();
           this._snackBar.open(
             'Ошибка авторизации. Пользователь не зарегистрирован',
             'ок'

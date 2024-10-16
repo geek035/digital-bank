@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
@@ -24,7 +23,6 @@ export class RecoverPasswordComponent implements OnInit {
   constructor(
     private readonly _recoverPasswordService: RecoverPasswordService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _router: Router,
   ) {}
 
