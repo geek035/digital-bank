@@ -79,6 +79,13 @@ export class RecoverPasswordComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+      sessionStorage.removeItem('activeTab');
+    }
+  }
+
   getCode() {
     this.showSpinner.next(true);
     const login = this.loginControl.value;
@@ -114,7 +121,10 @@ export class RecoverPasswordComponent implements OnInit {
       this.codeControl.setErrors({ wrongCode: true });
     } else {
       this.activeTab = 2;
-      sessionStorage.setItem('activeTab', String(this.activeTab));
+      sessionStorage.setItem(
+        'activeTab',
+        JSON.stringify({ username: this.loginControl.value, tab: this.activeTab })
+      );
     }
   }
 
@@ -140,12 +150,6 @@ export class RecoverPasswordComponent implements OnInit {
             this._snackBar.open(err, 'ок');
           },
         });
-    }
-  }
-
-  ngOnDestroy() {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
     }
   }
 
