@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -56,10 +57,10 @@ export class LoggingComponent implements OnInit {
           this.showSpinner.next(false);          
           this._router.navigate(['/mybank']);
         },
-        error: (err) => {
+        error: (err: HttpErrorResponse) => {
           this.showSpinner.next(false);
           this._snackBar.open(
-            'Ошибка авторизации. Пользователь не зарегистрирован',
+            `Ошибка авторизации. ${err.error}`,
             'ок'
           );
         },

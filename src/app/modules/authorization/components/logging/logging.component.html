@@ -1,6 +1,6 @@
 <section class="logging-box">
     <h2 class="logging-box__header">Авторизация</h2>
-    
+
     <form [formGroup]="formGroup" class="form">
         <app-spinner [showSpinner]="showSpinner | async"></app-spinner>
         <mat-form-field class="form__field">
@@ -10,10 +10,10 @@
                 Заполните поле
             </mat-error>
             <mat-error *ngIf="_username.hasError('invalidEmail')">
-                Неверный Email
+                Неверный формат Email
             </mat-error>
             <mat-error *ngIf="_username.hasError('invalidUsername')">
-                Неверный логин
+                Неверный формат логина
             </mat-error>
         </mat-form-field>
         <mat-form-field class="form__field">
@@ -22,21 +22,14 @@
             <mat-error *ngIf="_password.hasError('required')">
                 Заполните поле
             </mat-error>
-            <mat-error *ngIf="">
-                Error 2
-            </mat-error>
         </mat-form-field>
         <div class="form__buttons-wrapper">
-            <button class="button form__button" 
-                type="submit" 
-                mat-flat-button
+            <button class="button form__button" type="submit" mat-flat-button
                 (click)="onSubmit()">Авторизоваться</button>
-            <button 
-                (click)="onRecoverPasswordClick()"
-                class="button form__button" type="button" mat-flat-button>Восстановить пароль</button>
-            <button 
-                (click)="onRegistrationClick()"
-                class="button form__button" type="button" mat-flat-button>Регистрация</button>
+            <button (click)="onRecoverPasswordClick()" class="button form__button" type="button"
+                mat-flat-button>Восстановить пароль</button>
+            <button (click)="onRegistrationClick()" class="button form__button" type="button"
+                mat-flat-button>Регистрация</button>
         </div>
     </form>
 </section>
