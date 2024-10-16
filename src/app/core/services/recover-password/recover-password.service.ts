@@ -15,6 +15,16 @@ export class RecoverPasswordService {
 
   private standartPassword = '111111';
 
+  private _isPasswordReset = false;
+  
+  get passwordReset() {
+    return this._isPasswordReset;
+  }
+
+  set passwordReset(value: boolean) {
+    this._isPasswordReset = value;
+  }
+
   recoverPassword(login: string): Observable<string> {
     const payload = { login: login };
     return this._http.patch<string>('/api/authorization/restore', payload).pipe(

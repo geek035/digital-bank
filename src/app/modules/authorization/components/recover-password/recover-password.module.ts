@@ -24,8 +24,5 @@ import { RecoverPasswordRoutingModule } from './recover-password-routing.module'
     MatTabsModule,
     RecoverPasswordRoutingModule,
   ],
-  providers: [
-    RecoverPasswordService,
-  ],
 })
 export class RecoverPasswordModule {}

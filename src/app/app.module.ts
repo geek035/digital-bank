@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AutherizationInterceptor } from './core/interceptors/autherization/autherization.interceptor';
 import { MyBankModule } from './modules/mybank/mybank.module';
 import { AuthorizationService } from './core/services/authorization-service/authorization.service';
+import { RecoverPasswordService } from './core/services/recover-password/recover-password.service';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AuthorizationService } from './core/services/authorization-service/auth
   ],
   providers: [
     { provide: AuthorizationService },
+    { provide: RecoverPasswordService },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutherizationInterceptor,
