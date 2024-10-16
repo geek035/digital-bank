@@ -1,7 +1,7 @@
 <section class="registration-box">
     <h2 class="registration-box__header">Регистрация</h2>
     <form [formGroup]="formGroup" class="form">
-        <app-spinner [showSpinner]="showSpinner"></app-spinner>
+        <app-spinner [showSpinner]="showSpinner | async"></app-spinner>
 
         <!--phoneNumber Field-->
         <mat-form-field class="form__field" floatLabel="always">

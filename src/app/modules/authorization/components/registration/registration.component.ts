@@ -20,6 +20,7 @@ import { phoneNumberValidator } from 'src/app/core/validators/phoneNumber.valida
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogRegistrationComponent } from '../dialog-registration/dialog-registration.component';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -99,8 +100,9 @@ export class RegistrationComponent implements OnInit {
     }),
   });
 
-  public showSpinner = false;
+  public showSpinner = new BehaviorSubject(false);
   public passwordVisible = false;
+  private _subscription: Subscription | null = null;
 
   constructor(
     private readonly _changeDetectorRef: ChangeDetectorRef,
@@ -118,25 +120,26 @@ export class RegistrationComponent implements OnInit {
     } else if (this._password.value !== this._repeatedPassword.value) {
       this._repeatedPassword.setErrors({ noMatchPasswords: true });
     } else if (this.formGroup.valid) {
-      this.showSpinner = true;
-      this._changeDetectorRef.markForCheck();
+      this.showSpinner.next(true);
 
       const payload = this.formGroup.value;
 
-      this._registrationService.registerNewUser(payload).subscribe({
+      this._subscription = this._registrationService.registerNewUser(payload).subscribe({
         next: (_) => {
-          this.showSpinner = false;
-          this._changeDetectorRef.markForCheck();
+          this.showSpinner.next(false);
           this._dialog.open(DialogRegistrationComponent);
         },
         error: (err) => {
-          this.showSpinner = false;
-          this._changeDetectorRef.markForCheck();
+          this.showSpinner.next(false);
           this._login.setErrors({ existingUser: true })
           this._snackBar.open(err.message, 'ок');
         },
       });
     }
+  }
+
+  ngOnDestroy() {
+    (this._subscription && this._subscription.unsubscribe());
   }
 
   onCancelClick() {

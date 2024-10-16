@@ -3,14 +3,14 @@ import { trigger, style, transition, animate } from '@angular/animations';
 export const slideInOutY = trigger('slideInOutY', [
   transition(':enter', [
     style({
-      transform: 'translateY(-100%)', // Начальная позиция (снаружи)
-      opacity: 0  // Начальное значение непрозрачности
+      transform: 'translateY(-100%)', 
+      opacity: 0  
     }),
     animate(
       '500ms ease-in',
       style({ 
-        transform: 'translateY(0)', // Окончательная позиция (на месте)
-        opacity: 1  // Окончательное значение непрозрачности
+        transform: 'translateY(0)', 
+        opacity: 1,
       })
     )
   ]),
@@ -18,8 +18,8 @@ export const slideInOutY = trigger('slideInOutY', [
     animate(
       '500ms ease-in',
       style({ 
-        transform: 'translateY(-100%)', // Уходит вверх
-        opacity: 0  // Прозрачность уменьшается
+        transform: 'translateY(-100%)', 
+        opacity: 0,
       })
     )
   ])

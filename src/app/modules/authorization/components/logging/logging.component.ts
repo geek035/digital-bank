@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthorizationService } from 'src/app/core/services/authorization-service/authorization.service';
 import { loginValidator } from 'src/app/core/validators/logging.validator';
 
@@ -33,7 +34,8 @@ export class LoggingComponent implements OnInit {
     }),
   });
 
-  public showSpinner = false;
+  public showSpinner = new BehaviorSubject(false);
+  private _subscription: Subscription | null = null;
 
   constructor(
     private readonly _authorizationService: AuthorizationService,
@@ -46,21 +48,18 @@ export class LoggingComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.showSpinner = true;      
-      this._changeDetectorRef.markForCheck();
+      this.showSpinner.next(true);      
 
       const login = this._username.value;
       const password = this._password.value; 
 
-      this._authorizationService.authorizate(login, password).subscribe({
+      this._subscription = this._authorizationService.authorizate(login, password).subscribe({
         next: (response) => {
-          this.showSpinner = false;
-          this._changeDetectorRef.markForCheck();
-          
+          this.showSpinner.next(false);          
           this._router.navigate(['/mybank']);
         },
         error: (err) => {
-          this.showSpinner = false;
+          this.showSpinner.next(false);
           this._changeDetectorRef.markForCheck();
           this._snackBar.open(
             'Ошибка авторизации. Пользователь не зарегистрирован',
@@ -68,6 +67,12 @@ export class LoggingComponent implements OnInit {
           );
         },
       });
+    }
+  }
+
+  ngOnDesctroy() {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
     }
   }
 

@@ -9,6 +9,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { RecoverPasswordService } from 'src/app/core/services/recover-password/recover-password.service';
 import { loginValidator } from 'src/app/core/validators/logging.validator';
 import { passwordValidator } from 'src/app/core/validators/password.validator';
@@ -57,28 +58,26 @@ export class RecoverPasswordComponent implements OnInit {
   })
 
   public activeTab = 0;
-  public showSpinner = false;
+  public showSpinner = new BehaviorSubject(false);
   public passwordVisible = false;
   private smsCode: number | null = null;
+  private _subscription: Subscription | null = null;
 
   ngOnInit(): void {}
 
   getCode() {
-    this.showSpinner = true;
-    this._changeDetectorRef.markForCheck();
+    this.showSpinner.next(true);
     const login = this.loginControl.value;
-    this._recoverPasswordService.recoverPassword(login).subscribe({
+    this._subscription = this._recoverPasswordService.recoverPassword(login).subscribe({
       next: (_) => {
-        this.showSpinner = false;
+        this.showSpinner.next(false);
         this.loginControl.disable();
         this.activeTab = 1;
-        this._changeDetectorRef.markForCheck();
         this.smsCode = Math.floor(1000 + Math.random() * 9000);
         this._snackBar.open(`Код подтверждения: ${this.smsCode}`, 'ок');
       },
       error: (_) => {
-        this.showSpinner = false;
-        this._changeDetectorRef.markForCheck();
+        this.showSpinner.next(false);
         this.loginControl.setErrors({ unknownUser: true });
       },
     });
@@ -95,7 +94,6 @@ export class RecoverPasswordComponent implements OnInit {
       this.codeControl.setErrors({ wrongCode: true });
     } else {
       this.activeTab = 2;
-      this._changeDetectorRef.markForCheck();
     }
   }
 
@@ -103,23 +101,29 @@ export class RecoverPasswordComponent implements OnInit {
     if (this._password.value !== this._repeatedPassword.value) {
       this._repeatedPassword.setErrors({ noMatchPasswords: true });
     } else {
-      this.showSpinner = true;
-      this._changeDetectorRef.markForCheck();
+      this.showSpinner.next(true);
       const password = this._password.value;
-      this._recoverPasswordService.updatePassword(this.loginControl.value, password).subscribe({
+
+      (this._subscription && this._subscription.unsubscribe());
+
+      this._subscription = this._recoverPasswordService.updatePassword(this.loginControl.value, password).subscribe({
         next: (_) => {
-          this.showSpinner = false;
-          this._changeDetectorRef.markForCheck();
+          this.showSpinner.next(false);
           this._router.navigate(['/logging']);
         },
         error: (err) => {
-          this.showSpinner = false;
-          this._changeDetectorRef.markForCheck();
+          this.showSpinner.next(false);
           this._snackBar.open(err, 'ок');
         } 
       })
     }
   }
+
+   ngOnDestroy() {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+    }
+   }
 
   showPasswordSymbols() {
     this.passwordVisible = !this.passwordVisible;
