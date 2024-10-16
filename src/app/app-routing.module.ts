@@ -7,7 +7,10 @@ import { MyBankComponent } from './modules/mybank/components/my-bank/my-bank.com
 const routes: Routes = [
   {
     path: 'mybank',
-    component: MyBankComponent,
+    loadChildren: () =>
+        import(`./modules/mybank/components/my-bank/my-bank.module`).then(
+          (m) => m.MyBankModule
+        ),
     canActivate: [MyBankGuard],
   },
   { path: 'home', component: HomePageComponent },

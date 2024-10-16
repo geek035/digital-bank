@@ -6,12 +6,14 @@
 
 
         <ul class="header__links-list">
-            <div>
-                <li></li>
-            </div>
+            <span class="header__spacer"></span>
             <li class="header__links-list-item">
                 <mat-icon>person</mat-icon>
-                <button mat-button (click)="onRedirectClick()">Личный кабинет</button>
+                <button mat-button data-btn="enter" (click)="onRedirectClick($event)">Войти</button>
+            </li>
+            <li class="header__links-list-item">
+                <mat-icon>app_registration</mat-icon>
+                <button mat-button data-btn="register" (click)="onRedirectClick($event)">Регистрация</button>
             </li>
         </ul>
 
@@ -21,7 +23,11 @@
         <mat-menu #menu="matMenu" xPosition="before">
             <button mat-menu-item>
                 <mat-icon>person</mat-icon>
-                <span (click)="onRedirectClick()">Личный кабинет</span>
+                <span data-btn="enter" (click)="onRedirectClick($event)">Личный кабинет</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span data-btn="register" (click)="onRedirectClick($event)">Личный кабинет</span>
             </button>
         </mat-menu>
     </nav>

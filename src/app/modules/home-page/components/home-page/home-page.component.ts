@@ -17,7 +17,17 @@ export class HomePageComponent implements OnInit {
     
   }
 
-  onRedirectClick() {
-    this._router.navigate(['/logging']);
+  onRedirectClick(event: Event) {
+    const dataInfo = (event.currentTarget as HTMLElement).dataset?.['btn'];
+    
+    switch (dataInfo) {
+      case 'enter':
+        this._router.navigate(['/logging']);
+        break;
+
+      case 'register':
+        this._router.navigate(['/registration']);
+        break;
+    }
   }
 }

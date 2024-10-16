@@ -27,7 +27,15 @@ export class AuthorizationService {
       );
   }
 
-  refreshToken(oldTokens: IAuthorizationToken): Observable<IAuthorizationToken> {
+  isAuthorized(): boolean {
+    const tokens = sessionStorage.getItem('tokens');
+
+    return !!tokens;
+  }
+
+  refreshToken(
+    oldTokens: IAuthorizationToken
+  ): Observable<IAuthorizationToken> {
     return this.http
       .post<IAuthorizationToken>(`/api/authorization/refresh`, oldTokens)
       .pipe(
@@ -35,7 +43,7 @@ export class AuthorizationService {
           sessionStorage.setItem('tokens', JSON.stringify(response));
           return of(response);
         })
-      )
+      );
   }
 
   logOut(): Observable<string> {
@@ -45,7 +53,8 @@ export class AuthorizationService {
       sessionStorage.removeItem('tokens');
       return this.http.delete('/api/authorization/logout').pipe(
         switchMap((_) => of('logout success')),
-        catchError((err: HttpErrorResponse) => throwError(err)));
+        catchError((err: HttpErrorResponse) => throwError(err))
+      );
     }
 
     return of('not logged in');

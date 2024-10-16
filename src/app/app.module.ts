@@ -7,8 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageModule } from './modules/home-page/home-page.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AutherizationInterceptor } from './core/interceptors/autherization/autherization.interceptor';
-import { MyBankModule } from './modules/mybank/mybank.module';
 import { AuthorizationService } from './core/services/authorization-service/authorization.service';
+import { MyBankModule } from './modules/mybank/components/my-bank/my-bank.module';
 
 
 @NgModule({
