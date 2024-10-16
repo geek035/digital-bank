@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './modules/home-page/components/home-page/home-page.component';
 import { MyBankGuard } from './core/guards/my-bank/my-bank.guard';
 import { MyBankComponent } from './modules/mybank/components/my-bank/my-bank.component';
+import { RecoverPasswordGuard } from './core/guards/recover-password/recover-password.guard';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       import(
         './modules/authorization/components/recover-password/recover-password.module'
       ).then((m) => m.RecoverPasswordModule),
+    canDeactivate: [RecoverPasswordGuard],
   },
   {
     path: 'registration',

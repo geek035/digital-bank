@@ -7,11 +7,10 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { IAuthorizationToken } from 'src/app/interfaces/authorization/authorization-token';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthorizationService } from '../../services/authorization-service/authorization.service';
-import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable()
 export class AutherizationInterceptor implements HttpInterceptor {
@@ -23,17 +22,17 @@ export class AutherizationInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const storageTokenData = sessionStorage.getItem('tokens');
     const tokens: IAuthorizationToken =
-      storageTokenData && JSON.parse(storageTokenData);
-    const headers = new HttpHeaders();
+      storageTokenData && JSON.parse(storageTokenData as string);
+    let headers = new HttpHeaders();
 
     if (tokens) {
-      headers.append('Authorization', `Bearer ${tokens.accessToken}`);
+      headers = headers.append('Authorization', `Bearer ${tokens.accessToken}`);
     }
 
     const cloned = request.clone({
-      headers: headers,
+      headers,
     });
-
+    
     return next.handle(cloned).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status == 401) {

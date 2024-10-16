@@ -8,6 +8,7 @@ import { HomePageModule } from './modules/home-page/home-page.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AutherizationInterceptor } from './core/interceptors/autherization/autherization.interceptor';
 import { AuthorizationService } from './core/services/authorization-service/authorization.service';
+import { RecoverPasswordService } from './core/services/recover-password/recover-password.service';
 import { MyBankModule } from './modules/mybank/components/my-bank/my-bank.module';
 
 
@@ -25,6 +26,7 @@ import { MyBankModule } from './modules/mybank/components/my-bank/my-bank.module
   ],
   providers: [
     { provide: AuthorizationService },
+    { provide: RecoverPasswordService },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutherizationInterceptor,

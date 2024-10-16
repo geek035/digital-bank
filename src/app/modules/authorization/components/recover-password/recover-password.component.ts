@@ -4,7 +4,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Router } from '@angular/router';
@@ -23,7 +28,7 @@ export class RecoverPasswordComponent implements OnInit {
   constructor(
     private readonly _recoverPasswordService: RecoverPasswordService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _router: Router,
+    private readonly _router: Router
   ) {}
 
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
@@ -53,7 +58,7 @@ export class RecoverPasswordComponent implements OnInit {
       validators: [Validators.required],
       updateOn: 'blur',
     }),
-  })
+  });
 
   public activeTab = 0;
   public showSpinner = new BehaviorSubject(false);
@@ -62,23 +67,40 @@ export class RecoverPasswordComponent implements OnInit {
   private _subscription: Subscription | null = null;
 
   ngOnInit(): void {}
+  ngAfterViewInit() {
+    const sessionTabsData = sessionStorage.getItem('activeTab');
+    if (sessionTabsData) {
+      const activeTabData = JSON.parse(sessionTabsData);
+      this.activeTab = activeTabData['tab'];
+      this.loginControl.setValue(activeTabData['username']);
+      this.loginControl.disable();
+
+      this.activeTab == 1 && this.refreshCode();
+    }
+  }
 
   getCode() {
     this.showSpinner.next(true);
     const login = this.loginControl.value;
-    this._subscription = this._recoverPasswordService.recoverPassword(login).subscribe({
-      next: (_) => {
-        this.showSpinner.next(false);
-        this.loginControl.disable();
-        this.activeTab = 1;
-        this.smsCode = Math.floor(1000 + Math.random() * 9000);
-        this._snackBar.open(`Код подтверждения: ${this.smsCode}`, 'ок');
-      },
-      error: (_) => {
-        this.showSpinner.next(false);
-        this.loginControl.setErrors({ unknownUser: true });
-      },
-    });
+    this._subscription = this._recoverPasswordService
+      .recoverPassword(login)
+      .subscribe({
+        next: (_) => {
+          this.showSpinner.next(false);
+          this._recoverPasswordService.passwordReset = true;
+          this.loginControl.disable();
+          this.activeTab = 1;
+          sessionStorage.setItem(
+            'activeTab',
+            JSON.stringify({ username: this.loginControl.value, tab: this.activeTab })
+          );
+          this.refreshCode();
+        },
+        error: (_) => {
+          this.showSpinner.next(false);
+          this.loginControl.setErrors({ unknownUser: true });
+        },
+      });
   }
 
   refreshCode() {
@@ -92,6 +114,7 @@ export class RecoverPasswordComponent implements OnInit {
       this.codeControl.setErrors({ wrongCode: true });
     } else {
       this.activeTab = 2;
+      sessionStorage.setItem('activeTab', String(this.activeTab));
     }
   }
 
@@ -102,26 +125,29 @@ export class RecoverPasswordComponent implements OnInit {
       this.showSpinner.next(true);
       const password = this._password.value;
 
-      (this._subscription && this._subscription.unsubscribe());
+      this._subscription && this._subscription.unsubscribe();
 
-      this._subscription = this._recoverPasswordService.updatePassword(this.loginControl.value, password).subscribe({
-        next: (_) => {
-          this.showSpinner.next(false);
-          this._router.navigate(['/logging']);
-        },
-        error: (err) => {
-          this.showSpinner.next(false);
-          this._snackBar.open(err, 'ок');
-        } 
-      })
+      this._subscription = this._recoverPasswordService
+        .updatePassword(this.loginControl.value, password)
+        .subscribe({
+          next: (_) => {
+            this.showSpinner.next(false);
+            this._recoverPasswordService.passwordReset = false;
+            this._router.navigate(['/logging']);
+          },
+          error: (err) => {
+            this.showSpinner.next(false);
+            this._snackBar.open(err, 'ок');
+          },
+        });
     }
   }
 
-   ngOnDestroy() {
+  ngOnDestroy() {
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-   }
+  }
 
   showPasswordSymbols() {
     this.passwordVisible = !this.passwordVisible;
