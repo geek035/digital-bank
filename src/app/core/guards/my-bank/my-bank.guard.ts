@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -12,7 +13,10 @@ import { AuthorizationService } from '../../services/authorization-service/autho
   providedIn: 'root',
 })
 export class MyBankGuard implements CanActivate {
-  constructor(private readonly _authorizationService: AuthorizationService) {}
+  constructor(
+    private readonly _authorizationService: AuthorizationService,
+    private readonly _router: Router,
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,8 +25,6 @@ export class MyBankGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-
-    console.log(this._authorizationService.isAuthorized());
     return this._authorizationService.isAuthorized();
   }
 }

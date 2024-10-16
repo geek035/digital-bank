@@ -7,29 +7,53 @@
 
         <ul class="header__links-list">
             <span class="header__spacer"></span>
-            <li class="header__links-list-item">
-                <mat-icon>person</mat-icon>
-                <button mat-button data-btn="enter" (click)="onRedirectClick($event)">Войти</button>
-            </li>
-            <li class="header__links-list-item">
-                <mat-icon>app_registration</mat-icon>
-                <button mat-button data-btn="register" (click)="onRedirectClick($event)">Регистрация</button>
-            </li>
+            <ng-container *ngIf="!isAuthorizated else authListLinks">
+                <li class="header__links-list-item">
+                    <button mat-button data-btn="enter" (click)="onRedirectClick($event)">
+                        <mat-icon>person</mat-icon>
+                        <span class="link">Войти</span>
+                    </button>
+                </li>
+                <li class="header__links-list-item">
+                    <button mat-button data-btn="register" (click)="onRedirectClick($event)">
+                        <mat-icon>app_registration</mat-icon>
+                        <span class="link">Регистрация</span>
+                    </button>
+                </li>
+            </ng-container>
         </ul>
 
         <button class="header__menu" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon class="header__menu">menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item>
-                <mat-icon>person</mat-icon>
-                <span data-btn="enter" (click)="onRedirectClick($event)">Личный кабинет</span>
-            </button>
-            <button mat-menu-item>
-                <mat-icon>person</mat-icon>
-                <span data-btn="register" (click)="onRedirectClick($event)">Личный кабинет</span>
-            </button>
+            <ng-container *ngIf="!isAuthorizated else authListLinks">
+                <button mat-menu-item>
+                    <mat-icon>person</mat-icon>
+                    <span class="link" data-btn="enter" (click)="onRedirectClick($event)">Войти</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>app_registration</mat-icon>
+                    <span class="link" data-btn="register" (click)="onRedirectClick($event)">Выйти</span>
+                </button>
+            </ng-container>
         </mat-menu>
+
+        <ng-template #authListLinks>
+            <button mat-button data-btn="mybank" (click)="onRedirectClick($event)">
+                <mat-icon>person</mat-icon>
+                <span class="link" *ngIf="userFirstName$ | async as userFirstName else loading">{{ userFirstName }}</span>
+                <ng-template #loading>Loading...</ng-template>
+            </button>
+        </ng-template>
+
+        <ng-template $authMenuItem>
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span *ngIf="userFirstName$ | async as userFirstName else loading">{{ userFirstName }}</span>
+                <ng-template #loading>Loading...</ng-template>
+            </button>
+        </ng-template>
     </nav>
 </header>
 
@@ -50,7 +74,7 @@
     <div class="footer__wrapper">
         <img class="footer__logo" src="assets/bank-text-logo.svg" />
         <mat-divider class="footer__divider"></mat-divider>
-        
+
         <div class="footer__info-wrapper">
             <p class="footer__info">Made by geek035</p>
             <p class="footer__info">
