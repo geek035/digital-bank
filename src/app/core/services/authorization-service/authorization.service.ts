@@ -27,6 +27,17 @@ export class AuthorizationService {
       );
   }
 
+  refreshToken(oldTokens: IAuthorizationToken): Observable<IAuthorizationToken> {
+    return this.http
+      .post<IAuthorizationToken>(`/api/authorization/refresh`, oldTokens)
+      .pipe(
+        switchMap((response) => {
+          sessionStorage.setItem('tokens', JSON.stringify(response));
+          return of(response);
+        })
+      )
+  }
+
   logOut(): Observable<string> {
     const token = sessionStorage.getItem('tokens');
 

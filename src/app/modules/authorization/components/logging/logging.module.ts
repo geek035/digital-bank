@@ -24,8 +24,5 @@ import { LoggingRoutingModule } from './logging-routing.module';
     MatIconModule,
     LoggingRoutingModule,
   ],
-  providers: [
-    AuthorizationService,
-  ],
 })
 export class LoggingModule {}

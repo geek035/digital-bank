@@ -8,6 +8,7 @@ import { HomePageModule } from './modules/home-page/home-page.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AutherizationInterceptor } from './core/interceptors/autherization/autherization.interceptor';
 import { MyBankModule } from './modules/mybank/mybank.module';
+import { AuthorizationService } from './core/services/authorization-service/authorization.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MyBankModule } from './modules/mybank/mybank.module';
     MyBankModule
   ],
   providers: [
+    { provide: AuthorizationService },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutherizationInterceptor,
