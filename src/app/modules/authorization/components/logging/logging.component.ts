@@ -22,7 +22,7 @@ import { loginValidator } from 'src/app/core/validators/logging.validator';
   styleUrls: ['./logging.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoggingComponent implements OnInit {
+export class LoggingComponent {
   public formGroup: FormGroup = new FormGroup({
     username: new FormControl('', {
       validators: [Validators.required, loginValidator()],
@@ -42,8 +42,6 @@ export class LoggingComponent implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly _router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (this.formGroup.valid) {

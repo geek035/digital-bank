@@ -7,14 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./dialog-registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogRegistrationComponent implements OnInit {
+export class DialogRegistrationComponent {
 
   constructor(
     private readonly _router: Router,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   onEnterClick() {
     this._router.navigate(['/logging']);

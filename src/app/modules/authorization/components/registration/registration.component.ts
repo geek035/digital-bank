@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -27,7 +28,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnDestroy {
   public formGroup = new FormGroup({
     phoneNumber: new FormControl('', {
       validators: [Validators.required, phoneNumberValidator()],
@@ -109,8 +110,6 @@ export class RegistrationComponent implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly _dialog: MatDialog
   ) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (!this._sex.value) {

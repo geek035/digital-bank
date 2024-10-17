@@ -12,8 +12,6 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./spinner.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinnerComponent implements OnInit {
+export class SpinnerComponent {
   @Input() showSpinner: boolean | null = false;
-
-  ngOnInit(): void {}
 }

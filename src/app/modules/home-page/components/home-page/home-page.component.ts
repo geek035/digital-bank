@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthorizationService } from 'src/app/core/services/authorization-service/authorization.service';
@@ -11,7 +11,7 @@ import { IUserData } from 'src/app/interfaces/mybank/user-data.interface';
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnDestroy {
   public title = 'Дебетовая карта от К-Банка';
   public isAuthorizated = this._authorizationService.isAuthorized();
   public userFirstName$ = this._userDataService.getFirstName();
@@ -22,8 +22,6 @@ export class HomePageComponent implements OnInit {
     private readonly _userDataService: UserDataService,
     private readonly _authorizationService: AuthorizationService,
   ) { }
-
-  ngOnInit(): void { }
 
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe();

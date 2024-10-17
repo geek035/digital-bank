@@ -6,13 +6,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./my-bank.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  
-
-}
+export class MyBankComponent {}

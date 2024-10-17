@@ -1,6 +1,8 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -24,7 +26,7 @@ import { passwordValidator } from 'src/app/core/validators/password.validator';
   styleUrls: ['./recover-password.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecoverPasswordComponent implements OnInit {
+export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
   constructor(
     private readonly _recoverPasswordService: RecoverPasswordService,
     private readonly _snackBar: MatSnackBar,
@@ -66,7 +68,6 @@ export class RecoverPasswordComponent implements OnInit {
   private smsCode: number | null = null;
   private _subscription: Subscription | null = null;
 
-  ngOnInit(): void {}
   ngAfterViewInit() {
     const sessionTabsData = sessionStorage.getItem('activeTab');
     if (sessionTabsData) {
