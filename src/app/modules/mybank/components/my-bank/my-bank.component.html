@@ -10,8 +10,10 @@
         <section class="user-info-block col-xs-12 col-md-6 col-lg-4">
             <ng-container *ngIf="userFullName$ | async as userFullName else loading">
                 <div class="user-info-block__avatar">{{userFullName.firstName[0]}}</div>
-                <p class="user-info-block__data"><strong>{{userFullName.lastName | uppercase }} {{ userFullName.firstName |
-                    uppercase }} {{userFullName.middleName | uppercase}}</strong></p>
+                <p class="user-info-block__data"><strong>
+                        {{userFullName.lastName | uppercase }}
+                        {{ userFullName.firstName | uppercase }}
+                        {{userFullName.middleName | uppercase}}</strong></p>
             </ng-container>
 
             <ng-template class="user-info-block__data" #loading>Loading...</ng-template>
@@ -24,13 +26,13 @@
             <div class="items-block__wrapper">
                 <h3 class="title title_h3">Мои карты</h3>
                 <span class="items-block__spacer"></span>
-                <button mat-button><span class="link">Заказать карту</span></button>
+                <button mat-button><span data-btn="card-register" (click)="onRedirectClick($event)" class="link">Заказать карту</span></button>
             </div>
             <div class="items-block__wrapper">
                 <div class="product">
                     <div class="product__row">
                         <span class="product__spacer"></span>
-                        <mat-icon class="product__icon">add</mat-icon>
+                        <mat-icon data-btn="card-register" (click)="onRedirectClick($event)" class="product__icon">add</mat-icon>
                     </div>
                     <p class="product__info">Заказать</p>
                 </div>
@@ -55,5 +57,4 @@
             </div>
         </section>
     </div>
-
 </div>

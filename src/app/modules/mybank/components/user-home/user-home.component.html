@@ -18,7 +18,7 @@
         <mat-menu #menu="matMenu" xPosition="before">
             <button mat-menu-item>
                 <mat-icon>first_page</mat-icon>
-                <span class="link" data-btn="enter">Главная</span>
+                <span data-btn="my-bank" (click)="onRedirectClick($event)" class="link">Главная</span>
             </button>
             <button mat-menu-item>
                 <mat-icon>logout</mat-icon>

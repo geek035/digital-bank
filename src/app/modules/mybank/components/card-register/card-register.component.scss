@@ -1,0 +1,43 @@
+@import '/src/app/styles/header';
+@import '/src/app/styles/footer';
+@import '/src/app/styles/library';
+@import '/src/app/styles/link';
+@import '/src/app/styles/mixins';
+@import '/src/app/styles/button';
+@import '/src/app/styles/grid';
+@import '/src/app/modules/mybank/components/card-register/styles/item-block';
+@import '/src/app/modules/mybank/components/card-register/styles/card';
+
+
+:host {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    font-size: $xs-font-size;
+    margin: 0;
+
+    &_h3 {
+        font-size: $xs-font-size-h3; 
+    }
+
+    @media screen and (min-width: $md-width) {
+        font-size: $md-font-size;
+        
+        &_h3 {
+            font-size: $md-font-size-h3;
+        }
+    }
+
+    @media screen and (min-wdth: $lg-width) {
+        font-size: $lg-font-size;
+
+        &_h3 {
+            font-size: $lg-font-size-h3;
+        }
+    }
+}

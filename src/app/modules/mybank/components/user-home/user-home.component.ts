@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-home',
@@ -8,6 +9,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class UserHomeComponent {
 
-  constructor() { }
+  constructor(private readonly _router: Router) { }
+
+  onRedirectClick(event: Event) {
+    const dataInfo = (event.currentTarget as HTMLElement).dataset?.['btn'];
+    
+    switch (dataInfo) {
+      case 'my-bank':
+        this._router.navigate(['/user-home/my-bank']);
+        break;
+    }
+  }
 
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CardRegisterRoutingModule } from './card-register-routing.module';
 import { CardRegisterComponent } from './card-register.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CardRegisterComponent } from './card-register.component';
   ],
   imports: [
     CommonModule,
-    CardRegisterRoutingModule
+    CardRegisterRoutingModule,
+    MatIconModule,
   ]
 })
 export class CardRegisterModule { }

@@ -44,13 +44,13 @@
         border-radius: 50%;
         cursor: pointer;
         transition: background-color .3s ease-out;
-    }
 
-    &__icon:hover {
-        background-color: $bg-color-03-hover;
-    }
+        &:hover {
+            background-color: $bg-color-03-hover;
+        }
 
-    &__icon:active {
-        background-color: $bg-color-03-active;
+        &:active {
+            background-color: $bg-color-03-active;
+        }
     }
 }

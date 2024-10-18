@@ -15,5 +15,31 @@
     flex-direction: column;
 
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
+}
+
+.title {
+    font-size: $xs-font-size;
+    margin: 0;
+
+    &_h3 {
+        font-size: $xs-font-size-h3; 
+    }
+
+    @media screen and (min-width: $md-width) {
+        font-size: $md-font-size;
+        
+        &_h3 {
+            font-size: $md-font-size-h3;
+        }
+    }
+
+    @media screen and (min-wdth: $lg-width) {
+        font-size: $lg-font-size;
+
+        &_h3 {
+            font-size: $lg-font-size-h3;
+        }
+    }
+
 }
