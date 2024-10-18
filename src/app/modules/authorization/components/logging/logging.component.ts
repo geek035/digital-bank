@@ -53,7 +53,7 @@ export class LoggingComponent {
       this._subscription = this._authorizationService.authorizate(login, password).subscribe({
         next: (response) => {
           this.showSpinner.next(false);          
-          this._router.navigate(['/mybank']);
+          this._router.navigate(['/user-home']);
         },
         error: (err: HttpErrorResponse) => {
           this.showSpinner.next(false);

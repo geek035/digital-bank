@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './modules/home-page/components/home-page/home-page.component';
 import { MyBankGuard } from './core/guards/my-bank/my-bank.guard';
-import { MyBankComponent } from './modules/mybank/components/my-bank/my-bank.component';
 import { RecoverPasswordGuard } from './core/guards/recover-password/recover-password.guard';
 
 const routes: Routes = [
   {
-    path: 'mybank',
+    path: 'user-home',
     loadChildren: () =>
-        import(`./modules/mybank/components/my-bank/my-bank.module`).then(
-          (m) => m.MyBankModule
+        import(`./modules/mybank/components/user-home/user-home.module`).then(
+          (m) => m.UserHomeModule
         ),
     canActivate: [MyBankGuard],
   },

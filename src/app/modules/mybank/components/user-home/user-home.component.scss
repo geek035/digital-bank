@@ -1,0 +1,33 @@
+@import '/src/app/styles/header';
+@import '/src/app/styles/footer';
+@import '/src/app/styles/library';
+@import '/src/app/styles/link';
+@import '/src/app/styles/mixins';
+@import '/src/app/styles/button';
+
+:host {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main {
+    flex-grow: 1;
+
+    padding-top: $header-height;
+    padding-bottom: 1rem;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    &__wrapper {
+        @include setWidth;
+
+        padding-top: 1rem;
+    }
+}

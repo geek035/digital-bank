@@ -39,8 +39,8 @@ export class HomePageComponent implements OnDestroy {
         this._router.navigate(['/registration']);
         break;
       
-      case 'mybank':
-        this._router.navigate(['/mybank']);
+      case 'user-home':
+        this._router.navigate(['/user-home']);
         break;
     }
   }

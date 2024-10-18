@@ -1,33 +1,3 @@
-<header class="header">
-    <nav class="header__wrapper">
-        <a href="">
-            <img class="header__logo" src="assets/bank-logo.svg" alt="bank-logo" />
-        </a>
-
-        <ul class="header__links-list">
-            <span class="header__spacer"></span>
-            <li class="header__links-list-item">
-                <mat-icon>person</mat-icon>
-                <button mat-button>Личный кабинет</button>
-            </li>
-        </ul>
-
-        <button class="header__menu" mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon class="header__menu">list</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item>
-                <mat-icon>first_page</mat-icon>
-                <span class="link" data-btn="enter">Главная</span>
-            </button>
-            <button mat-menu-item>
-                <mat-icon>logout</mat-icon>
-                <span class="link" data-btn="register">Выйти</span>
-            </button>
-        </mat-menu>
-    </nav>
-</header>
-
 <main class="main">
     <div class="grid g-3 main__wrapper">
 
@@ -89,20 +59,3 @@
 
     </div>
 </main>
-
-<footer class="footer">
-    <div class="footer__wrapper">
-        <img class="footer__logo" src="assets/bank-text-logo.svg" />
-        <mat-divider class="footer__divider"></mat-divider>
-
-        <div class="footer__info-wrapper">
-            <p class="footer__info">Made by geek035</p>
-            <p class="footer__info">
-                <a class="link">Политика соглашения</a>
-            </p>
-            <p class="footer__info">
-                <a class="link">Техническая поддержка</a>
-            </p>
-        </div>
-    </div>
-</footer>

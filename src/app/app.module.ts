@@ -11,11 +11,12 @@ import { RecoverPasswordService } from './core/services/recover-password/recover
 import { MyBankModule } from './modules/mybank/components/my-bank/my-bank.module';
 import { HomePageModule } from './modules/home-page/components/home-page/home-page.module';
 import { UserDataService } from './core/services/user-data-service/user-data.service';
+import { UserHomeModule } from './modules/mybank/components/user-home/user-home.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +24,7 @@ import { UserDataService } from './core/services/user-data-service/user-data.ser
     BrowserAnimationsModule,
     HttpClientModule,
     HomePageModule,
-    MyBankModule
+    UserHomeModule
   ],
   providers: [
     { provide: AuthorizationService },

@@ -40,7 +40,7 @@
         </mat-menu>
 
         <ng-template #authListLinks>
-            <button mat-button data-btn="mybank" (click)="onRedirectClick($event)">
+            <button mat-button data-btn="user-home" (click)="onRedirectClick($event)">
                 <mat-icon>person</mat-icon>
                 <span class="link" *ngIf="userFirstName$ | async as userFirstName else loading">{{ userFirstName }}</span>
                 <ng-template #loading>Loading...</ng-template>
