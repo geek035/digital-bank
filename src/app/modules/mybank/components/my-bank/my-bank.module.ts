@@ -9,12 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [
-    MyBankComponent
-  ],
+  declarations: [MyBankComponent],
   imports: [
     CommonModule,
     MyBankRoutingModule,
@@ -24,6 +22,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSnackBarModule,
     MatIconModule,
     MatTabsModule,
-  ]
+    MatGridListModule,
+  ],
 })
-export class MyBankModule { }
+export class MyBankModule {}

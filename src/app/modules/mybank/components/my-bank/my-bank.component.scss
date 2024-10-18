@@ -4,5 +4,40 @@
 @import '../../../../styles/mixins';
 @import '../../../../styles/button';
 
+:host {
+    display: flex;
+    justify-content: center;
+}
 
+.tab-group {
+    width: 100%;
+    height: 100%;
+}
 
+.main {
+    padding-top: $header-height;
+
+    @include setWidth;
+
+    min-height: 200vh;
+
+    &__header {
+        font-size: $xs-font-size;
+    }
+
+    &__content {
+        min-height: 200px;
+    }
+
+    @media screen and (min-width: 724px) {
+        &__header {
+            font-size: $md-font-size;
+        }
+    }
+
+    @media screen and (min-width: 1124px) {
+        &__header {
+            font-size: $lg-font-size;
+        }
+    }
+}

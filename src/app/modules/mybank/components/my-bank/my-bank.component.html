@@ -1,13 +1,11 @@
 <header class="header">
     <nav class="header__wrapper">
         <a href="">
-            <img class="header__logo" src="assets/bank-logo.svg" alt="bank-logo"/>
+            <img class="header__logo" src="assets/bank-logo.svg" alt="bank-logo" />
         </a>
 
         <ul class="header__links-list">
-            <div>
-                <li></li>
-            </div>
+            <span class="header__spacer"></span>
             <li class="header__links-list-item">
                 <mat-icon>person</mat-icon>
                 <button mat-button>Личный кабинет</button>
@@ -17,5 +15,26 @@
 </header>
 
 <main class="main">
-    <
+    <mat-grid-list rowHeight="fit" class="main__content" cols="12">
+
+        <mat-grid-tile lass="main__nav-panel" colspan="12">
+            <mat-tab-group>
+                <mat-tab label="Главная">
+
+                </mat-tab>
+            </mat-tab-group>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="12">
+            <h2 class="main__header">Добро пожаловать</h2>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="6">
+            <h2 class="main__header">Добро пожаловать</h2>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="6">
+            <h2 class="main__header">Добро пожаловать</h2>
+        </mat-grid-tile>
+    </mat-grid-list>
 </main>

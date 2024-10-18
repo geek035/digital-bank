@@ -15,7 +15,7 @@ import { AuthorizationService } from '../../services/authorization-service/autho
 export class MyBankGuard implements CanActivate {
   constructor(
     private readonly _authorizationService: AuthorizationService,
-    private readonly _router: Router,
+    private readonly _router: Router
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,6 +25,13 @@ export class MyBankGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this._authorizationService.isAuthorized();
+    const isAuth = this._authorizationService.isAuthorized();
+
+    if (!isAuth) {
+      this._router.navigate(['/logging']);
+      return isAuth;
+    }
+
+    return isAuth;
   }
 }

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { UserDataService } from 'src/app/core/services/user-data-service/user-data.service';
 
 @Component({
   selector: 'app-my-bank',
@@ -6,4 +12,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./my-bank.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankComponent {}
+export class MyBankComponent implements OnDestroy {
+  constructor(private readonly _userDataService: UserDataService) {}
+
+  public userFirstName$ = this._userDataService.getFirstName();
+
+  ngOnDestroy(): void {}
+}
