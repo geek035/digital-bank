@@ -30,9 +30,24 @@
 
 <main class="main">
     <div class="grid g-3 main__wrapper">
-        
-        <div class="grid__row col-xs-12 col-md-12 col-lg-12">
-            <h2 class="title">Добро пожаловать</h2>
+
+        <div class="grid__row">
+            <h2 class="title col-xs-12 col-md-12 col-lg-12">
+                Добро пожаловать
+            </h2>
+        </div>
+
+        <div class="grid__row">
+            <section class="user-info-block col-xs-12 col-md-6 col-lg-4">
+                <ng-container *ngIf="userFullName$ | async as userFullName else loading">
+                    <div class="user-info-block__avatar">{{userFullName.firstName[0]}}</div>
+                    <p class="user-info-block__data"><strong>{{userFullName.lastName | uppercase }} {{ userFullName.firstName |
+                        uppercase }} {{userFullName.middleName | uppercase}}</strong></p>
+                </ng-container>
+
+                <ng-template class="user-info-block__data" #loading>Loading...</ng-template>
+            </section>
+
         </div>
 
         <div class="grid__row g-3">

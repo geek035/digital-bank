@@ -15,7 +15,7 @@ import { UserDataService } from 'src/app/core/services/user-data-service/user-da
 export class MyBankComponent implements OnDestroy {
   constructor(private readonly _userDataService: UserDataService) {}
 
-  public userFirstName$ = this._userDataService.getFirstName();
+  public userFullName$ = this._userDataService.getFullName();
 
   ngOnDestroy(): void {}
 }

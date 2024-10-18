@@ -4,6 +4,15 @@ $xs-width: 320px;
 $md-width: 768px;
 $lg-width: 1124px;
 
+$bg-color-01: white;
+$bg-color-01-opasity: rgb(255, 255, 255, 0.2); 
+$bg-color-02: rgb(164, 224, 254);
+$bg-color-02-opasity: rgb(164, 224, 254, 0.5);
+$bg-color-03: #262626;
+$bg-color-03-hover: #424242;
+$bg-color-03-active: rgb(101, 102, 102);
+$bg-color-04: #FF9640;
+
 /* Fonts */
 
 $xs-font-size: 1.5rem;
@@ -19,6 +28,11 @@ $lg-font-size-h3: 1.8rem;
 
 $header-height: 72px;
 
+/* blocks-general */
+
+$box-shadow: 
+    0 0 3px .5px black;
+
 /* Foooter */
 
 $footer-height-xs: 400px;
@@ -29,12 +43,4 @@ $footer-logo-height: 32px;
 
 /* Links */
 $links-clr: rgb(58, 160, 211);
-$bg-color-01: white;
-$bg-color-01-opasity: rgb(255, 255, 255, 0.2); 
-$bg-color-02: rgb(164, 224, 254);
-$bg-color-02-opasity: rgb(164, 224, 254, 0.5);
-$bg-color-03: #262626;
-$bg-color-03-hover: #424242;
-$bg-color-03-active: rgb(101, 102, 102);
-$bg-color-04: #FF9640;
 
