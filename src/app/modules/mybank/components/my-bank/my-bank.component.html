@@ -11,30 +11,83 @@
                 <button mat-button>Личный кабинет</button>
             </li>
         </ul>
+
+        <button class="header__menu" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="header__menu">list</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>
+                <mat-icon>first_page</mat-icon>
+                <span class="link" data-btn="enter">Главная</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>logout</mat-icon>
+                <span class="link" data-btn="register">Выйти</span>
+            </button>
+        </mat-menu>
     </nav>
 </header>
 
 <main class="main">
-    <mat-grid-list rowHeight="fit" class="main__content" cols="12">
+    <div class="grid g-3 main__wrapper">
+        
+        <div class="grid__row col-xs-12 col-md-12 col-lg-12">
+            <h2 class="title">Добро пожаловать</h2>
+        </div>
 
-        <mat-grid-tile lass="main__nav-panel" colspan="12">
-            <mat-tab-group>
-                <mat-tab label="Главная">
+        <div class="grid__row g-3">
+            <section class="items-block col-xs-12 col-md-12 col-lg-6">
+                <div class="items-block__wrapper">
+                    <h3 class="title title_h3">Мои карты</h3>
+                    <span class="items-block__spacer"></span>
+                    <button mat-button><span class="link">Заказать карту</span></button>
+                </div>
+                <div class="items-block__wrapper">
+                    <div class="product">
+                        <div class="product__row">
+                            <span class="product__spacer"></span>
+                            <mat-icon class="product__icon">add</mat-icon>
+                        </div>
+                        <p class="product__info">Заказать</p>
+                    </div>
+                </div>
+            </section>
 
-                </mat-tab>
-            </mat-tab-group>
-        </mat-grid-tile>
+            <section class="items-block col-xs-12 col-md-12 col-lg-6">
+                <div class="items-block__wrapper">
+                    <h3 class="title title_h3">Мои счета</h3>
+                    <span class="items-block__spacer"></span>
+                    <button mat-button><span class="link">Открыть счет</span></button>
+                </div>
 
-        <mat-grid-tile colspan="12">
-            <h2 class="main__header">Добро пожаловать</h2>
-        </mat-grid-tile>
+                <div class="items-block__wrapper">
+                    <div class="product product_bg-clr">
+                        <div class="product__row">
+                            <span class="product__spacer"></span>
+                            <mat-icon class="product__icon">add</mat-icon>
+                        </div>
+                        <p class="product__info product__info_clr">Открыть</p>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-        <mat-grid-tile colspan="6">
-            <h2 class="main__header">Добро пожаловать</h2>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="6">
-            <h2 class="main__header">Добро пожаловать</h2>
-        </mat-grid-tile>
-    </mat-grid-list>
+    </div>
 </main>
+
+<footer class="footer">
+    <div class="footer__wrapper">
+        <img class="footer__logo" src="assets/bank-text-logo.svg" />
+        <mat-divider class="footer__divider"></mat-divider>
+
+        <div class="footer__info-wrapper">
+            <p class="footer__info">Made by geek035</p>
+            <p class="footer__info">
+                <a class="link">Политика соглашения</a>
+            </p>
+            <p class="footer__info">
+                <a class="link">Техническая поддержка</a>
+            </p>
+        </div>
+    </div>
+</footer>

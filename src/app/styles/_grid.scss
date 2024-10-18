@@ -1,0 +1,244 @@
+@import 'library';
+
+
+.grid {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    
+    margin-left: auto;
+    margin-right: auto;
+
+    
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+.g-0 {
+    gap: 0;
+}
+
+.g-3 {
+    gap: 1rem;
+}
+
+.g-5 {
+    gap: 3rem;
+}
+
+.col-xs-12 {    
+    width: 100%;
+}
+
+.g-0 .col-xs-6, .col-xs-6 {    
+    width: calc(100% / 2);
+}
+
+.g-3 .col-xs-6 {    
+    width: calc(calc((100% - 1rem)) / 2);
+}
+
+.g-5 .col-xs-6 {
+        
+    width: calc(calc((100% - 3rem)) / 2);
+}
+
+.g-0 .col-xs-4, .col-xs-4 {
+        
+    width: calc(100% / 3);
+}
+
+.g-3 .col-xs-4 {
+        
+    width: calc(calc(100% - 1rem * 2) / 3);
+}
+
+.g-5 .col-xs-4 {
+    width: calc(calc(100% - 3rem * 2) / 3);
+}
+
+.g-0 .col-xs-3, .col-xs-3 {
+    width: calc(100% / 4);
+}
+
+.g-3 .col-xs-3 {     
+    width: calc(calc(100% - 1rem * 3) / 4);
+}
+
+.g-5 .col-xs-3 {
+        
+    width: calc(calc(100% - 3rem * 3) / 4);
+}
+
+.col-xs-auto {
+    width: auto;
+}
+
+.col-md-12 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: 100%;
+    }
+}
+
+.g-0 .col-md-6, .col-md-6 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(100% / 2);
+    }
+}
+
+.g-3 .col-md-6 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc((100% - 1rem)) / 2);
+    }
+}
+
+.g-5 .col-md-6 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc((100% - 3rem)) / 2);
+    }
+}
+
+.g-0 .col-md-4, .col-md-4 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(100% / 3);
+    }
+}
+
+.g-3 .col-md-4 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc(100% - 1rem * 2) / 3);
+    }
+}
+
+.g-5 .col-md-4 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc(100% - 3rem * 2) / 3);
+    }
+}
+
+.g-0 .col-md-3, .col-md-3 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(100% / 4);
+    }
+}
+
+.g-3 .col-md-3 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc(100% - 1rem * 3) / 4);
+    }
+}
+
+.g-5 .col-md-3 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(calc(100% - 3rem * 3) / 4);
+    }
+}
+
+.col-md-auto {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: auto;
+    }
+}
+
+.col-lg-12 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: 100%;
+    }
+}
+
+.g-0 .col-lg-6, .col-lg-6 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(100% / 2);
+    }
+}
+
+.g-3 .col-lg-6 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 1rem) / 2);
+    }
+}
+
+.g-5 .col-lg-6 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 3rem) / 2);
+    }
+}
+
+.g-0 .col-lg-4, .col-lg-4 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(100% / 3);
+    }
+}
+
+.g-3 .col-lg-4 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 1rem * 2) / 3);
+    }
+}
+
+.g-5 .col-lg-4 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 3rem * 2) / 3);
+    }
+}
+
+.g-0 .col-lg-3, .col-lg-3 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(100% / 4);
+    }
+}
+
+.g-3 .col-lg-3 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 1rem * 3) / 4);
+    }
+}
+
+.g-5 .col-lg-3 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(calc(100% - 3rem * 3) / 4);
+    }
+}
+
+.col-lg-auto {
+    @media screen and (min-width: $lg-width) {
+        
+        width: auto;
+    }
+}

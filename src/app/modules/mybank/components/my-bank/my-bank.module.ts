@@ -6,10 +6,11 @@ import { MyBankComponent } from './my-bank.component';
 import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [MyBankComponent],
@@ -22,7 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSnackBarModule,
     MatIconModule,
     MatTabsModule,
-    MatGridListModule,
+    MatMenuModule,
+    MatDividerModule,
   ],
 })
 export class MyBankModule {}

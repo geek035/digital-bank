@@ -1,43 +1,64 @@
-@import '../../../../styles/header';
-@import '../../../../styles/library';
-@import '../../../../styles/link';
-@import '../../../../styles/mixins';
-@import '../../../../styles/button';
+@import '/src/app/styles/header';
+@import '/src/app/styles/footer';
+@import '/src/app/styles/library';
+@import '/src/app/styles/link';
+@import '/src/app/styles/mixins';
+@import '/src/app/styles/button';
+@import '/src/app/styles/grid';
+@import '/src/app/modules/mybank/components/my-bank/styles/items-block';
+@import '/src/app/modules/mybank/components/my-bank/styles/product';
+@import '/src/app/modules/mybank/components/my-bank/styles/bill';
+
 
 :host {
     display: flex;
-    justify-content: center;
-}
+    flex-direction: column;
 
-.tab-group {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .main {
+    flex-grow: 1;
+
     padding-top: $header-height;
+    padding-bottom: 1rem;
 
-    @include setWidth;
+    width: 100%;
+    height: 100%;
 
-    min-height: 200vh;
+    display: flex;
+    justify-content: center;
 
-    &__header {
-        font-size: $xs-font-size;
+    &__wrapper {
+        @include setWidth;
+
+        padding-top: 1rem;
+    }
+}
+
+.title {
+    font-size: $xs-font-size;
+    margin: 0;
+
+    &_h3 {
+        font-size: $xs-font-size-h3; 
     }
 
-    &__content {
-        min-height: 200px;
-    }
-
-    @media screen and (min-width: 724px) {
-        &__header {
-            font-size: $md-font-size;
+    @media screen and (min-width: $md-width) {
+        font-size: $md-font-size;
+        
+        &_h3 {
+            font-size: $md-font-size-h3;
         }
     }
 
-    @media screen and (min-width: 1124px) {
-        &__header {
-            font-size: $lg-font-size;
+    @media screen and (min-wdth: $lg-width) {
+        font-size: $lg-font-size;
+
+        &_h3 {
+            font-size: $lg-font-size-h3;
         }
     }
+
 }
