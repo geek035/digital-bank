@@ -1,4 +1,5 @@
 <div class="grid g-3">
+    <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
     <div class="grid__row">
         <h2 class="title col-xs-12 col-md-12 col-lg-12">
             Банковские карты
@@ -11,14 +12,15 @@
                 <div class="card__view">
                     <div class="card__row">
                         <span class="card__spacer"></span>
-                        <mat-icon class="card__icon">add</mat-icon>
+                        <mat-icon data-btn="debit" (click)="onRedirectClick($event)" class="card__icon">add</mat-icon>
                     </div>
                     <p class="card__number">0000</p>
                 </div>
                 <div class="card__description-wrapper">
                     <h3 class="card__header">Дебетовая</h3>
                     <p class="card__description">Выпуск и обслуживание бесплатно</p>
-                    <button class="card__button" mat-button>Заказать</button>
+                    <button data-btn="debit" (click)="onRedirectClick($event)" class="card__button"
+                        mat-button>Заказать</button>
                 </div>
             </div>
         </section>
@@ -30,14 +32,15 @@
                 <div class="card__view card__view_clr-02">
                     <div class="card__row">
                         <span class="card__spacer"></span>
-                        <mat-icon class="card__icon">add</mat-icon>
+                        <mat-icon data-btn="credit" (click)="onRedirectClick($event)" class="card__icon">add</mat-icon>
                     </div>
                     <p class="card__number">0000</p>
                 </div>
                 <div class="card__description-wrapper">
                     <h3 class="card__header">Кредитная </h3>
                     <p class="card__description">Длинный льготный период без условий и навсегда</p>
-                    <button class="card__button card__button_clr-02" mat-button>Заказать</button>
+                    <button data-btn="credit" (click)="onRedirectClick($event)" class="card__button card__button_clr-02"
+                        mat-button>Заказать</button>
                 </div>
             </div>
         </section>
@@ -49,14 +52,15 @@
                 <div class="card__view card__view_clr-03">
                     <div class="card__row">
                         <span class="card__spacer"></span>
-                        <mat-icon class="card__icon">add</mat-icon>
+                        <mat-icon data-btn="virtual" (click)="onRedirectClick($event)" class="card__icon">add</mat-icon>
                     </div>
                     <p class="card__number">0000</p>
                 </div>
                 <div class="card__description-wrapper">
                     <h3 class="card__header">Виртуальная</h3>
                     <p class="card__description">Аналог обычной карты без физического носителя</p>
-                    <button class="card__button card__button_clr-03" mat-button>Заказать</button>
+                    <button data-btn="virtual" (click)="onRedirectClick($event)"
+                        class="card__button card__button_clr-03" mat-button>Заказать</button>
                 </div>
             </div>
         </section>

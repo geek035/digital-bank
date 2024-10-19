@@ -24,6 +24,13 @@ const routes: Routes = [
             (m) => m.CardRegisterModule,
           ),
       },
+      {
+        path: 'card-register-operation',
+        loadChildren: () =>
+          import(`../card-register-operation/card-register-operation.module`).then(
+            (m) => m.CardRegisterOperationModule,
+          ),
+      }
     ],
   },
 ];
