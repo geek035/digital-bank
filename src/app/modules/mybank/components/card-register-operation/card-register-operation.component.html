@@ -49,7 +49,7 @@
                     <input type="text" formControlName="cardProduct" matInput readonly />
                 </mat-form-field>
                 <div class="form__buttons-wrapper">
-                    <button class="form__button button" mat-button matStepperPrevious>Назад</button>
+                    <button class="form__button button" (click)="onCancelClick()" mat-button>Назад</button>
                     <button class="form__buttom button" (click)="onNextStepClick()" mat-button
                         matStepperNext>Вперед</button>
                 </div>

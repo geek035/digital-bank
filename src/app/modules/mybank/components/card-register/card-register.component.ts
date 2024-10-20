@@ -35,6 +35,8 @@ export class CardRegisterComponent {
             : this._snackBar.open('Заказ кредитной карты недоступен', 'ок');
         },
       });
+    } else if (dataInfo == 'virtual') {
+      this._snackBar.open('Продукт пока не доступен. Ждите обновлений', 'ок');
     } else {
       this._router.navigate(['/user-home/card-register-operation'], {
         queryParams: { cardType: dataInfo },

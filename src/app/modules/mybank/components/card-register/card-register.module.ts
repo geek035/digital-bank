@@ -18,8 +18,5 @@ import { CardRegisterOperationService } from '../../services/card-register-opera
     MatIconModule,
     CommonComponentsModule,
   ],
-  providers: [
-    {provide: CardRegisterOperationService}
-  ]
 })
 export class CardRegisterModule { }

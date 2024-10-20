@@ -101,6 +101,10 @@ export class CardRegisterOperationComponent
     this.subscription && this.subscription.unsubscribe();
   }
 
+  public onCancelClick() {
+    this._router.navigate(['/user-home/card-register']);
+  }
+
   public onNextStepClick() {
     const inputData: ICardRegisterOperation = {
       lastName: this._lastName?.value ?? '',
