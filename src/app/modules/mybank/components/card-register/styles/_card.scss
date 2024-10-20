@@ -46,11 +46,11 @@
         padding: 8px 8px 8px 0;
 
         @media screen and (min-width: $md-width) {
-            width: 400px;
+            width: 450px;
         }
 
         @media screen and (min-width: $lg-width) {
-            width: 300px;
+            width: 450px;
         }
     }
 
@@ -77,6 +77,11 @@
 
         @media screen and (min-width: $md-width) {
             font-size: 1rem;
+            -webkit-line-clamp: 3;
+        }
+
+        @media screen and (min-width: $lg-width) {
+            
         }
     }
 

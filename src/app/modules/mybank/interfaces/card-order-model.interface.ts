@@ -1,5 +1,5 @@
 import { IUserData } from 'src/app/interfaces/mybank/user-data.interface';
-import { IProductModel } from './product-model.interface';
+import { IProductModel } from '../../../interfaces/mybank/product-model.interface';
 
 export interface ICardOrderModel {
   id: number;

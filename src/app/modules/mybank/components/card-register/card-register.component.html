@@ -7,7 +7,7 @@
     </div>
 
     <div class="grid__row g-3">
-        <section class="item-block col-xs-12 col-md-12 col-lg-6">
+        <section class="item-block col-xs-12 col-md-12 col-lg-8">
             <div class="card">
                 <div class="card__view">
                     <div class="card__row">
@@ -16,18 +16,20 @@
                     </div>
                     <p class="card__number">0000</p>
                 </div>
-                <div class="card__description-wrapper">
-                    <h3 class="card__header">Дебетовая</h3>
-                    <p class="card__description">Выпуск и обслуживание бесплатно</p>
+                <div class="card__description-wrapper" *ngIf="debitCardInfo$ | async as debitCard else loading">
+                    <h3 class="card__header">{{debitCard.name}}</h3>
+                    <p class="card__description">{{debitCard.shortDescription}}</p>
                     <button data-btn="debit" (click)="onRedirectClick($event)" class="card__button"
                         mat-button>Заказать</button>
                 </div>
             </div>
+
+            <ng-template #loading>loading...</ng-template>
         </section>
     </div>
 
     <div class="grid__row g-3">
-        <section class="item-block col-xs-12 col-md-12 col-lg-6">
+        <section class="item-block col-xs-12 col-md-12 col-lg-8">
             <div class="card">
                 <div class="card__view card__view_clr-02">
                     <div class="card__row">
@@ -36,18 +38,20 @@
                     </div>
                     <p class="card__number">0000</p>
                 </div>
-                <div class="card__description-wrapper">
-                    <h3 class="card__header">Кредитная </h3>
-                    <p class="card__description">Длинный льготный период без условий и навсегда</p>
+                <div class="card__description-wrapper" *ngIf="creditCardInfo$ | async as creditCard else loading">
+                    <h3 class="card__header">{{creditCard.name}}</h3>
+                    <p class="card__description">{{creditCard.shortDescription}}</p>
                     <button data-btn="credit" (click)="onRedirectClick($event)" class="card__button card__button_clr-02"
                         mat-button>Заказать</button>
                 </div>
             </div>
+
+            <ng-template #loading>loading...</ng-template>
         </section>
     </div>
 
     <div class="grid__row g-3">
-        <section class="item-block col-xs-12 col-md-12 col-lg-6">
+        <section class="item-block col-xs-12 col-md-12 col-lg-8">
             <div class="card">
                 <div class="card__view card__view_clr-03">
                     <div class="card__row">

@@ -34,6 +34,10 @@
     width: 100%;
 }
 
+.col-xs-8 {
+    width: calc(100% / 1.5);
+}
+
 .g-0 .col-xs-6, .col-xs-6 {    
     width: calc(100% / 2);
 }
@@ -85,6 +89,15 @@
         width: 100%;
     }
 }
+
+.col-md-8 {
+    @media screen and (min-width: $md-width)
+        and (max-width: ($lg-width - 1)) {
+        
+        width: calc(100% / 1.5);
+    }
+}
+
 
 .g-0 .col-md-6, .col-md-6 {
     @media screen and (min-width: $md-width)
@@ -170,6 +183,13 @@
     @media screen and (min-width: $lg-width) {
         
         width: 100%;
+    }
+}
+
+.col-lg-8 {
+    @media screen and (min-width: $lg-width) {
+        
+        width: calc(100% / 1.5);
     }
 }
 

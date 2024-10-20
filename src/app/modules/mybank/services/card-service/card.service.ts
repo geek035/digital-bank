@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { ICardModel } from '../../interfaces/card-model.interface';
 import { catchError, switchMap } from 'rxjs/operators';
 import { ICardOrderModel } from '../../interfaces/card-order-model.interface';
-import { IAccountModel } from '../../interfaces/account-model.interace';
+import { IAccountModel } from '../../../../interfaces/mybank/account-model.interace';
 
 @Injectable({
   providedIn: 'root',
