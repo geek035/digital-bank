@@ -33,8 +33,7 @@
                 <ng-container *ngIf="userCards$ | async as userCards else loading">
                     <ng-container *ngIf="userCards.length > 0 else empyCardsList">
                         <app-card (click)="showExpandedCard(card)"
-                            *ngFor="let card of userCards$ | async; trackBy: trackCardByFn" [card]="card"
-                            [viewMode]="'simple'">
+                            *ngFor="let card of userCards; trackBy: trackCardByFn" [card]="card" [viewMode]="'simple'">
                         </app-card>
                     </ng-container>
                 </ng-container>
@@ -61,15 +60,26 @@
             </div>
 
             <div class="items-block__wrapper">
-                <div class="product product_bg-clr">
-                    <div class="product__row">
-                        <span class="product__spacer"></span>
-                        <mat-icon data-btn="account-register" (click)="onRedirectClick($event)"
-                            class="product__icon">add</mat-icon>
+                <ng-container *ngIf="userAccounts$ | async as userAccounts else loading">
+                    <ng-container *ngIf="userAccounts.length > 0 else emptyAccountsList">
+                        <app-account *ngFor="let account of userAccounts; trackBy: trackAccountByFn" [account]="account">
+                        </app-account>
+                    </ng-container>
+                </ng-container>
+                <ng-template #emptyAccountsList>
+                    <div class="items-block__wrapper">
+                        <div class="product product_bg-clr">
+                            <div class="product__row">
+                                <span class="product__spacer"></span>
+                                <mat-icon data-btn="account-register" (click)="onRedirectClick($event)"
+                                    class="product__icon">add</mat-icon>
+                            </div>
+                            <p class="product__info product__info_clr">Открыть</p>
+                        </div>
                     </div>
-                    <p class="product__info product__info_clr">Открыть</p>
-                </div>
+                </ng-template>
             </div>
+
         </section>
     </div>
 </div>

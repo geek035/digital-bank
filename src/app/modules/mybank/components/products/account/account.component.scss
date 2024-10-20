@@ -1,0 +1,58 @@
+@import '/src/app//styles/library';
+
+.account {
+    width: 100%;
+    min-height: 80px;
+
+    border-radius: 1rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    
+    padding: 8px 8px 8px 8px;
+
+    @media screen and (min-width: $md-width) {
+        max-width: 200px;
+    }
+
+    @media screen and (min-width: $lg-width) {
+        max-width: 250px;
+    }
+
+    &__row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+.current-account {
+    background-color: $bg-card-clr-01;
+    transition: background-color .3s ease-out;
+    border: 1px solid rgb(142, 142, 142);
+    color: white;
+
+    &:hover {
+        background-color: $bg-card-clr-01-hover;
+    }
+
+    &:active {
+        background-color: $bg-card-clr-01-active;
+    }
+}
+
+.savings-account {
+    background-color: $bg-card-clr-02;
+    transition: background-color .3s ease-out;
+    border: 1px solid #a083ff;
+
+    &:hover {
+        background-color: $bg-card-clr-02-hover;
+    }
+
+    &:active {
+        background-color: $bg-card-clr-02-active;
+    }
+}

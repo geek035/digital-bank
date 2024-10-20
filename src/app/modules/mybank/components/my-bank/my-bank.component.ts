@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 import { ICardModel } from '../../interfaces/card-model.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { CardComponent } from '../products/card/card.component';
+import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
+import { AccountService } from '../../services/account-service/account.service';
 
 @Component({
   selector: 'app-my-bank',
@@ -23,14 +25,17 @@ export class MyBankComponent implements OnInit {
     private readonly _userDataService: UserDataService,
     private readonly _router: Router,
     private readonly _cardService: CardService,
+    private readonly _accountService: AccountService,
     private readonly _dialog: MatDialog,
   ) {}
 
   public userFullName$ = this._userDataService.getFullName();
   public userCards$!: Observable<ICardModel[]>;
+  public userAccounts$!: Observable<IAccountModel[]>;
 
   ngOnInit(): void {
     this.userCards$ = this._cardService.getCards();
+    this.userAccounts$ = this._accountService.getAccounts();
   }
 
   onRedirectClick(event: Event) {
@@ -49,6 +54,10 @@ export class MyBankComponent implements OnInit {
 
   public trackCardByFn(index: number, card: ICardModel): number {
     return card.id;
+  }
+
+  public trackAccountByFn(index: number, account: IAccountModel): number {
+    return account.id;
   }
 
   showExpandedCard(card: ICardModel) {

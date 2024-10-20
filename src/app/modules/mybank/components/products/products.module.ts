@@ -7,9 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMaskModule } from 'ngx-mask';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
-  declarations: [CardComponent],
+  declarations: [CardComponent, AccountComponent],
   imports: [
     CommonModule,
     CustomPipesModule,
@@ -19,6 +20,6 @@ import { NgxMaskModule } from 'ngx-mask';
     MatInputModule,
     MatButtonModule,
   ],
-  exports: [CardComponent],
+  exports: [CardComponent, AccountComponent],
 })
 export class ProductsModule { }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
 
 @Injectable({
@@ -12,7 +12,13 @@ export class AccountService {
 
   getAccounts(): Observable<IAccountModel[]> {
     return this._http.get<IAccountModel[]>('/api/accounts').pipe(
-      switchMap((accounts) => of(accounts)),
+      switchMap((allAccounts) => {
+        const accounts = allAccounts.filter((account, idx) => 
+          account.name === 'Накопительный счёт' ||
+          account.name === 'Текущий счёт'
+        );
+        return of(accounts)
+      }),
       catchError((error) => throwError(error)),
     );
   }

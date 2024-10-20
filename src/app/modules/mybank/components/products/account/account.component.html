@@ -1,0 +1,16 @@
+<article [ngClass]="getAccountClass()" class="account">
+    <div class="account_row">
+        <span>{{account.number}}</span>
+    </div>
+    <div class="account__row">
+        <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+        <span>{{account.balance}}</span>
+        <span class="account__spacer"></span>
+        <span>срок: </span>
+        <mat-icon>all_inclusive</mat-icon>
+    </div>
+
+    <div class="account_row">
+        <span>{{account.name}}</span>
+    </div>
+</article>
