@@ -5,35 +5,41 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserDataService } from 'src/app/core/services/user-data-service/user-data.service';
 import { fullNameValidator } from 'src/app/core/validators/full-name.validator';
-import { ICardRegisterOperation } from '../../interfaces/card-register-operation.interface';
-import { CardRegisterOperationService } from '../../services/card-register-operation/card-register-operation.service';
-import {
-  CardProductValue,
-  CardProgramTypeValue,
-} from 'src/app/interfaces/operations/step-param.inteface';
+import { IAccountRegisterOperation } from '../../interfaces/account-register-operation.interface';
+import { AccountRegisterService } from '../../services/account-register-service/account-register.service';
+import { AccountCurrency, AccountType } from 'src/app/interfaces/operations/step-param.inteface';
 import { IOperationInfo } from 'src/app/interfaces/operations/operation-info.interface';
 
 @Component({
-  selector: 'app-card-register-operation',
-  templateUrl: './card-register-operation.component.html',
-  styleUrls: ['./card-register-operation.component.scss'],
+  selector: 'app-account-register-operation',
+  templateUrl: './account-register-operation.component.html',
+  styleUrls: ['./account-register-operation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardRegisterOperationComponent
+export class AccountRegisterOperationComponent
   implements AfterViewInit, OnDestroy
 {
-  public cardProductForm = new FormGroup({
+  constructor(
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _userDataService: UserDataService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly _accountRegisterOperationService: AccountRegisterService,
+  ) {}
+
+  private subscription: Subscription | null = null;
+  
+  public operationInfo$ = new BehaviorSubject({} as IOperationInfo);
+  public showSpinner$ = new BehaviorSubject(false);
+  public inputData$ = new BehaviorSubject({} as IAccountRegisterOperation);
+
+  public accountProductForm = new FormGroup({
     lastName: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
@@ -53,33 +59,16 @@ export class CardRegisterOperationComponent
       fullNameValidator(),
     ]),
     birthdate: new FormControl('', [Validators.required]),
-    cardProduct: new FormControl('', [Validators.required]),
-  });
-  public releaseProductForm = new FormGroup({
-    releaseType: new FormControl('', [Validators.required]),
+    accountType: new FormControl('', [Validators.required]),
+    accountCurrency: new FormControl('', [Validators.required]),
   });
 
-  private subscription: Subscription | null = null;
-  private cardProduct: CardProductValue | null = null;
-  private programType: CardProgramTypeValue | null = null;
-
-  public inputData$ = new BehaviorSubject({} as ICardRegisterOperation);
-  public showSpinner$ = new BehaviorSubject(false);
-  public operationInfo$ = new BehaviorSubject({} as IOperationInfo);
-
-  constructor(
-    private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute,
-    private readonly _userDataService: UserDataService,
-    private readonly _snackBar: MatSnackBar,
-    private readonly _cardRegisterOperationService: CardRegisterOperationService,
-  ) {}
 
   ngAfterViewInit(): void {
     this.showSpinner$.next(true);
 
-    const cardType = this._activatedRoute.snapshot.queryParams['cardType'];
-    this.setCardProductValue(cardType);
+    const accountType = this._activatedRoute.snapshot.queryParams['accountType'];
+    this._accountType.setValue(this.getAccountType(accountType));
 
     this.subscription = this._userDataService.getUserData().subscribe({
       next: (userData) => {
@@ -105,7 +94,7 @@ export class CardRegisterOperationComponent
   }
 
   public onNextStepClick() {
-    const inputData: ICardRegisterOperation = {
+    const inputData: IAccountRegisterOperation = {
       lastName: this._lastName?.value ?? '',
       firstName: this._firstName?.value ?? '',
       middleName: this._middleName?.value ?? '',
@@ -115,25 +104,30 @@ export class CardRegisterOperationComponent
           month: '2-digit',
           day: '2-digit',
         }) ?? '',
-      cardProduct: this._cardProduct?.value ?? '',
-      releaseType: this._releaseType?.value ?? '',
+      accountType: this._accountType?.value ?? '',
+      accountCurrency: this._accountCurrency?.value ?? '',
     };
 
     this.inputData$.next(inputData);
   }
 
+  public onFinishOperationClick() {
+    this._router.navigate(['/user-home/my-bank']);
+  }
+
   public completeOperation() {
     this.subscription && this.subscription.unsubscribe();
     this.showSpinner$.next(true);
+    
+    const accountType = this._accountType.value as AccountType;
+    const accountCurrency = this._accountCurrency.value as AccountCurrency;
 
-    this.programType = this._releaseType.value as CardProgramTypeValue;
-
-    this.subscription = this._cardRegisterOperationService
-      .orderCard(this.cardProduct as CardProductValue, this.programType)
+    this.subscription = this._accountRegisterOperationService
+    .openAccount(accountType, accountCurrency)
       .subscribe({
         next: (operationInfo) => {
           this.showSpinner$.next(false);
-          this.operationInfo$.next(operationInfo);
+          this.operationInfo$.next(operationInfo as IOperationInfo);
         },
         error: (err: HttpErrorResponse) => {
           this.showSpinner$.next(false);
@@ -143,44 +137,40 @@ export class CardRegisterOperationComponent
       });
   }
 
-  public onFinishOperationClick() {
-    this._router.navigate(['/user-home/my-bank']);
-  }
+  private getAccountType(accountTypeParam: string): string {
+    switch (accountTypeParam) {
+      case 'current':
+        return 'Текущий счёт';
+      
+      case 'savings':
+        return 'Накопительный счёт';
 
-  private setCardProductValue(cardType: string) {
-    switch (cardType) {
-      case 'credit':
-        this.cardProduct = 'Кредитная карта';
-        break;
-      case 'debit':
-        this.cardProduct = 'Дебетовая карта';
-        break;
+      default:
+        return 'Неизвестный тип счета';
     }
-
-    this._cardProduct.setValue(this.cardProduct);
   }
-
+ 
   get _lastName(): AbstractControl {
-    return this.cardProductForm.get('lastName') as AbstractControl;
+    return this.accountProductForm.get('lastName') as AbstractControl;
   }
 
   get _firstName(): AbstractControl {
-    return this.cardProductForm.get('firstName') as AbstractControl;
+    return this.accountProductForm.get('firstName') as AbstractControl;
   }
 
   get _middleName(): AbstractControl {
-    return this.cardProductForm.get('middleName') as AbstractControl;
+    return this.accountProductForm.get('middleName') as AbstractControl;
   }
 
   get _birthdate(): AbstractControl {
-    return this.cardProductForm.get('birthdate') as AbstractControl;
+    return this.accountProductForm.get('birthdate') as AbstractControl;
   }
 
-  get _cardProduct(): AbstractControl {
-    return this.cardProductForm.get('cardProduct') as AbstractControl;
+  get _accountType(): AbstractControl {
+    return this.accountProductForm.get('accountType') as AbstractControl;
   }
 
-  get _releaseType(): AbstractControl {
-    return this.releaseProductForm.get('releaseType') as AbstractControl;
+  get _accountCurrency(): AbstractControl {
+    return this.accountProductForm.get('accountCurrency') as AbstractControl;
   }
 }

@@ -32,7 +32,8 @@
             <div class="items-block__wrapper">
                 <ng-container *ngIf="userCards$ | async as userCards else loading">
                     <ng-container *ngIf="userCards.length > 0 else empyCardsList">
-                        <app-card (click)="showExpandedCard(card)" *ngFor="let card of userCards$ | async; trackBy: trackCardByFn" [card]="card"
+                        <app-card (click)="showExpandedCard(card)"
+                            *ngFor="let card of userCards$ | async; trackBy: trackCardByFn" [card]="card"
                             [viewMode]="'simple'">
                         </app-card>
                     </ng-container>
@@ -55,14 +56,16 @@
             <div class="items-block__wrapper">
                 <h3 class="title title_h3">Мои счета</h3>
                 <span class="items-block__spacer"></span>
-                <button mat-button><span class="link">Открыть счет</span></button>
+                <button mat-button><span data-btn="account-register" (click)="onRedirectClick($event)"
+                        class="link">Открыть счет</span></button>
             </div>
 
             <div class="items-block__wrapper">
                 <div class="product product_bg-clr">
                     <div class="product__row">
                         <span class="product__spacer"></span>
-                        <mat-icon class="product__icon">add</mat-icon>
+                        <mat-icon data-btn="account-register" (click)="onRedirectClick($event)"
+                            class="product__icon">add</mat-icon>
                     </div>
                     <p class="product__info product__info_clr">Открыть</p>
                 </div>

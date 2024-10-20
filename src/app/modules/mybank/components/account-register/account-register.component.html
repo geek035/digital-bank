@@ -1,0 +1,51 @@
+<div class="grid g-3">
+    <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+    <div class="grid__row">
+        <h2 class="title col-xs-12 col-md-12 col-lg-12">
+            Cчета
+        </h2>
+    </div>
+
+    <div class="grid__row g-3">
+        <section class="item-block col-xs-12 col-md-12 col-lg-8">
+            <div class="account">
+                <div class="account__view">
+                    <div class="account__row">
+                        <span class="account__spacer"></span>
+                        <mat-icon data-btn="current" (click)="onRedirectClick($event)" class="account__icon">add</mat-icon>
+                    </div>
+                    <p class="account__number"><mat-icon>account_balance</mat-icon></p>
+                </div>
+                <div class="account__description-wrapper" *ngIf="currentAccount$ | async as currentAccount else loading">
+                    <h3 class="account__header">{{currentAccount.name}}</h3>
+                    <p class="account__description">{{currentAccount.shortDescription}}</p>
+                    <button data-btn="current" (click)="onRedirectClick($event)" class="account__button"
+                        mat-button>Заказать</button>
+                </div>
+            </div>
+
+            <ng-template #loading>loading...</ng-template>
+        </section>
+    </div>
+
+    <div class="grid__row g-3">
+        <section class="item-block col-xs-12 col-md-12 col-lg-8">
+            <div class="account">
+                <div class="account__view account__view_clr-02">
+                    <div class="account__row">
+                        <span class="account__spacer"></span>
+                        <mat-icon data-btn="savings" (click)="onRedirectClick($event)" class="account__icon">add</mat-icon>
+                    </div>
+                    <p class="account__number"><mat-icon>account_balance</mat-icon></p>
+                </div>
+                <div class="account__description-wrapper" *ngIf="savingsAccount$ | async as savingsAccount else loading">
+                    <h3 class="account__header">{{savingsAccount.name}}</h3>
+                    <p class="account__description">{{savingsAccount.shortDescription}}</p>
+                    <button data-btn="savings" (click)="onRedirectClick($event)" class="account__button account__button_clr-02"
+                        mat-button>Заказать</button>
+                </div>
+            </div>
+            <ng-template #loading>loading...</ng-template>
+        </section>
+    </div>
+</div>

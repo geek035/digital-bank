@@ -11,4 +11,4 @@ export interface IAccountModel {
     state: AccountState,
 }
 
-type AccountState = 'Created' | 'Blocked' | 'Active';
+export type AccountState = 'Created' | 'Blocked' | 'Active';

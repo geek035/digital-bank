@@ -1,10 +1,10 @@
-<section class="card-register-operation-box">
-    <h2 class="card-register-operation-box__header">Заказ карты</h2>
+<section class="account-register-operation-box">
+    <h2 class="account-register-operation-box__header">Заказ карты</h2>
     <mat-stepper [linear]="true" orientation="vertical">
-        <mat-step [stepControl]="cardProductForm">
-            <ng-template matStepLabel>Карточный продукт</ng-template>
+        <mat-step [stepControl]="accountProductForm">
+            <ng-template matStepLabel>Персональные данные</ng-template>
             <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
-            <form class="form" [formGroup]="cardProductForm">
+            <form class="form" [formGroup]="accountProductForm">
                 <mat-form-field class="form__field">
                     <mat-label>Фамилия</mat-label>
                     <input type="text" formControlName="lastName" matInput />
@@ -73,31 +73,32 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="form__field">
-                    <mat-label>Карточный продукт</mat-label>
-                    <input type="text" formControlName="cardProduct" matInput readonly />
+                    <mat-label>Тип счета</mat-label>
+                    <input type="text" formControlName="accountType" matInput readonly />
                 </mat-form-field>
+
+                <mat-form-field class="form__field">
+                    <mat-label>Валюта</mat-label>
+                    <mat-select formControlName="accountCurrency">
+                        <mat-option [value]="'Российский Рубль'">
+                            <span>Российский Рубль</span>
+                        </mat-option>
+                        <mat-option [value]="'Доллар США'">
+                            <span>Доллар США</span>
+                        </mat-option>
+                        <mat-option [value]="'Евро'">
+                            <span>Евро</span>
+                        </mat-option>
+                        <mat-option [value]="'Китайский Юань'">
+                            <span>Китайский Юань</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
                 <div class="form__buttons-wrapper">
                     <button class="form__button button" (click)="onCancelClick()" mat-button>Назад</button>
                     <button class="form__buttom button" (click)="onNextStepClick()" mat-button
                         matStepperNext>Вперед</button>
-                </div>
-            </form>
-        </mat-step>
-
-        <mat-step [stepControl]="releaseProductForm">
-            <form class="form" [formGroup]="releaseProductForm">
-                <ng-template matStepLabel>Программа выпуска карты</ng-template>
-                <mat-radio-group aria-labelledby="Программа выпуска карты" class="form__field form__field_radio-buttons"
-                    formControlName="releaseType">
-                    <mat-radio-button value="Maestro"><img src="assets/maestro.svg" /></mat-radio-button>
-                    <mat-radio-button value="Mastercard"><img src="assets/master card.svg" /></mat-radio-button>
-                    <mat-radio-button value="МИР"><img src="assets/mir.svg" /></mat-radio-button>
-                    <mat-radio-button value="Visa"><img src="assets/visa.svg" /></mat-radio-button>
-                </mat-radio-group>
-                <div class="form__buttons-wrapper">
-                    <button class="form__button button" mat-button matStepperPrevious>Назад</button>
-                    <button class="form__buttom button" (click)="onNextStepClick()" mat-button matStepperNext>Заказ
-                        карты</button>
                 </div>
             </form>
         </mat-step>
@@ -120,8 +121,8 @@
                     <mat-list-item role="listitem">
                         <mat-icon mat-list-icon>credit_card</mat-icon>
                         <span class="info-operation-block__info">
-                            Карта: {{inputData.cardProduct}},
-                            {{inputData.releaseType}}
+                            Счет: {{inputData.accountType}},
+                            {{inputData.accountCurrency}}
                         </span>
                     </mat-list-item>
                 </mat-list>

@@ -30,7 +30,21 @@ const routes: Routes = [
           import(`../card-register-operation/card-register-operation.module`).then(
             (m) => m.CardRegisterOperationModule,
           ),
-      }
+      },
+      {
+        path: 'account-register',
+        loadChildren: () => 
+          import(`../account-register/account-register.module`).then(
+            (m) => m.AccountRegisterModule
+          ),
+      },
+      {
+        path: 'account-register-operation',
+        loadChildren: () =>
+          import(`../account-register-operation/account-register-operation.module`).then(
+            (m) => m.AccountRegisterOperationModule,
+          ),
+      },
     ],
   },
 ];

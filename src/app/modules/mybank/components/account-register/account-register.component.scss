@@ -1,11 +1,12 @@
+@import '/src/app/styles/header';
+@import '/src/app/styles/footer';
 @import '/src/app/styles/library';
 @import '/src/app/styles/link';
 @import '/src/app/styles/mixins';
 @import '/src/app/styles/button';
 @import '/src/app/styles/grid';
 @import '/src/app/modules/mybank/styles/item-block';
-@import '/src/app/modules/mybank/components/card-register/styles/card';
-
+@import '/src/app/modules/mybank/components/account-register/styles/account';
 
 :host {
     display: flex;
