@@ -43,3 +43,11 @@
     }
 
 }
+
+.card-dialog {
+    @include setWidth(
+        320px,
+        500px,
+        600px
+    )
+}
