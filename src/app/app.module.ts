@@ -23,7 +23,7 @@ import { UserHomeModule } from './modules/mybank/components/user-home/user-home.
     BrowserAnimationsModule,
     HttpClientModule,
     HomePageModule,
-    UserHomeModule
+    UserHomeModule,
   ],
   providers: [
     { provide: AuthorizationService },

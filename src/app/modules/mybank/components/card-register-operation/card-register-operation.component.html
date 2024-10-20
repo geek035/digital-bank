@@ -1,1 +1,147 @@
-<p>card-register-operation works!</p>
+<section class="card-register-operation-box">
+    <h2 class="card-register-operation-box__header">Заказ карты</h2>
+    <mat-stepper [linear]="true" orientation="vertical">
+        <mat-step [stepControl]="cardProductForm">
+            <ng-template matStepLabel>Карточный продукт</ng-template>
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+            <form class="form" [formGroup]="cardProductForm">
+                <mat-form-field class="form__field">
+                    <mat-label>Фамилия</mat-label>
+                    <input type="text" formControlName="lastName" matInput />
+                    <mat-error *ngIf="_lastName.hasError('required')">
+                        Заполните поле
+                    </mat-error>
+                    <mat-error *ngIf="_lastName.errors?.['minlength']
+                        && !_lastName.hasError('invalidFullName')">
+                        Меньше минимально возможного количества символов
+                    </mat-error>
+                    <mat-error *ngIf="_lastName.errors?.['maxlength']">
+                        Превышено максимальное количество символов
+                    </mat-error>
+                    <mat-error *ngIf="_lastName.hasError('invalidFullName')
+                        && !_lastName.hasError('required')">
+                        Значение содержит запрещенные символы
+                    </mat-error>
+                </mat-form-field>
+                <div class="form__fields-group">
+                    <mat-form-field class="form__field">
+                        <mat-label>Имя</mat-label>
+                        <input type="text" formControlName="firstName" matInput />
+                    </mat-form-field>
+                    <mat-form-field class="form__field">
+                        <mat-label>Отчество</mat-label>
+                        <input type="text" formControlName="middleName" matInput />
+                    </mat-form-field>
+                </div>
+                <!--Birtday Field-->
+                <mat-form-field class="form__field">
+                    <mat-label>День рождения</mat-label>
+                    <input matInput [matDatepicker]="picker" type="text" formControlName="birthdate" readonly />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+
+                    <mat-error *ngIf="_birthdate.hasError('required')">
+                        Заполните поле
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form__field">
+                    <mat-label>Карточный продукт</mat-label>
+                    <input type="text" formControlName="cardProduct" matInput readonly />
+                </mat-form-field>
+                <div class="form__buttons-wrapper">
+                    <button class="form__button button" mat-button matStepperPrevious>Назад</button>
+                    <button class="form__buttom button" (click)="onNextStepClick()" mat-button
+                        matStepperNext>Вперед</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="releaseProductForm">
+            <form class="form" [formGroup]="releaseProductForm">
+                <ng-template matStepLabel>Программа выпуска карты</ng-template>
+                <mat-radio-group aria-labelledby="Программа выпуска карты" class="form__field form__field_radio-buttons"
+                    formControlName="releaseType">
+                    <mat-radio-button value="Maestro"><img src="assets/maestro.svg" /></mat-radio-button>
+                    <mat-radio-button value="Mastercard"><img src="assets/master card.svg" /></mat-radio-button>
+                    <mat-radio-button value="МИР"><img src="assets/mir.svg" /></mat-radio-button>
+                    <mat-radio-button value="Visa"><img src="assets/visa.svg" /></mat-radio-button>
+                </mat-radio-group>
+                <div class="form__buttons-wrapper">
+                    <button class="form__button button" mat-button matStepperPrevious>Назад</button>
+                    <button class="form__buttom button" (click)="onNextStepClick()" mat-button matStepperNext>Заказ
+                        карты</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Подтверждение операции</ng-template>
+            <article class="info-operation-block">
+                <mat-list *ngIf="inputData$ | async as inputData">
+                    <mat-list-item role="listitem">
+                        <mat-icon mat-list-icon>person</mat-icon>
+                        <span class="info-operation-block__info">
+                            ФИО: {{inputData.lastName}} {{inputData.firstName}}
+                            {{inputData.middleName}}
+                        </span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem">
+                        <mat-icon mat-list-icon>calendar_month</mat-icon>
+                        <span class="info-operation-block__info">Дата рождения: {{inputData.birthdate}}</span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem">
+                        <mat-icon mat-list-icon>credit_card</mat-icon>
+                        <span class="info-operation-block__info">
+                            Карта: {{inputData.cardProduct}},
+                            {{inputData.releaseType}}
+                        </span>
+                    </mat-list-item>
+                </mat-list>
+                <div class="info-operation-block__buttons-wrapper">
+                    <button class="info-operation-block__button button" mat-button matStepperPrevious>Назад</button>
+                    <button (click)="completeOperation()" class="info-operation-block__button button" mat-button
+                        matStepperNext>Подтвердить</button>
+                </div>
+            </article>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Результат операции</ng-template>
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+
+            <article class="info-operation-block">
+                <mat-list *ngIf="operationInfo$ | async as operationInfo">
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>cloud</mat-icon>
+                        <div mat-line class="info-operation-block__info">
+                            Номер операции: {{operationInfo.requestId}}
+                        </div>
+                        <div mat-line class="info-operation-block__info">
+                            Название: {{operationInfo.name}}
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item role="listitem">
+                        <mat-icon mat-list-icon>check_circle</mat-icon>
+                        <div mat-line class="info-operation-block__info">
+                            Операция подтверждена: {{operationInfo.isConfirmed ? 'да' : 'нет'}}
+                        </div>
+                        <div mat-line class="info-operation-block__info">
+                            Операция завершена: {{operationInfo.isFinished ? 'да' : 'нет'}}
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item role="listitem">
+                        <mat-icon mat-list-icon>calendar_month</mat-icon>
+                        <span class="info-operation-block__info">
+                            Дата запроса: {{operationInfo.startDate | date : 'short'}}
+                        </span>
+                    </mat-list-item>
+                </mat-list>
+                <div class="info-operation-block__buttons-wrapper">
+                    <button (click)="onFinishOperationClick()" class="info-operation-block__button button"
+                        mat-button>Вернуться в мой банк</button>
+                </div>
+            </article>
+
+        </mat-step>
+    </mat-stepper>
+</section>

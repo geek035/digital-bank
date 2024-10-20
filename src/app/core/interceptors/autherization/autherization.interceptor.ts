@@ -35,17 +35,17 @@ export class AutherizationInterceptor implements HttpInterceptor {
     
     return next.handle(cloned).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status == 401) {
-          tokens &&
-            this._authorizationService.refreshToken(tokens).pipe(
+        if (error.status == 401 && tokens) {
+            return this._authorizationService.refreshToken(tokens).pipe(
               switchMap((response) => {
                 const newRequest = this.addToken(request, response.accessToken);
                 return next.handle(newRequest);
-              })
+              }),
+              catchError((refreshError) => throwError(refreshError))
             );
         }
 
-        return throwError(() => error);
+        return throwError(error);
       })
     );
   }

@@ -30,14 +30,14 @@ export class CardRegisterComponent {
 
           response
             ? this._router.navigate(['/user-home/card-register-operation'], {
-                queryParams: [dataInfo],
+                queryParams: { cardType: dataInfo },
               })
             : this._snackBar.open('Заказ кредитной карты недоступен', 'ок');
         },
       });
     } else {
       this._router.navigate(['/user-home/card-register-operation'], {
-        queryParams: [dataInfo],
+        queryParams: { cardType: dataInfo },
       });
     }
   }

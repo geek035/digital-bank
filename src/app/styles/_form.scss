@@ -16,6 +16,8 @@
         
         &_radio-buttons {
             display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 1rem;
             padding: 8px 0 8px 0;
         }
