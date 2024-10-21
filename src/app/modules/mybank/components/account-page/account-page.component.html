@@ -9,7 +9,7 @@
     <div class="grid__row">
         <p class="account-field col-xs-12 col-md-6 col-lg-6">
             <mat-icon>account_balance</mat-icon>
-            <span>Номер счета - </span>
+            <span>Номер счета -&nbsp;</span>
             <span>{{account?.number ?? ""}}</span>
         </p>
     </div>
@@ -22,18 +22,43 @@
 
         <p class="account-field col-xs-12 col-md-6 col-lg-6">
             <mat-icon>info</mat-icon>
-            <span>Статус счета: &nbsp;</span>
+            <span>Статус счета:&nbsp;</span>
             <span>{{getAccountState()}}</span>
         </p>
     </div>
-    
+
     <div class="grid__row g-3">
         <div class="account-field col-xs-12 col-md-6 col-lg-6">
             <div class="account-field__buttons-group">
-                <button mat-button class="account-field__button">Пополнить счет</button>
-                <button mat-button class="account-field__button">Перевести</button>
-                <button mat-button (click)="changeAccountState()" class="account-field__button">{{getButtonStateText()}}</button>
+                <button mat-button (click)="onRefillAcoountClick()" class="account-field__button">Пополнить
+                    счет</button>
+                <button mat-button (click)="onTransferAccountClick()" class="account-field__button">Перевести</button>
+                <button mat-button (click)="changeAccountState()"
+                    class="account-field__button">{{getButtonStateText()}}</button>
             </div>
         </div>
     </div>
+
+    <div class="grid__row g-3">
+        <mat-accordion class="col-xs-12 col-md-12 col-12">
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Пополнить счет
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-refill-operation></app-refill-operation>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Перевод другому клиенту
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-transfer-operation [account]="account"></app-transfer-operation>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
 </div>

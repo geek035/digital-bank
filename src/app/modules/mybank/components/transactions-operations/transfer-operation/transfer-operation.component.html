@@ -1,0 +1,140 @@
+<section class="transaction-block">
+    <mat-stepper #stepper [linear]="true" orientation="vertical">
+        <mat-step [stepControl]="transferOperationForm">
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+            <ng-template matStepLabel>Данные перевода</ng-template>
+            <form class="form" [formGroup]="transferOperationForm">
+                <mat-form-field class="form__field">
+                    <mat-label>Счет списания</mat-label>
+                    <input type="text" formControlName="sourceAccount" matInput />
+                    <mat-error *ngIf="_sourceAccount.hasError('required')">
+                        Заполните поле
+                    </mat-error>
+                    <mat-error *ngIf="_sourceAccount.hasError('pattern')">
+                        Доступны только цифры
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form__field">
+                    <mat-label>Счет получателя</mat-label>
+                    <input type="text" formControlName="reciverAccount" matInput />
+                    <mat-error *ngIf="_reciverAccount.hasError('required')">
+                        Заполните поле
+                    </mat-error>
+                    <mat-error *ngIf="_reciverAccount.hasError('pattern')">
+                        Доступны только цифры
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form__field">
+                    <mat-label>Сумма перевода</mat-label>
+                    <input type="text" formControlName="amount" matInput />
+                    <mat-error *ngIf="_amount.hasError('required')">
+                        Заполните поле
+                    </mat-error>
+                    <mat-error *ngIf="_amount.hasError('pattern')">
+                        Доступны только цифры
+                    </mat-error>
+                    <mat-error *ngIf="_amount.hasError('invalidAmount')">
+                        Недоступная сумма перевода
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form__field">
+                    <mat-label>Комментарий</mat-label>
+                    <textarea formControlName="comment" matInput></textarea>
+                </mat-form-field>
+
+                <div class="form__buttons-wrapper">
+                    <button type="submit" class="form__buttom button" (click)="onNextStepClick()" mat-button
+                        matStepperNext>Вперед</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+            <ng-template matStepLabel></ng-template>
+
+            <div *ngIf="inputData$ | async as inputData else loading" class="transaction-block__info-wrapper">
+                <p class="transaction-block__info">
+                    <mat-icon>account_balance</mat-icon>
+                    <span>Счет отправителя: {{inputData.sourceAccount}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>account_balance</mat-icon>
+                    <span>Счет получателя: {{inputData.reciverAccount}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+                    <span>Сумма перевода: {{inputData.amount}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>chat</mat-icon>
+                    <span>Комментарий: {{inputData.comment}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <button class="transaction-block__button" mat-button (click)="onConfirmOperationClick()"
+                    matStepperNext>Подтвердить</button>
+            </div>
+
+            <ng-template #loading>Считывание данныех...</ng-template>
+        </mat-step>
+
+        <mat-step>
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+            <ng-template matStepLabel>Результат операции</ng-template>
+
+            <div *ngIf="operationInfo$ | async as operationInfo else loading" class="transaction-block__info-wrapper">
+
+                <p class="transaction-block__info">
+                    <mat-icon>cloud</mat-icon>
+                    <span>Номер операции: {{operationInfo.requestId}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>cloud</mat-icon>
+                    <span>Название операции: {{operationInfo.name}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>check_circle</mat-icon>
+                    <span> Операция подтверждена: {{operationInfo.isConfirmed ? 'да' : 'нет'}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p class="transaction-block__info">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Операция завершена: {{operationInfo.isFinished ? 'да' : 'нет'}}</span>
+                </p>
+
+                <p class="transaction-block__info">
+                    <mat-icon>calendar_month</mat-icon>
+                    <span>Дата запроса: {{operationInfo.startDate | date : 'short'}}</span>
+                </p>
+
+                <mat-divider></mat-divider>
+            </div>
+
+            <button mat-button (click)="onCloseClick()"></button>
+            <ng-template #loading>загрузка результата операции</ng-template>
+        </mat-step>
+
+    </mat-stepper>
+</section>

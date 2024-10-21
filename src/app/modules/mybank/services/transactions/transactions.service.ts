@@ -1,28 +1,23 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { start } from 'repl';
-import { merge, Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
 import { IOperationInfo } from 'src/app/interfaces/operations/operation-info.interface';
 import { IStartOperation } from 'src/app/interfaces/operations/start-operation.interface';
 import { IStepParam } from 'src/app/interfaces/operations/step-param.inteface';
-
-export interface ITransferOperationPaypal {
-  writeOffAccount: IAccountModel;
-  recipientAccount: IAccountModel;
-  amount: number;
-  comment: string;
-}
+import { ITransferOperationForm } from '../../components/transactions-operations/transfer-operation/transfer-operation.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionsService {
-  constructor(private readonly _http: HttpClient) {}
+  constructor(
+    private readonly _http: HttpClient,
+  ) {}
 
   transferAccount(
-    paypalObj: ITransferOperationPaypal,
+    paypalObj: ITransferOperationForm,
   ): Observable<IOperationInfo> {
     const operationCode: IStartOperation = { operationCode: 'AccountTransfer' };
 
@@ -34,11 +29,15 @@ export class TransactionsService {
       );
 
     const nextStep = startOperation.pipe(
-      mergeMap((operationInfo) => this.transferAccountNextStep(operationInfo, paypalObj))
+      mergeMap((operationInfo) =>
+        this.transferAccountNextStep(operationInfo, paypalObj),
+      ),
     );
 
     const confirmStep = nextStep.pipe(
-      mergeMap((operationInfo) => this.transferAccountConfirmStep(operationInfo))
+      mergeMap((operationInfo) =>
+        this.transferAccountConfirmStep(operationInfo),
+      ),
     );
 
     return confirmStep;
@@ -46,21 +45,21 @@ export class TransactionsService {
 
   private transferAccountNextStep(
     operationInfo: IOperationInfo,
-    paypalObj: ITransferOperationPaypal,
+    paypalObj: ITransferOperationForm,
   ): Observable<IOperationInfo> {
     const stepParamAccount = operationInfo.stepParams.find(
-      (param) => param.identifier === 'Account',
+      (param) => param.identifier === 'SourceAccount',
     );
     if (!stepParamAccount)
       return throwError(
         new HttpErrorResponse({
-          error: 'Не нашелся идентификатора операции',
+          error: 'Не нашелся идентификатор операции',
           status: 400,
         }),
       );
 
     const valueAccount = stepParamAccount.values.find((value) =>
-      value.includes(paypalObj.writeOffAccount.number),
+      value.includes(paypalObj.sourceAccount),
     );
 
     if (!valueAccount)
@@ -78,10 +77,10 @@ export class TransactionsService {
       },
       {
         identifier: 'ReceiverAccount',
-        value: paypalObj.recipientAccount.name,
+        value: paypalObj.reciverAccount,
       },
       {
-        identifier: 'Account',
+        identifier: 'Amount',
         value: paypalObj.amount.toString(),
       },
       {
@@ -98,11 +97,16 @@ export class TransactionsService {
       .pipe(catchError((error) => this.handleError(error, operationInfo)));
   }
 
-  private transferAccountConfirmStep(operationInfo: IOperationInfo): Observable<IOperationInfo> {
-    return this._http.post<IOperationInfo>(`/api/operations?requestId=${operationInfo.requestId}`, null).pipe(
-      catchError((error) => this.handleError(error, operationInfo))
-    );
-  } 
+  private transferAccountConfirmStep(
+    operationInfo: IOperationInfo,
+  ): Observable<IOperationInfo> {
+    return this._http
+      .post<IOperationInfo>(
+        `/api/operations?requestId=${operationInfo.requestId}`,
+        null,
+      )
+      .pipe(catchError((error) => this.handleError(error, operationInfo)));
+  }
 
   refillAccount(
     account: IAccountModel,
@@ -142,7 +146,7 @@ export class TransactionsService {
     if (!stepParamAccount)
       return throwError(
         new HttpErrorResponse({
-          error: 'Не нашелся идентификатора операции',
+          error: 'Не нашелся идентификатор операции',
           status: 400,
         }),
       );
@@ -189,10 +193,15 @@ export class TransactionsService {
       .pipe(catchError((error) => this.handleError(error, operationInfo)));
   }
 
-  private handleError(error: HttpErrorResponse, operationInfo: IOperationInfo): Observable<never> {
-    return this._http.delete(`/api/operations?requestId=${operationInfo.requestId}`).pipe(
-      mergeMap(() => throwError(error)),
-      catchError((err) => throwError(err))
-    );
+  private handleError(
+    error: HttpErrorResponse,
+    operationInfo: IOperationInfo,
+  ): Observable<never> {
+    return this._http
+      .delete(`/api/operations?requestId=${operationInfo.requestId}`)
+      .pipe(
+        mergeMap(() => throwError(error)),
+        catchError((err) => throwError(err)),
+      );
   }
 }

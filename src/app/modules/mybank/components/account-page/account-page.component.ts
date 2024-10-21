@@ -52,6 +52,14 @@ export class AccountPageComponent implements OnInit, OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
+  onRefillAcoountClick() {
+    
+  }
+
+  onTransferAccountClick() {
+
+  }
+
   changeAccountState() {
     this.subscription && this.subscription.unsubscribe();
     this.showSpinner$.next(true);

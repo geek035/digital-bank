@@ -1,0 +1,34 @@
+@import '/src/app/styles/mixins';
+
+$xs-transaction-box-width: 320px;
+$md-transaction-box-width: 500px;
+$lg-transaction-box-width: 500px;
+
+.transaction-block {
+    width: 100%;
+    height: 100%;
+
+    @include setWidth(
+        $xs-transaction-box-width,
+        $md-transaction-box-width,
+        $lg-transaction-box-width
+    );
+
+    &__info-wrapper {
+        width: 100%;
+        min-height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    &__info {
+        display: flex;
+        gap: .5rem;
+    }
+
+    &__button {
+        width: fit-content;
+    }
+}

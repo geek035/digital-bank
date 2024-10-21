@@ -1,0 +1,10 @@
+@import '/src/app/styles/library';
+@import '/src/app/styles/form';
+@import '/src/app/styles/button';
+@import '/src/app/styles/mixins';
+@import '/src/app/modules/mybank/components/transactions-operations/styles/transaction-block';
+
+:host {
+    width: 100%;
+    height: 100%;
+}
