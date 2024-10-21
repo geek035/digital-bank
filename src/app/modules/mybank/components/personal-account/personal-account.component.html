@@ -28,13 +28,13 @@
                 <span class="spacer"></span>
                 <a class="info-block__link">
                     <mat-icon>settings</mat-icon>
-                    <span class="link">Редактировать</span>
+                    <span (click)="onUpdateUserDataClick()" class="link">Редактировать</span>
                 </a>
             </div>
 
             <div class="info-block__info">
                 <p class="info-block__info-field"><mat-icon>category</mat-icon>Логин: {{userData?.login}}</p>
-                <p class="info-block__info-field"><mat-icon>category</mat-icon>Пол: {{userData?.sex}}</p>
+                <p class="info-block__info-field"><mat-icon>category</mat-icon>Пол: {{userData?.sex === 'Male' ? 'Мужчина' : 'Женщина'}}</p>
                 <p class="info-block__info-field"><mat-icon>category</mat-icon>Дата рождения: {{userData?.birthdate | date : 'fullDate'}}</p>
                 <p class="info-block__info-field"><mat-icon>category</mat-icon><span>Адрес:</span> <span>{{userData?.address}}</span></p>
             </div>

@@ -18,6 +18,13 @@ export class UserDataService {
     );
   }
 
+  updateUserData(userData: IUserData): Observable<null> {
+    return this._http.patch<null>('/api/clients', userData).pipe(
+      switchMap((response) => of(response)),
+      catchError((error) => throwError(error))
+    );
+  }
+
   getFullName(): Observable<IUserFullName> {
     return this._http.get<IUserData>('/api/clients').pipe(
       switchMap((res) => {

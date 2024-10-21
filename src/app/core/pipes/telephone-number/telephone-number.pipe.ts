@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TelephoneNumberPipe implements PipeTransform {
 
   transform(phone: string): string {
-    if (phone.length !== 12 || !phone.startsWith('+')) {
+    if (!phone || phone.length !== 12 || !phone.startsWith('+')) {
       return phone; 
     }
 

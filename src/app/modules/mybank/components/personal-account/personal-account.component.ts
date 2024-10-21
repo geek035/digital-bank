@@ -46,4 +46,8 @@ export class PersonalAccountComponent implements OnInit, OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
+  onUpdateUserDataClick() {
+    this._router.navigate(['/user-home/update-user']);
+  }
+
 }

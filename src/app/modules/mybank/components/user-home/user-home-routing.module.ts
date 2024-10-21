@@ -21,14 +21,14 @@ const routes: Routes = [
         path: 'card-register',
         loadChildren: () =>
           import(`../card-register/card-register.module`).then(
-            (m) => m.CardRegisterModule,
+            (m) => m.CardRegisterModule
           ),
       },
       {
         path: 'card-register-operation',
         loadChildren: () =>
           import(`../card-register-operation/card-register-operation.module`).then(
-            (m) => m.CardRegisterOperationModule,
+            (m) => m.CardRegisterOperationModule
           ),
       },
       {
@@ -42,21 +42,28 @@ const routes: Routes = [
         path: 'account-register-operation',
         loadChildren: () =>
           import(`../account-register-operation/account-register-operation.module`).then(
-            (m) => m.AccountRegisterOperationModule,
+            (m) => m.AccountRegisterOperationModule
           ),
       },
       {
         path: 'account',
         loadChildren: () =>
           import(`../account-page/account-page.module`).then(
-            (m) => m.AccountPageModule,
+            (m) => m.AccountPageModule
           )
       },
       {
         path: 'personal-account',
         loadChildren: () =>
           import(`../personal-account/personal-account.module`).then(
-            (m) => m.PersonalAccountModule,
+            (m) => m.PersonalAccountModule
+          ),
+      },
+      {
+        path: 'update-user',
+        loadChildren: () =>
+          import(`../update-user-data/update-user-data.module`).then(
+            (m) => m.UpdateUserDataModule
           ),
       },
     ],
