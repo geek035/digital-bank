@@ -109,7 +109,7 @@ export class TransactionsService {
   }
 
   refillAccount(
-    account: IAccountModel,
+    account: string,
     amount: number,
   ): Observable<IOperationInfo> {
     const payload: IStartOperation = { operationCode: 'AccountRefill' };
@@ -136,7 +136,7 @@ export class TransactionsService {
 
   private topUpAccountNextStep(
     operationInfo: IOperationInfo,
-    account: IAccountModel,
+    account: string,
     amount: number,
   ): Observable<IOperationInfo> {
     const stepParamAccount = operationInfo.stepParams.find(
@@ -152,7 +152,7 @@ export class TransactionsService {
       );
 
     const value = stepParamAccount.values.find((value) =>
-      value.includes(account.number),
+      value.includes(account),
     );
 
     if (!value)
