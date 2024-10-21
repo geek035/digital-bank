@@ -5,7 +5,7 @@
             <span class="card__spacer"></span>
             <span [ngClass]="getCardTermClass()" class="card__term">срок: {{card.month}}/{{card.year}}</span>
         </div>
-        <p [ngClass]="getCardNumberClass()" (click)="toggleCardNumber()" class="card__number">{{card.number | cardNumber
+        <p [ngClass]="getCardNumberClass()" class="card__number">{{card.number | cardNumber
             : isHiddenNumber}}</p>
     </article>
 </ng-container>

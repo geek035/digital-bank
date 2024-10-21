@@ -77,6 +77,6 @@ export class AccountRegisterService {
   private handleError(error: HttpErrorResponse, requestId: number) {
     return this._http
       .delete<null>(`/api/operations?requestId=${requestId}`)
-      .pipe(catchError((error) => throwError(error)));
+      .pipe(mergeMap(() => throwError(error)), catchError((error) => throwError(error)));
   }
 }

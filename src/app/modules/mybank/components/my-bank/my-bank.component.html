@@ -62,7 +62,7 @@
             <div class="items-block__wrapper">
                 <ng-container *ngIf="userAccounts$ | async as userAccounts else loading">
                     <ng-container *ngIf="userAccounts.length > 0 else emptyAccountsList">
-                        <app-account *ngFor="let account of userAccounts; trackBy: trackAccountByFn" [account]="account">
+                        <app-account (click)="redirectToAccountPage(account)" *ngFor="let account of userAccounts; trackBy: trackAccountByFn" [account]="account">
                         </app-account>
                     </ng-container>
                 </ng-container>

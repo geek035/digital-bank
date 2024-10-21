@@ -17,6 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, concatMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CurrencyService } from '../../../services/currency/currency.service';
 
 @Component({
   selector: 'app-card',
@@ -32,6 +33,7 @@ export class CardComponent implements OnInit, OnDestroy {
     private readonly _cardServce: CardService,
     private readonly fb: FormBuilder,
     private readonly _snackBak: MatSnackBar,
+    private readonly _currencyService: CurrencyService,
   ) {
     if (data) {
       this.card = data.card;
@@ -81,13 +83,7 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   getCurrencyIcon() {
-    switch (this.card.account.currency) {
-      case 643:
-        return 'currency_ruble';
-
-      default:
-        return 'currency_ruble';
-    }
+    return this._currencyService.getCurrencyIcon(this.card.account.currency);
   }
 
   public toggleCardNumber() {

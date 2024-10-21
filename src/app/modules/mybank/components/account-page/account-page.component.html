@@ -1,0 +1,39 @@
+<div class="account-box grid g-3">
+    <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+    <div class="grid__row">
+        <h2 class="account-box__title col-xs-12 col-md-12 col-lg-12">
+            {{account?.name ?? "Ваш счет"}}
+        </h2>
+    </div>
+
+    <div class="grid__row">
+        <p class="account-field col-xs-12 col-md-6 col-lg-6">
+            <mat-icon>account_balance</mat-icon>
+            <span>Номер счета - </span>
+            <span>{{account?.number ?? ""}}</span>
+        </p>
+    </div>
+
+    <div class="grid__row g-3">
+        <p class="account-field col-xs-12 col-md-4 col-lg-4">
+            <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+            <span>{{account?.balance ?? 0}}</span>
+        </p>
+
+        <p class="account-field col-xs-12 col-md-6 col-lg-6">
+            <mat-icon>info</mat-icon>
+            <span>Статус счета: &nbsp;</span>
+            <span>{{getAccountState()}}</span>
+        </p>
+    </div>
+    
+    <div class="grid__row g-3">
+        <div class="account-field col-xs-12 col-md-6 col-lg-6">
+            <div class="account-field__buttons-group">
+                <button mat-button class="account-field__button">Пополнить счет</button>
+                <button mat-button class="account-field__button">Перевести</button>
+                <button mat-button (click)="changeAccountState()" class="account-field__button">{{getButtonStateText()}}</button>
+            </div>
+        </div>
+    </div>
+</div>

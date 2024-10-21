@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
+import { CurrencyService } from '../../../services/currency/currency.service';
 
 @Component({
   selector: 'app-account',
@@ -8,7 +9,9 @@ import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private readonly _currencyService: CurrencyService
+  ) { }
 
   @Input() account!: IAccountModel;
 
@@ -24,13 +27,6 @@ export class AccountComponent implements OnInit {
   }
 
   getCurrencyIcon() {
-    switch (this.account.currency) {
-      case 643:
-        return 'currency_ruble';
-
-      default:
-        return 'currency_ruble';
-    }
+    return this._currencyService.getCurrencyIcon(this.account.currency);
   }
-
 }

@@ -45,6 +45,13 @@ const routes: Routes = [
             (m) => m.AccountRegisterOperationModule,
           ),
       },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import(`../account-page/account-page.module`).then(
+            (m) => m.AccountPageModule,
+          )
+      }
     ],
   },
 ];

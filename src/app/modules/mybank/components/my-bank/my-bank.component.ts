@@ -52,6 +52,12 @@ export class MyBankComponent implements OnInit {
     }
   }
 
+  redirectToAccountPage(account: IAccountModel) {
+    this._router.navigate(['/user-home/account'], {
+      queryParams: { accountId: account.id }
+    });
+  }
+
   public trackCardByFn(index: number, card: ICardModel): number {
     return card.id;
   }
