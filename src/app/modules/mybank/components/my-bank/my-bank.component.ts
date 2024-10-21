@@ -49,6 +49,10 @@ export class MyBankComponent implements OnInit {
       case 'account-register':
         this._router.navigate(['/user-home/account-register']);
         break;
+
+      case 'personal-account':
+        this._router.navigate(['/user-home/personal-account']);
+        break;
     }
   }
 

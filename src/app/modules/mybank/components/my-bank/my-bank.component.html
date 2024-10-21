@@ -9,7 +9,8 @@
     <div class="grid__row">
         <section class="user-info-block col-xs-12 col-md-6 col-lg-4">
             <ng-container *ngIf="userFullName$ | async as userFullName else loading">
-                <div class="user-info-block__avatar">{{userFullName.firstName[0]}}</div>
+                <div data-btn="personal-account" (click)="onRedirectClick($event)" class="user-info-block__avatar">
+                    {{userFullName.firstName[0]}}</div>
                 <p class="user-info-block__data"><strong>
                         {{userFullName.lastName | uppercase }}
                         {{ userFullName.firstName | uppercase }}
@@ -62,7 +63,8 @@
             <div class="items-block__wrapper">
                 <ng-container *ngIf="userAccounts$ | async as userAccounts else loading">
                     <ng-container *ngIf="userAccounts.length > 0 else emptyAccountsList">
-                        <app-account (click)="redirectToAccountPage(account)" *ngFor="let account of userAccounts; trackBy: trackAccountByFn" [account]="account">
+                        <app-account (click)="redirectToAccountPage(account)"
+                            *ngFor="let account of userAccounts; trackBy: trackAccountByFn" [account]="account">
                         </app-account>
                     </ng-container>
                 </ng-container>

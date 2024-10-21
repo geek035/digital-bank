@@ -1,0 +1,48 @@
+<app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+<section class="grid g-3">
+    <div class="grid__row">
+        <h2 class="title col-xs-12 col-md-12 col-lg-12">Личный кабинет</h2>
+    </div>
+    <div class="grid__row">
+        <article class="fullname-box col-xs-12 col-md-8 col-lg-8">
+            <div class="fullname-box__avatar">{{userData?.firstName?.[0]}}</div>
+
+            <div class="fullname-box__info">
+                <p class="fullname-box__fullname">{{userData?.lastName}}</p>
+                <p class="fullname-box__fullname">
+                    <span>{{userData?.firstName}}</span>
+                    <span>{{userData?.middleName}}</span>
+                </p>
+                <p class="fullname-box__info-element">
+                    <span>{{(userData?.phoneNumber) ?? "" | telephoneNumber}}</span>
+                    <span>{{userData?.email}}</span>
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <div class="grid__row g-3">
+        <div class="info-block col-xs-12 col-md-8 col-lg-8">
+            <div class="info-block__header">
+                <h3 class="title title_h3 ">Мои данные</h3>
+                <span class="spacer"></span>
+                <a class="info-block__link">
+                    <mat-icon>settings</mat-icon>
+                    <span class="link">Редактировать</span>
+                </a>
+            </div>
+
+            <div class="info-block__info">
+                <p class="info-block__info-field"><mat-icon>category</mat-icon>Логин: {{userData?.login}}</p>
+                <p class="info-block__info-field"><mat-icon>category</mat-icon>Пол: {{userData?.sex}}</p>
+                <p class="info-block__info-field"><mat-icon>category</mat-icon>Дата рождения: {{userData?.birthdate | date : 'fullDate'}}</p>
+                <p class="info-block__info-field"><mat-icon>category</mat-icon><span>Адрес:</span> <span>{{userData?.address}}</span></p>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</section>

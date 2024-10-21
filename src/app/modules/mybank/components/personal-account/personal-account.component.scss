@@ -1,0 +1,125 @@
+@import '/src/app/styles/library';
+@import '/src/app/styles/link';
+@import '/src/app/styles/mixins';
+@import '/src/app/styles/button';
+@import '/src/app/styles/grid';
+
+:host {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.info-block {
+    height: 100%;
+    padding: 8px 8px 8px 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    border-radius: .5rem;
+    box-shadow: $box-shadow;
+    background-color: $bg-color-03;
+
+    color: white;
+
+    &__header {
+        display: flex;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__info-field {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+    }
+}
+
+.fullname-box {
+    min-height: 100px;
+    padding: 8px 8px 8px 8px;
+
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    border-radius: .5rem;
+    box-shadow: $box-shadow;
+    background-color: $bg-color-03;
+
+
+    color: white;
+
+    &__avatar {
+        align-self: start;
+
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: $bg-color-03-active;
+        color: rgb(255, 255, 255);
+
+        @include centerContent;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        flex-shrink: 1000;
+    }
+
+    &__info-element {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    &__fullname {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 1.2rem;
+    }
+}
+
+.title {
+    font-size: $xs-font-size;
+    margin: 0;
+
+    height: 25px;
+
+    &_h3 {
+        font-size: $xs-font-size-h3; 
+    }
+
+    @media screen and (min-width: $md-width) {
+        font-size: $md-font-size;
+        
+        &_h3 {
+            font-size: $md-font-size-h3;
+        }
+    }
+
+    @media screen and (min-wdth: $lg-width) {
+        font-size: $lg-font-size;
+
+        &_h3 {
+            font-size: $lg-font-size-h3;
+        }
+    }
+}

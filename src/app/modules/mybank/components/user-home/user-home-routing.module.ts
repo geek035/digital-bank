@@ -51,7 +51,14 @@ const routes: Routes = [
           import(`../account-page/account-page.module`).then(
             (m) => m.AccountPageModule,
           )
-      }
+      },
+      {
+        path: 'personal-account',
+        loadChildren: () =>
+          import(`../personal-account/personal-account.module`).then(
+            (m) => m.PersonalAccountModule,
+          ),
+      },
     ],
   },
 ];

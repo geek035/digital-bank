@@ -5,10 +5,21 @@
         </a>
 
         <ul class="header__links-list">
+            <li class="header__links-list-item">
+                <button data-btn="my-bank" (click)="onRedirectClick($event)" mat-button><span
+                        class="link">Главная</span></button>
+            </li>
             <span class="header__spacer"></span>
             <li class="header__links-list-item">
                 <mat-icon>person</mat-icon>
-                <button mat-button>Личный кабинет</button>
+                <button data-btn="personal-account" (click)="onRedirectClick($event)" mat-button><span
+                        class="link">Личный кабинет</span></button>
+            </li>
+
+            <li class="header__links-list-item">
+                <mat-icon>logout</mat-icon>
+                <button data-btn="logout" (click)="onRedirectClick($event)" mat-button><span
+                        class="link">Выйти</span></button>
             </li>
         </ul>
 
@@ -16,13 +27,17 @@
             <mat-icon class="header__menu">list</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item>
+            <button data-btn="my-bank" (click)="onRedirectClick($event)" mat-menu-item>
                 <mat-icon>first_page</mat-icon>
-                <span data-btn="my-bank" (click)="onRedirectClick($event)" class="link">Главная</span>
+                <span class="link">Главная</span>
             </button>
-            <button mat-menu-item>
+            <button data-btn="personal-account" (click)="onRedirectClick($event)" mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span class="link">Личный кабинет</span>
+            </button>
+            <button data-btn="logout" (click)="onRedirectClick($event)" mat-menu-item>
                 <mat-icon>logout</mat-icon>
-                <span class="link" data-btn="register">Выйти</span>
+                <span class="link">Выйти</span>
             </button>
         </mat-menu>
     </nav>
