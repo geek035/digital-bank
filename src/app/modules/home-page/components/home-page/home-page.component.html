@@ -28,13 +28,13 @@
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
             <ng-container *ngIf="!isAuthorizated else authListLinks">
-                <button mat-menu-item>
+                <button data-btn="enter" (click)="onRedirectClick($event)" mat-menu-item>
                     <mat-icon>person</mat-icon>
-                    <span class="link" data-btn="enter" (click)="onRedirectClick($event)">Войти</span>
+                    <span class="link">Войти</span>
                 </button>
-                <button mat-menu-item>
+                <button  data-btn="register" (click)="onRedirectClick($event)" mat-menu-item>
                     <mat-icon>app_registration</mat-icon>
-                    <span class="link" data-btn="register" (click)="onRedirectClick($event)">Выйти</span>
+                    <span class="link">Регистрация</span>
                 </button>
             </ng-container>
         </mat-menu>
@@ -66,7 +66,7 @@
 
         <img class="main__img" src="assets/welcome-img.jpg" />
 
-        <button class="main__button" mat-flat-button>Оформить карту</button>
+        <button class="main__button" (click)="onMainButtonClick()" mat-flat-button>{{isAuthorizated ? 'Оформить карту' : 'Войти'}}</button>
     </div>
 </main>
 

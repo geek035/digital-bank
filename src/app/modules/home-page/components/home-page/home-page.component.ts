@@ -27,6 +27,15 @@ export class HomePageComponent implements OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
+  onMainButtonClick() {
+    if (this.isAuthorizated) {
+      this._router.navigate(['/user-home/home-page']);
+    } else {
+      this._router.navigate(['/logging']);
+    }
+
+  }
+
   onRedirectClick(event: Event) {
     const dataInfo = (event.currentTarget as HTMLElement).dataset?.['btn'];
 

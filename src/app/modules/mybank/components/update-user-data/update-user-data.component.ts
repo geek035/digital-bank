@@ -114,6 +114,7 @@ export class UpdateUserDataComponent implements OnInit, OnDestroy {
   onSubmit() {
     const userData = this.userUpdateDataForm.value;
     userData['isMustChangePassword'] = false;
+
     userData.phoneNumber = '+7' + userData.phoneNumber;
     this.inputData$.next(userData);
   }

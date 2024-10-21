@@ -21,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogRegistrationComponent } from '../dialog-registration/dialog-registration.component';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -128,10 +129,10 @@ export class RegistrationComponent implements OnDestroy {
             this.showSpinner.next(false);
             this._dialog.open(DialogRegistrationComponent);
           },
-          error: (err) => {
+          error: (err: HttpErrorResponse) => {
             this.showSpinner.next(false);
             this._login.setErrors({ existingUser: true });
-            this._snackBar.open(err.message, 'ок');
+            this._snackBar.open(err.error, 'ок');
           },
         });
     }

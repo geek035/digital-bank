@@ -13,11 +13,14 @@ export class RegistrationService {
 
   registerNewUser(userData: IRegistrationForm): Observable<string> {
     const payload = this.converToRequestType(userData);
-    return this.http.put('/api/clients', payload)
-      .pipe(switchMap(response => of('registered new user')));
+    return this.http
+      .put('/api/clients', payload)
+      .pipe(switchMap((response) => of('registered new user')));
   }
 
-  private converToRequestType(userData: IRegistrationForm): IRegistrationRequest {
+  private converToRequestType(
+    userData: IRegistrationForm,
+  ): IRegistrationRequest {
     return {
       login: userData.login.toLowerCase(),
       email: userData.email,
@@ -26,10 +29,17 @@ export class RegistrationService {
       middleName: userData.middleName,
       sex: userData.sex,
       birthdate: new Date(userData.birthdate).toISOString(),
-      phoneNumber: /\+7.*/.test(userData.phoneNumber)
-        ? userData.phoneNumber : '7' + userData.phoneNumber,
+      phoneNumber: this.validatePhoneNumber(userData.phoneNumber),
       address: userData.address,
       password: userData.password,
-    }
+    };
+  }
+
+  private validatePhoneNumber(phone: string) {
+    return /\+\d\d{10}$/g.test(phone)
+      ? phone
+      : /\d\d{10}/.test(phone)
+        ? '+' + phone
+        : '+7' + phone;
   }
 }
