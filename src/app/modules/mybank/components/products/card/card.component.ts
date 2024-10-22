@@ -163,7 +163,7 @@ export class CardComponent implements OnInit, OnDestroy {
           window.location.reload();
         },
         error: (err: HttpErrorResponse) => {
-          this._snackBak.open(err.message, 'ок');
+          this._snackBak.open(err.error, 'ок');
           (this.pinCodeBlock.nativeElement as HTMLElement).classList.toggle(
             'pin-code-block_view',
           );

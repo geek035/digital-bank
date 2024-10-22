@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { AccountService } from '../../services/account-service/account.service';
 import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CurrencyService } from '../../services/currency/currency.service';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-account-page',
@@ -23,6 +24,9 @@ export class AccountPageComponent implements OnInit, OnDestroy {
     private readonly _currencyService: CurrencyService,
   ) { }
   
+  @ViewChild('refillAccountPanel') refillPanel!: MatExpansionPanel;
+  @ViewChild('transferAccountPanel') transferPanel!: MatExpansionPanel;
+
   public account: IAccountModel | null = null;
   public showSpinner$ = new BehaviorSubject(false);
 
@@ -53,11 +57,11 @@ export class AccountPageComponent implements OnInit, OnDestroy {
   }
 
   onRefillAcoountClick() {
-    
+    this.refillPanel && this.refillPanel.toggle();
   }
 
   onTransferAccountClick() {
-
+    this.transferPanel && this.transferPanel.toggle();
   }
 
   changeAccountState() {

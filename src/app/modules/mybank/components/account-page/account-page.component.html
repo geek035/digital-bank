@@ -41,7 +41,7 @@
 
     <div class="grid__row g-3">
         <mat-accordion class="col-xs-12 col-md-12 col-12">
-            <mat-expansion-panel hideToggle>
+            <mat-expansion-panel #refillAccountPanel hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Пополнить счет
@@ -50,7 +50,7 @@
                 <app-refill-operation [account]="account"></app-refill-operation>
             </mat-expansion-panel>
 
-            <mat-expansion-panel hideToggle>
+            <mat-expansion-panel #transferAccountPanel hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Перевод другому клиенту
