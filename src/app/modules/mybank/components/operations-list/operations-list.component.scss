@@ -1,0 +1,68 @@
+@import '/src/app/styles/library';
+@import '/src/app/styles/link';
+@import '/src/app/styles/mixins';
+@import '/src/app/styles/grid';
+
+.title {
+    font-size: $xs-font-size;
+    margin: 0;
+
+    height: 25px;
+
+    &_h3 {
+        font-size: $xs-font-size-h3; 
+    }
+
+    @media screen and (min-width: $md-width) {
+        font-size: $md-font-size;
+        
+        &_h3 {
+            font-size: $md-font-size-h3;
+        }
+    }
+
+    @media screen and (min-wdth: $lg-width) {
+        font-size: $lg-font-size;
+
+        &_h3 {
+            font-size: $lg-font-size-h3;
+        }
+    }
+}
+
+.operations-list {
+    width: 100%;
+    min-height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: relative;
+
+
+    color: white;
+}
+
+.operation-box { 
+    width: 100%;
+    min-height: 50px;
+    height: fit-content;
+    padding: 8px 8px 8px 8px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $bg-color-03;
+    border-radius: 8px;
+
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__spacer {
+        flex-grow: 1;
+    }
+}

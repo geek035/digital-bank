@@ -1,4 +1,4 @@
-<app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+<app-spinner [showSpinner]="showSpinner$ | async"></app-spinner> 
 <section class="grid g-3">
     <div class="grid__row">
         <h2 class="title col-xs-12 col-md-12 col-lg-12">Личный кабинет</h2>
@@ -21,8 +21,16 @@
         </article>
     </div>
 
+    <div class="grid_row">
+        <div class="options-box col-xs-12 col-md-6 col-lg-6">
+            <button mat-button (click)="onOperationsListClick()" class="options-box__button">
+                <span class="link">Мои операции</span>
+            </button>
+        </div>
+    </div>
+
     <div class="grid__row g-3">
-        <div class="info-block col-xs-12 col-md-8 col-lg-8">
+        <article class="info-block col-xs-12 col-md-8 col-lg-8">
             <div class="info-block__header">
                 <h3 class="title title_h3 ">Мои данные</h3>
                 <span class="spacer"></span>
@@ -39,7 +47,7 @@
                 <p class="info-block__info-field"><mat-icon>category</mat-icon><span>Адрес:</span> <span>{{userData?.address}}</span></p>
             </div>
 
-        </div>
+        </article>
 
 
 

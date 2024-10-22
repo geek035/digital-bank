@@ -4,6 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { IUserData } from 'src/app/interfaces/mybank/user-data.interface';
 import { IUserFullName } from 'src/app/interfaces/mybank/user-full-name';
+import { ITransactionModel } from 'src/app/interfaces/operations/transaction-model.interface';
+import { ICardOrderModel } from 'src/app/modules/mybank/interfaces/card-order-model.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +46,20 @@ export class UserDataService {
     return this._http.get<IUserData>('/api/clients').pipe(
       switchMap((res) => of(res)),
       catchError((err) => throwError(err))
+    );
+  }
+
+  getUserCardSOperations(): Observable<ICardOrderModel[]> {
+    return this._http.get<ICardOrderModel[]>('/api/cards/orders').pipe(
+      switchMap((cardsOrders) => of(cardsOrders)),
+      catchError((error) => throwError(error))
+    );
+  }
+
+  getUserAccountsOperations(): Observable<ITransactionModel[]> {
+    return this._http.get<ITransactionModel[]>('/api/transactions').pipe(
+      switchMap((transactionsList) => of(transactionsList)),
+      catchError((error) => of(error))
     );
   }
 }

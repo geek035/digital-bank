@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PersonalAccountComponent } from './personal-account.component';
 import { CustomPipesModule } from 'src/app/core/pipes/custom-pipes.module';
 import { CommonComponentsModule } from "../../../../core/components/common-components.module";
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CommonComponentsModule } from "../../../../core/components/common-compo
     PersonalAccountRoutingModule,
     MatIconModule,
     CustomPipesModule,
-    CommonComponentsModule
+    CommonComponentsModule,
+    MatButtonModule,
 ]
 })
 export class PersonalAccountModule { }

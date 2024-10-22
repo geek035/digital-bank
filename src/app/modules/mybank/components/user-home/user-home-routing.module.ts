@@ -66,6 +66,13 @@ const routes: Routes = [
             (m) => m.UpdateUserDataModule
           ),
       },
+      {
+        path: 'operations-list',
+        loadChildren: () =>
+          import(`../operations-list/operations-list.module`).then(
+            (m) => m.OperationsListModule
+          ),
+      },
     ],
   },
 ];

@@ -1,0 +1,95 @@
+<section class="grid g-3">
+    <div class="grid__row">
+        <h2 class="title col-xs-12 col-md-12 col-lg-12">Мои операции</h2>
+    </div>
+
+    <div class="grid__row g-3">
+        <h3 class="title title_h3 col-xs-12 col-md-6 col-lg-6">Заказы карт</h3>
+        <article class="grid operations-list col-xs-12 col-md-12 col-lg-12">
+            <app-spinner [showSpinner]="showCardsOperationListSpinner$ | async"></app-spinner>
+            <mat-paginator [length]="cardsOpertionsLength" [pageSize]="cardsOperationsPageSize"
+                [pageSizeOptions]="[2, 5, 10, 25]" aria-label="Список операций с картами"
+                (page)="onCardsOperationListPageChange($event)">
+            </mat-paginator>
+            <div class="grid__row g-3">
+                <div class="operation-box col-xs-12 col-md-6 col-lg-6"
+                    *ngFor="let cardOperation of cardsOperationsList$ | async">
+                    <div class="operation-box__row">
+                        <p>{{cardOperation.product.name}}</p>
+                        <span class="operation-box__spacer"></span>
+                        <img class="operation-box__logo" [src]="getProgramTypeLogo(cardOperation)">
+                    </div>
+                    <p class="operation-box__row">
+                        <mat-icon>person_cicrle</mat-icon>
+                        <span>Логин:</span>
+                        <span>{{cardOperation.client.login}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>person</mat-icon>
+                        <span>ФИО:</span>
+                        <span>{{cardOperation.client.lastName}}</span>
+                        <span>{{cardOperation.client.firstName}}</span>
+                        <span>{{cardOperation.client.middleName}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>call</mat-icon>
+                        <span>Телефон:</span>
+                        <span>{{cardOperation.client.phoneNumber | telephoneNumber}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>tag</mat-icon>
+                        <span>Номер запроса:</span>
+                        <span>{{cardOperation.requestId}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>check_box</mat-icon>
+                        <span>Результат операции: </span>
+                        <span>{{getTypeResult(cardOperation)}}</span>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <h3 class="title title_h3 col-xs-12 col-md-6 col-lg-6">Операции со счетами</h3>
+        <article class="grid operations-list col-xs-12 col-md-12 col-lg-12">
+            <app-spinner [showSpinner]="showAccountsOperationListSpinner$ | async"></app-spinner>
+            <mat-paginator [length]="accountsOpertionsLength" [pageSize]="accountsOperationsPageSize"
+                [pageSizeOptions]="[5, 10, 25]" aria-label="Список операций со счетами"
+                (page)="onAccountsOperationListPageChange($event)">
+            </mat-paginator>
+
+            <div class="grid__row g-3">
+                <div class="operation-box col-xs-12 col-md-6 col-lg-6"
+                    *ngFor="let accountOperation of accountsOperationsList$ | async">
+                    
+                    <p class="operation-box__row">
+                        <span>{{getTypeAccountOperation(accountOperation) | uppercase}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>account_balance</mat-icon>
+                        <span>{{accountOperation.account.name}}</span>
+                        <span>{{accountOperation.account.number}}</span>
+                    </p>
+                    <p *ngIf="accountOperation.receiver" class="operation-box__row">
+                        <mat-icon>send</mat-icon>
+                        <span>Получатель:</span>
+                        <span>{{accountOperation.receiver}}</span>
+                    </p>
+                    <p class="operation-box__row">
+                        <mat-icon>payment</mat-icon>
+                        <span>Сумма</span>
+                        <span>{{accountOperation.amount}}</span>
+                        <span> | </span>
+                        <span>число:</span>
+                        <span>{{accountOperation.paymentDate | date : 'short'}}</span>
+                    </p>
+                    <p class="operation-box__row"> 
+                        <mat-icon>check_box</mat-icon>
+                        <span>Результат операции:</span>
+                        <span>{{getAccountOperationResult(accountOperation)}}</span>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

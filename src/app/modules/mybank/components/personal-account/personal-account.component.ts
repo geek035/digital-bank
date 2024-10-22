@@ -50,4 +50,8 @@ export class PersonalAccountComponent implements OnInit, OnDestroy {
     this._router.navigate(['/user-home/update-user']);
   }
 
+  onOperationsListClick() {
+    this._router.navigate(['/user-home/operations-list']);
+  }
+
 }

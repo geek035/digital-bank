@@ -8,15 +8,12 @@ import { CurrencyService } from '../../../services/currency/currency.service';
   styleUrls: ['./account.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
   constructor(
     private readonly _currencyService: CurrencyService
   ) { }
 
   @Input() account!: IAccountModel;
-
-  ngOnInit(): void {
-  }
 
   getAccountClass() {
     if (this.account.name == 'Текущий счёт') {

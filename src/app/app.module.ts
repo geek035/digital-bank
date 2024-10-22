@@ -11,6 +11,7 @@ import { RecoverPasswordService } from './core/services/recover-password/recover
 import { HomePageModule } from './modules/home-page/components/home-page/home-page.module';
 import { UserDataService } from './core/services/user-data-service/user-data.service';
 import { UserHomeModule } from './modules/mybank/components/user-home/user-home.module';
+import { OperationsListComponent } from './modules/mybank/components/operations-list/operations-list.component';
 
 
 @NgModule({

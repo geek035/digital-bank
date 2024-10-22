@@ -1,7 +1,6 @@
 @import '/src/app/styles/library';
 @import '/src/app/styles/link';
 @import '/src/app/styles/mixins';
-@import '/src/app/styles/button';
 @import '/src/app/styles/grid';
 
 :host {
@@ -13,6 +12,13 @@
 
 .spacer {
     flex-grow: 1;
+}
+
+
+.options-box {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
 .info-block {
