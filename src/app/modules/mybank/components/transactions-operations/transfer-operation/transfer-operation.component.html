@@ -72,7 +72,7 @@
                 <mat-divider></mat-divider>
 
                 <p class="transaction-block__info">
-                    <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+                    <mat-icon>{{account?.currency | currencyIcon}}</mat-icon>
                     <span>Сумма перевода: {{inputData.amount}}</span>
                 </p>
 

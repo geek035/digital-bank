@@ -1,1 +1,0 @@
-export const serverURL = "https://fw-ib-8d981.psb-tech.ru/";

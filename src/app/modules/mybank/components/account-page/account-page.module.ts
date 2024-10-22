@@ -8,12 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonComponentsModule } from '../../../../core/components/common-components.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TransactionsOperationsModule } from '../transactions-operations/transactions-operations.module';
+import { CustomPipesModule } from 'src/app/core/pipes/custom-pipes.module';
 
 @NgModule({
   declarations: [AccountPageComponent],
   imports: [
     CommonModule,
     CommonComponentsModule,
+    CustomPipesModule,
     AccountPageRoutingModule,
     MatIconModule,
     MatButtonModule,

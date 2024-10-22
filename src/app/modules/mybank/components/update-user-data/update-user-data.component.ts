@@ -3,7 +3,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRe
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, throwError } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { UserDataService } from 'src/app/core/services/user-data-service/user-data.service';
 import { emailValidator } from 'src/app/core/validators/email.validator';
 import { fullNameValidator } from 'src/app/core/validators/full-name.validator';
@@ -17,17 +18,31 @@ import { IUserData } from 'src/app/interfaces/mybank/user-data.interface';
   styleUrls: ['./update-user-data.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdateUserDataComponent implements OnInit, OnDestroy {
+export class UpdateUserDataComponent implements OnDestroy {
   constructor(
     private readonly _router: Router,
     private readonly _snackBar: MatSnackBar,
     private readonly _userDataService: UserDataService,
-    private readonly _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   public showSpinner$ = new BehaviorSubject(false);
-  public inputData$ = new BehaviorSubject({} as IUserData);
-  public user: IUserData | null = null;
+  public showLoadingDataSpinner$ = new BehaviorSubject(false);
+  public inputData$ = new BehaviorSubject<IUserData | null>(null);
+  public userData$ = new BehaviorSubject<IUserData | null>(null).pipe(
+    tap(() => { this.showLoadingDataSpinner$.next(true); }),
+    switchMap(() => this._userDataService.getUserData().pipe(
+      tap((userData) => {
+        this.fillControls(userData)
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this._snackBar.open(error.error, 'ок');
+        this._router.navigate(['/home-page']);
+        return throwError(error);
+      })
+    )),
+    tap(() => { this.showLoadingDataSpinner$.next(false); })
+  );
+
 
   private subscription: Subscription | null = null;
 
@@ -89,24 +104,6 @@ export class UpdateUserDataComponent implements OnInit, OnDestroy {
     }),
   });
 
-  ngOnInit(): void {
-    this.showSpinner$.next(true);
-
-    this.subscription = this._userDataService.getUserData().subscribe({
-      next: (userData) => {
-        this.showSpinner$.next(false);
-        this.user = userData;
-        this.fillControls();
-        this._changeDetectorRef.detectChanges();
-      },
-      error: (error: HttpErrorResponse) => {
-        this.showSpinner$.next(false);
-        this._snackBar.open(error.error, 'ок');
-        this._router.navigate(['/home-page']);
-      }
-    });
-  }
-
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
@@ -145,19 +142,17 @@ export class UpdateUserDataComponent implements OnInit, OnDestroy {
   }
 
 
-  private fillControls() {
-    if (this.user) {
-      const phone = this.user.phoneNumber.replace(/\+\d/g, "");
+  private fillControls(user: IUserData) {
+      const phone = user.phoneNumber.replace(/\+\d/g, "");
       this._phoneNumber.setValue(phone);
-      this._login.setValue(this.user.login);
-      this._email.setValue(this.user.email);
-      this._firstName.setValue(this.user.firstName);
-      this._lastName.setValue(this.user.lastName);
-      this._middleName.setValue(this.user.middleName);
-      this._birthdate.setValue(new Date(this.user.birthdate));
-      this._address.setValue(this.user.address);
-      this._sex.setValue(this.user.sex);
-    }
+      this._login.setValue(user.login);
+      this._email.setValue(user.email);
+      this._firstName.setValue(user.firstName);
+      this._lastName.setValue(user.lastName);
+      this._middleName.setValue(user.middleName);
+      this._birthdate.setValue(new Date(user.birthdate));
+      this._address.setValue(user.address);
+      this._sex.setValue(user.sex);
   }
 
   get _phoneNumber(): AbstractControl {

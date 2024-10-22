@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -25,7 +24,6 @@ import { RegistrationRoutingModule } from './registration-routing.module';
     MatButtonModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
-    MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,

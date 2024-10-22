@@ -7,7 +7,6 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
-import { CurrencyService } from '../../../services/currency/currency.service';
 import { TransactionsService } from '../../../services/transactions/transactions.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
@@ -30,7 +29,6 @@ export interface IRefillOperationForm {
 })
 export class RefillOperationComponent implements OnChanges, OnDestroy {
   constructor(
-    private readonly _currencyService: CurrencyService,
     private readonly _transactionsService: TransactionsService,
     private readonly _snackBar: MatSnackBar,
   ) {}
@@ -92,10 +90,6 @@ export class RefillOperationComponent implements OnChanges, OnDestroy {
 
   onCloseClick() {
     this.stepper && this.stepper.reset();
-  }
-
-  getCurrencyIcon(): string {
-    return this._currencyService.getCurrencyIcon(this.account?.currency ?? 0);
   }
 
   get _account(): AbstractControl {

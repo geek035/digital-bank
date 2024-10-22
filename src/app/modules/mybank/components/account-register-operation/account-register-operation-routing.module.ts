@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountRegisterOperationComponent } from './account-register-operation.component';
 
 const routes: Routes = [
-  { path: '', component: AccountRegisterOperationComponent}
+  { path: '', component: AccountRegisterOperationComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AccountRegisterOperationRoutingModule { }
+export class AccountRegisterOperationRoutingModule {}

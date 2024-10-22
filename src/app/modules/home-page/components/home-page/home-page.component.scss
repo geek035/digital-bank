@@ -38,7 +38,7 @@
         border: 1px solid black;
         z-index: 0;
     }
-    
+
     @media screen and (min-width: 768px) {
         &__wrapper {
             margin-top: 2rem;
@@ -52,7 +52,7 @@
         &__info {
             font-size: 1.5rem;
         }
-        
+
         &__button {
             font-size: 1.5rem;
             height: 50px;
@@ -64,4 +64,4 @@
             width: 650px;
         }
     }
-}  
+}

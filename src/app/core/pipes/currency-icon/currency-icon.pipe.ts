@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
+@Pipe({
+  name: 'currencyIcon'
 })
-export class CurrencyService {
-  constructor() { }
+export class CurrencyIconPipe implements PipeTransform {
 
-  getCurrencyIcon(currencyCode: number): string {
+  transform(currencyCode: number | undefined): unknown {
     switch (currencyCode) {
       case 643:
         return 'currency_ruble';

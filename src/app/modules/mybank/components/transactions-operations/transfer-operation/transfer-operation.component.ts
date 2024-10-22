@@ -17,7 +17,6 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { amountTrasferValidator } from 'src/app/core/validators/amount-transfer.validator';
 import { IAccountModel } from 'src/app/interfaces/mybank/account-model.interace';
 import { TransactionsService } from '../../../services/transactions/transactions.service';
-import { CurrencyService } from '../../../services/currency/currency.service';
 import { IOperationInfo } from 'src/app/interfaces/operations/operation-info.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
@@ -38,7 +37,6 @@ export interface ITransferOperationForm {
 })
 export class TransferOperationComponent implements OnChanges, OnDestroy {
   constructor(
-    private readonly _currencyService: CurrencyService,
     private readonly _transactionsService: TransactionsService,
     private readonly _snackBar: MatSnackBar,
   ) {}
@@ -90,23 +88,19 @@ export class TransferOperationComponent implements OnChanges, OnDestroy {
     this.subcription && this.subcription.unsubscribe();
     this.showSpinner$.next(true);
 
-    this.subcription = this._transactionsService.transferAccount(
-      this.transferOperationForm.value,
-    ).subscribe({
-      next: (operationInfo) => {
-        this.showSpinner$.next(false);
-        this.operationInfo$.next(operationInfo);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.showSpinner$.next(false);
-        this._snackBar.open(error.error, 'ок');
-        this.stepper && this.stepper.reset();
-      }
-    });
-  }
-
-  getCurrencyIcon(): string {
-    return this._currencyService.getCurrencyIcon(this.account?.currency ?? 0);
+    this.subcription = this._transactionsService
+      .transferAccount(this.transferOperationForm.value)
+      .subscribe({
+        next: (operationInfo) => {
+          this.showSpinner$.next(false);
+          this.operationInfo$.next(operationInfo);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.showSpinner$.next(false);
+          this._snackBar.open(error.error, 'ок');
+          this.stepper && this.stepper.reset();
+        },
+      });
   }
 
   get _sourceAccount(): AbstractControl {

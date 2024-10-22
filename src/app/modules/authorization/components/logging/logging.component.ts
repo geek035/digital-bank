@@ -1,9 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -22,7 +18,7 @@ import { loginValidator } from 'src/app/core/validators/logging.validator';
   styleUrls: ['./logging.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoggingComponent {
+export class LoggingComponent implements OnDestroy {
   public formGroup: FormGroup = new FormGroup({
     username: new FormControl('', {
       validators: [Validators.required, loginValidator()],
@@ -40,36 +36,34 @@ export class LoggingComponent {
   constructor(
     private readonly _authorizationService: AuthorizationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _router: Router
+    private readonly _router: Router,
   ) {}
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.showSpinner.next(true);      
+      this._subscription && this._subscription.unsubscribe();
+      this.showSpinner.next(true);
 
       const login = this._username.value;
-      const password = this._password.value; 
+      const password = this._password.value;
 
-      this._subscription = this._authorizationService.authorizate(login, password).subscribe({
-        next: (response) => {
-          this.showSpinner.next(false);          
-          this._router.navigate(['/user-home']);
-        },
-        error: (err: HttpErrorResponse) => {
-          this.showSpinner.next(false);
-          this._snackBar.open(
-            `Ошибка авторизации. ${err.error}`,
-            'ок'
-          );
-        },
-      });
+      this._subscription = this._authorizationService
+        .authorizate(login, password)
+        .subscribe({
+          next: (response) => {
+            this.showSpinner.next(false);
+            this._router.navigate(['/user-home']);
+          },
+          error: (err: HttpErrorResponse) => {
+            this.showSpinner.next(false);
+            this._snackBar.open(`Ошибка авторизации. ${err.error}`, 'ок');
+          },
+        });
     }
   }
 
-  ngOnDesctroy() {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
-    }
+  ngOnDestroy() {
+    this._subscription && this._subscription.unsubscribe();
   }
 
   onRegistrationClick() {

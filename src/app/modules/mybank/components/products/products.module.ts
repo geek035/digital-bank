@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMaskModule } from 'ngx-mask';
 import { AccountComponent } from './account/account.component';
+import { CommonComponentsModule } from "../../../../core/components/common-components.module";
 
 @NgModule({
   declarations: [CardComponent, AccountComponent],
@@ -19,7 +20,8 @@ import { AccountComponent } from './account/account.component';
     NgxMaskModule.forRoot(),
     MatInputModule,
     MatButtonModule,
-  ],
+    CommonComponentsModule
+],
   exports: [CardComponent, AccountComponent],
 })
 export class ProductsModule { }

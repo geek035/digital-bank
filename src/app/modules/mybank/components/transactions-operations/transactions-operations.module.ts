@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
+import { CustomPipesModule } from 'src/app/core/pipes/custom-pipes.module';
 
 
 
@@ -20,6 +21,7 @@ import {MatDividerModule} from '@angular/material/divider';
   imports: [
     CommonModule,
     CommonComponentsModule,
+    CustomPipesModule,
     MatStepperModule,
     MatButtonModule,
     MatInputModule,

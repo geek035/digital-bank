@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -30,7 +29,7 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
   constructor(
     private readonly _recoverPasswordService: RecoverPasswordService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _router: Router
+    private readonly _router: Router,
   ) {}
 
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
@@ -88,6 +87,8 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
   }
 
   getCode() {
+    this._subscription && this._subscription.unsubscribe();
+
     this.showSpinner.next(true);
     const login = this.loginControl.value;
     this._subscription = this._recoverPasswordService
@@ -100,7 +101,10 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
           this.activeTab = 1;
           sessionStorage.setItem(
             'activeTab',
-            JSON.stringify({ username: this.loginControl.value, tab: this.activeTab })
+            JSON.stringify({
+              username: this.loginControl.value,
+              tab: this.activeTab,
+            }),
           );
           this.refreshCode();
         },
@@ -113,7 +117,10 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
 
   refreshCode() {
     this.smsCode = Math.floor(1000 + Math.random() * 9000);
-    this._snackBar.open(`Код подтверждения: ${this.smsCode}`, 'ок');
+    this._snackBar.open(`Код подтверждения: ${this.smsCode}`, 'ок', {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
   }
 
   sendCode() {
@@ -124,7 +131,10 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
       this.activeTab = 2;
       sessionStorage.setItem(
         'activeTab',
-        JSON.stringify({ username: this.loginControl.value, tab: this.activeTab })
+        JSON.stringify({
+          username: this.loginControl.value,
+          tab: this.activeTab,
+        }),
       );
     }
   }
@@ -133,10 +143,10 @@ export class RecoverPasswordComponent implements AfterViewInit, OnDestroy {
     if (this._password.value !== this._repeatedPassword.value) {
       this._repeatedPassword.setErrors({ noMatchPasswords: true });
     } else {
+      this._subscription && this._subscription.unsubscribe();
+
       this.showSpinner.next(true);
       const password = this._password.value;
-
-      this._subscription && this._subscription.unsubscribe();
 
       this._subscription = this._recoverPasswordService
         .updatePassword(this.loginControl.value, password)

@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardRegisterOperationComponent } from './card-register-operation.component';
 
 const routes: Routes = [
-  {path: '', component: CardRegisterOperationComponent}
+  { path: '', component: CardRegisterOperationComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CardRegisterOperationRoutingModule { }
+export class CardRegisterOperationRoutingModule {}

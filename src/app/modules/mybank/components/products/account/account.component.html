@@ -1,9 +1,9 @@
-<article [ngClass]="getAccountClass()" class="account">
+<article [ngClass]="account.name | accountClass" class="account">
     <div class="account_row">
         <span>{{account.number}}</span>
     </div>
     <div class="account__row">
-        <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+        <mat-icon>{{account.currency | currencyIcon}}</mat-icon>
         <span>{{account.balance}}</span>
         <span class="account__spacer"></span>
         <span>срок: </span>

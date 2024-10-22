@@ -1,36 +1,39 @@
 <ng-container *ngIf="viewMode === 'simple'">
-    <article [ngClass]="getCardClass()" class="card">
+    <article [ngClass]="card.product.name| cardClass" class="card">
         <div class="card__row">
-            <img class="card__logo" [src]="getProgramTypeLogo()" />
+            <img class="card__logo" [src]="card.cardProgram | programTypeLogo" />
             <span class="card__spacer"></span>
-            <span [ngClass]="getCardTermClass()" class="card__term">срок: {{card.month}}/{{card.year}}</span>
+            <span [ngClass]="card.product.name| cardTermClass" class="card__term">срок:
+                {{card.month}}/{{card.year}}</span>
         </div>
-        <p [ngClass]="getCardNumberClass()" class="card__number">{{card.number | cardNumber
+        <p [ngClass]="card.product.name | cardNumberClass" class="card__number">{{card.number | cardNumber
             : isHiddenNumber}}</p>
     </article>
 </ng-container>
 
 <ng-container *ngIf="viewMode === 'expanded'">
     <section class="card-wrapper">
-        <article [ngClass]="getCardClass()" class="card card_expanded">
+        <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
+        <article [ngClass]="card.product.name| cardClass" class="card card_expanded">
             <div class="card__row">
                 <mat-icon>credit_card</mat-icon>
                 <span class="card__header">{{card.product.name}}</span>
                 <span class="card__spacer"></span>
-                <img class="card__logo" [src]="getProgramTypeLogo()" />
+                <img class="card__logo" [src]="card.cardProgram | programTypeLogo" />
             </div>
             <div class="card__row">
                 <div class="card__balance">
                     <span>{{card.account.balance}}</span>
-                    <mat-icon class="card__currency">{{getCurrencyIcon()}}</mat-icon>
+                    <mat-icon class="card__currency">{{card.account.currency | currencyIcon}}</mat-icon>
                 </div>
             </div>
             <div class="card__row card__row_g-3">
-                <span [ngClass]="getCardTermClass()">Срок: {{card.month}}/{{card.year}}</span>
+                <span [ngClass]="card.product.name| cardTermClass">Срок: {{card.month}}/{{card.year}}</span>
                 <span (click)="toggleCodeCVC()" class="card__cvc">CVC: {{((cardCVC$ | async) ?? 0) | codeCVC :
                     isHiddenCVC}}</span>
             </div>
-            <p [ngClass]="getCardNumberClass()" (click)="toggleCardNumber()" class="card__number card__number_expanded">
+            <p [ngClass]="card.product.name | cardNumberClass" (click)="toggleCardNumber()"
+                class="card__number card__number_expanded">
                 {{card.number | cardNumber
                 : isHiddenNumber}}</p>
             <div class="card__row card__row-g-3">
@@ -40,7 +43,7 @@
 
             <div class="card__row card__row-g-3">
                 <mat-icon>info</mat-icon>
-                <span>{{getCardState()}}</span>
+                <span>{{card.state | cardState}}</span>
             </div>
         </article>
 
@@ -50,6 +53,7 @@
         </div>
 
         <div class="pin-code-block" #pinCodeBlock>
+            <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
             <form [formGroup]="pinCodeForm" class="form form_center-content">
                 <div class="form__row-field-group">
                     <div class="form__field form__field_digit">
@@ -71,7 +75,8 @@
                 </div>
 
                 <div class="form__buttons-wrapper">
-                    <button type="submit" (click)="setPinCode()" mat-button class="form__button form__button_white button">Установить пин-код</button>
+                    <button type="submit" (click)="setPinCode()" mat-button
+                        class="form__button form__button_white button">Установить пин-код</button>
                 </div>
             </form>
         </div>

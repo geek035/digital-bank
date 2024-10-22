@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -109,7 +108,7 @@ export class RegistrationComponent implements OnDestroy {
     private readonly _router: Router,
     private readonly _registrationService: RegistrationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _dialog: MatDialog
+    private readonly _dialog: MatDialog,
   ) {}
 
   onSubmit() {
@@ -118,6 +117,8 @@ export class RegistrationComponent implements OnDestroy {
     } else if (this._password.value !== this._repeatedPassword.value) {
       this._repeatedPassword.setErrors({ noMatchPasswords: true });
     } else if (this.formGroup.valid) {
+      this._subscription && this._subscription.unsubscribe();
+
       this.showSpinner.next(true);
 
       const payload = this.formGroup.value;
@@ -132,6 +133,7 @@ export class RegistrationComponent implements OnDestroy {
           error: (err: HttpErrorResponse) => {
             this.showSpinner.next(false);
             this._login.setErrors({ existingUser: true });
+            this._email.setErrors({ existingUser: true });
             this._snackBar.open(err.error, 'ок');
           },
         });

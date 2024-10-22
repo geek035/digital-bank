@@ -1,4 +1,4 @@
-import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AccountRegisterOperationRoutingModule } from './account-register-operation-routing.module';
@@ -15,11 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
 import { MatSelectModule } from '@angular/material/select';
 
-
 @NgModule({
-  declarations: [
-    AccountRegisterOperationComponent
-  ],
+  declarations: [AccountRegisterOperationComponent],
   imports: [
     CommonModule,
     CommonComponentsModule,
@@ -37,4 +34,4 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AccountRegisterOperationModule { }
+export class AccountRegisterOperationModule {}

@@ -6,16 +6,13 @@ import { AccountRegisterComponent } from './account-register.component';
 import { CommonComponentsModule } from 'src/app/core/components/common-components.module';
 import { MatIconModule } from '@angular/material/icon';
 
-
 @NgModule({
-  declarations: [
-    AccountRegisterComponent
-  ],
+  declarations: [AccountRegisterComponent],
   imports: [
     CommonModule,
     CommonComponentsModule,
     AccountRegisterRoutingModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
-export class AccountRegisterModule { }
+export class AccountRegisterModule {}

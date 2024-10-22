@@ -1,12 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { UserDataService } from 'src/app/core/services/user-data-service/user-data.service';
-import { CurrencyService } from '../../services/currency/currency.service';
 import { ICardOrderModel } from '../../interfaces/card-order-model.interface';
 import { ITransactionModel } from 'src/app/interfaces/operations/transaction-model.interface';
 
@@ -19,7 +18,6 @@ import { ITransactionModel } from 'src/app/interfaces/operations/transaction-mod
 export class OperationsListComponent implements AfterViewInit {
   constructor(
     private readonly _userDataService: UserDataService,
-    private readonly _currencyService: CurrencyService,
     private readonly _snackBar: MatSnackBar,
     private readonly _router: Router,
   ) { }
@@ -118,48 +116,12 @@ export class OperationsListComponent implements AfterViewInit {
     }
   }
 
-  getAccountOperationResult(accountOperation: ITransactionModel) {
-    switch (accountOperation.state) {
-      case 'Canceled':
-        return 'операция отменена';
-
-      case 'Completed':
-        return 'операция завершена';
-      
-      case 'Hold':
-        return 'операция обрабатывается';
-
-      default:
-        return 'неизвестный результат';
-    }
+  cardsListTrackByFn(index: number, cardOperation: ICardOrderModel) {
+    return cardOperation.requestId;
   }
 
-  public getTypeResult(cardOperation: ICardOrderModel): string {
-    switch (cardOperation.state) {
-      case 'Created':
-        return 'карта создана';
-      
-      case 'BeingProduced':
-        return 'карта выпущена';
-
-      case 'Delivered':
-        return 'карта доставлена';
-      
-      case 'Delivery':
-        return 'карта в доставке';
-      
-      case 'Issued':
-        return 'карта выпущена';
-      
-      case 'Produced':
-        return 'карта произведена';
-      
-      case 'Rejected':
-        return 'запрос отменен';
-      
-      default:
-        return 'неизвестное состояние';
-    }
+  accountsListTrackByFn(index: number, accountOperation: ITransactionModel) {
+    return accountOperation.id;
   }
 
   onCardsOperationListPageChange(event: PageEvent) {

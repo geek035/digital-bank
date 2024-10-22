@@ -8,9 +8,9 @@ const routes: Routes = [
   {
     path: 'user-home',
     loadChildren: () =>
-        import(`./modules/mybank/components/user-home/user-home.module`).then(
-          (m) => m.UserHomeModule
-        ),
+      import(`./modules/mybank/components/user-home/user-home.module`).then(
+        (m) => m.UserHomeModule,
+      ),
     canActivate: [MyBankGuard],
   },
   { path: 'home', component: HomePageComponent },
@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'logging',
     loadChildren: () =>
       import('./modules/authorization/components/logging/logging.module').then(
-        (m) => m.LoggingModule
+        (m) => m.LoggingModule,
       ),
   },
   {

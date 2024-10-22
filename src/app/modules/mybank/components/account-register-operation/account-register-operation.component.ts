@@ -5,7 +5,12 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -13,7 +18,10 @@ import { UserDataService } from 'src/app/core/services/user-data-service/user-da
 import { fullNameValidator } from 'src/app/core/validators/full-name.validator';
 import { IAccountRegisterOperation } from '../../interfaces/account-register-operation.interface';
 import { AccountRegisterService } from '../../services/account-register-service/account-register.service';
-import { AccountCurrency, AccountType } from 'src/app/interfaces/operations/step-param.inteface';
+import {
+  AccountCurrency,
+  AccountType,
+} from 'src/app/interfaces/operations/step-param.inteface';
 import { IOperationInfo } from 'src/app/interfaces/operations/operation-info.interface';
 
 @Component({
@@ -32,12 +40,6 @@ export class AccountRegisterOperationComponent
     private readonly _snackBar: MatSnackBar,
     private readonly _accountRegisterOperationService: AccountRegisterService,
   ) {}
-
-  private subscription: Subscription | null = null;
-  
-  public operationInfo$ = new BehaviorSubject({} as IOperationInfo);
-  public showSpinner$ = new BehaviorSubject(false);
-  public inputData$ = new BehaviorSubject({} as IAccountRegisterOperation);
 
   public accountProductForm = new FormGroup({
     lastName: new FormControl('', [
@@ -63,11 +65,19 @@ export class AccountRegisterOperationComponent
     accountCurrency: new FormControl('', [Validators.required]),
   });
 
+  private subscription: Subscription | null = null;
+
+  public showSpinner$ = new BehaviorSubject(false);
+  public operationInfo$ = new BehaviorSubject<IOperationInfo | null>(null);
+  public inputData$ = new BehaviorSubject<IAccountRegisterOperation | null>(
+    null,
+  );
 
   ngAfterViewInit(): void {
     this.showSpinner$.next(true);
 
-    const accountType = this._activatedRoute.snapshot.queryParams['accountType'];
+    const accountType =
+      this._activatedRoute.snapshot.queryParams['accountType'];
     this._accountType.setValue(this.getAccountType(accountType));
 
     this.subscription = this._userDataService.getUserData().subscribe({
@@ -118,12 +128,12 @@ export class AccountRegisterOperationComponent
   public completeOperation() {
     this.subscription && this.subscription.unsubscribe();
     this.showSpinner$.next(true);
-    
+
     const accountType = this._accountType.value as AccountType;
     const accountCurrency = this._accountCurrency.value as AccountCurrency;
 
     this.subscription = this._accountRegisterOperationService
-    .openAccount(accountType, accountCurrency)
+      .openAccount(accountType, accountCurrency)
       .subscribe({
         next: (operationInfo) => {
           this.showSpinner$.next(false);
@@ -141,7 +151,7 @@ export class AccountRegisterOperationComponent
     switch (accountTypeParam) {
       case 'current':
         return 'Текущий счёт';
-      
+
       case 'savings':
         return 'Накопительный счёт';
 
@@ -149,7 +159,7 @@ export class AccountRegisterOperationComponent
         return 'Неизвестный тип счета';
     }
   }
- 
+
   get _lastName(): AbstractControl {
     return this.accountProductForm.get('lastName') as AbstractControl;
   }

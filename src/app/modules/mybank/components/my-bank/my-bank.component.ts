@@ -1,13 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/core/services/user-data-service/user-data.service';
 import { CardService } from '../../services/card-service/card.service';
-import { Observable } from 'rxjs';
 import { ICardModel } from '../../interfaces/card-model.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { CardComponent } from '../products/card/card.component';
@@ -20,7 +14,7 @@ import { AccountService } from '../../services/account-service/account.service';
   styleUrls: ['./my-bank.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankComponent implements OnInit {
+export class MyBankComponent {
   constructor(
     private readonly _userDataService: UserDataService,
     private readonly _router: Router,
@@ -30,13 +24,8 @@ export class MyBankComponent implements OnInit {
   ) {}
 
   public userFullName$ = this._userDataService.getFullName();
-  public userCards$!: Observable<ICardModel[]>;
-  public userAccounts$!: Observable<IAccountModel[]>;
-
-  ngOnInit(): void {
-    this.userCards$ = this._cardService.getCards();
-    this.userAccounts$ = this._accountService.getAccounts();
-  }
+  public userCards$ = this._cardService.getCards();
+  public userAccounts$ = this._accountService.getAccounts();
 
   onRedirectClick(event: Event) {
     const dataInfo = (event.currentTarget as HTMLElement).dataset?.['btn'];
@@ -45,7 +34,7 @@ export class MyBankComponent implements OnInit {
       case 'card-register':
         this._router.navigate(['/user-home/card-register']);
         break;
-      
+
       case 'account-register':
         this._router.navigate(['/user-home/account-register']);
         break;
@@ -58,7 +47,7 @@ export class MyBankComponent implements OnInit {
 
   redirectToAccountPage(account: IAccountModel) {
     this._router.navigate(['/user-home/account'], {
-      queryParams: { accountId: account.id }
+      queryParams: { accountId: account.id },
     });
   }
 
@@ -74,8 +63,8 @@ export class MyBankComponent implements OnInit {
     this._dialog.open(CardComponent, {
       data: {
         card: card,
-        viewMode: 'expanded'
+        viewMode: 'expanded',
       },
-    })
+    });
   }
 }

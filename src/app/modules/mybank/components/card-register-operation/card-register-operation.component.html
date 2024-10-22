@@ -140,6 +140,16 @@
             <article class="info-operation-block">
                 <mat-list *ngIf="operationInfo$ | async as operationInfo">
                     <mat-list-item>
+                        <mat-icon>info</mat-icon>
+                        <div class="info-operation-block__info">
+                            <span>{{operationInfo.isConfirmed && operationInfo.isFinished 
+                                ? "Информация о счёте появится через некоторое время на главной странице банка" 
+                                : "Подробную информацию об операции можно посмотреть в разделе 'Мои операции'"
+                            }}</span>
+                        </div>
+                    </mat-list-item>
+
+                    <mat-list-item>
                         <mat-icon mat-list-icon>cloud</mat-icon>
                         <div mat-line class="info-operation-block__info">
                             Номер операции: {{operationInfo.requestId}}
@@ -164,6 +174,7 @@
                         </span>
                     </mat-list-item>
                 </mat-list>
+
                 <div class="info-operation-block__buttons-wrapper">
                     <button (click)="onFinishOperationClick()" class="info-operation-block__button button"
                         mat-button>Вернуться в мой банк</button>

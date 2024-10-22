@@ -1,4 +1,4 @@
-<div class="account-box grid g-3">
+<div *ngIf="getAccount$ | async" class="account-box grid g-3">
     <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
     <div class="grid__row">
         <h2 class="account-box__title col-xs-12 col-md-12 col-lg-12">
@@ -16,14 +16,14 @@
 
     <div class="grid__row g-3">
         <p class="account-field col-xs-12 col-md-4 col-lg-4">
-            <mat-icon>{{getCurrencyIcon()}}</mat-icon>
+            <mat-icon>{{account?.currency | currencyIcon}}</mat-icon>
             <span>{{account?.balance ?? 0}}</span>
         </p>
 
         <p class="account-field col-xs-12 col-md-6 col-lg-6">
             <mat-icon>info</mat-icon>
             <span>Статус счета:&nbsp;</span>
-            <span>{{getAccountState()}}</span>
+            <span>{{account?.state | accountState}}</span>
         </p>
     </div>
 

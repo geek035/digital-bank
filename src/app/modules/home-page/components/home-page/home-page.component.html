@@ -32,7 +32,7 @@
                     <mat-icon>person</mat-icon>
                     <span class="link">Войти</span>
                 </button>
-                <button  data-btn="register" (click)="onRedirectClick($event)" mat-menu-item>
+                <button data-btn="register" (click)="onRedirectClick($event)" mat-menu-item>
                     <mat-icon>app_registration</mat-icon>
                     <span class="link">Регистрация</span>
                 </button>
@@ -42,7 +42,8 @@
         <ng-template #authListLinks>
             <button mat-button data-btn="user-home" (click)="onRedirectClick($event)">
                 <mat-icon>person</mat-icon>
-                <span class="link" *ngIf="userFirstName$ | async as userFirstName else loading">{{ userFirstName }}</span>
+                <span class="link" *ngIf="userFirstName$ | async as userFirstName else loading">{{ userFirstName
+                    }}</span>
                 <ng-template #loading>Loading...</ng-template>
             </button>
         </ng-template>
@@ -66,7 +67,8 @@
 
         <img class="main__img" src="assets/welcome-img.jpg" />
 
-        <button class="main__button" (click)="onMainButtonClick()" mat-flat-button>{{isAuthorizated ? 'Оформить карту' : 'Войти'}}</button>
+        <button class="main__button" (click)="onMainButtonClick()" mat-flat-button>{{isAuthorizated ? 'Оформить карту' :
+            'Войти'}}</button>
     </div>
 </main>
 

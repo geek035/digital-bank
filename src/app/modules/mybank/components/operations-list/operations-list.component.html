@@ -13,11 +13,11 @@
             </mat-paginator>
             <div class="grid__row g-3">
                 <div class="operation-box col-xs-12 col-md-6 col-lg-6"
-                    *ngFor="let cardOperation of cardsOperationsList$ | async">
+                    *ngFor="let cardOperation of cardsOperationsList$ | async; trackBy: cardsListTrackByFn">
                     <div class="operation-box__row">
                         <p>{{cardOperation.product.name}}</p>
                         <span class="operation-box__spacer"></span>
-                        <img class="operation-box__logo" [src]="getProgramTypeLogo(cardOperation)">
+                        <img class="operation-box__logo" [src]="cardOperation.cardProgram | programTypeLogo">
                     </div>
                     <p class="operation-box__row">
                         <mat-icon>person_cicrle</mat-icon>
@@ -44,7 +44,7 @@
                     <p class="operation-box__row">
                         <mat-icon>check_box</mat-icon>
                         <span>Результат операции: </span>
-                        <span>{{getTypeResult(cardOperation)}}</span>
+                        <span>{{cardOperation.state | cardOperationTipe}}</span>
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 
             <div class="grid__row g-3">
                 <div class="operation-box col-xs-12 col-md-6 col-lg-6"
-                    *ngFor="let accountOperation of accountsOperationsList$ | async">
+                    *ngFor="let accountOperation of accountsOperationsList$ | async; trackBy: accountsListTrackByFn">
                     
                     <p class="operation-box__row">
                         <span>{{getTypeAccountOperation(accountOperation) | uppercase}}</span>
@@ -86,7 +86,7 @@
                     <p class="operation-box__row"> 
                         <mat-icon>check_box</mat-icon>
                         <span>Результат операции:</span>
-                        <span>{{getAccountOperationResult(accountOperation)}}</span>
+                        <span>{{accountOperation.state | accountOperationType}}</span>
                     </p>
                 </div>
             </div>

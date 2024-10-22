@@ -32,7 +32,7 @@
                 Превышено максимальное количество символов
             </mat-error>
             <mat-error *ngIf="_login.hasError('existingUser')">
-                Логин уже используется
+                Логин или email уже используется
             </mat-error>
         </mat-form-field>
 
@@ -46,6 +46,9 @@
             <mat-error *ngIf="_email.hasError('invalidEmail') &&
                 !_email.hasError('required')">
                 Неверный формат email
+            </mat-error>
+            <mat-error *ngIf="_email.hasError('existingUser')">
+                Логин или email уже используется
             </mat-error>
         </mat-form-field>
 

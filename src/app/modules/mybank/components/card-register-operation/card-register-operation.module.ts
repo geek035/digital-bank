@@ -30,6 +30,6 @@ import { CommonComponentsModule } from '../../../../core/components/common-compo
     MatListModule,
     MatIconModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CardRegisterOperationModule {}

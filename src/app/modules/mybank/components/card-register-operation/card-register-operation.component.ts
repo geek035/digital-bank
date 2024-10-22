@@ -33,6 +33,14 @@ import { IOperationInfo } from 'src/app/interfaces/operations/operation-info.int
 export class CardRegisterOperationComponent
   implements AfterViewInit, OnDestroy
 {
+  constructor(
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _userDataService: UserDataService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly _cardRegisterOperationService: CardRegisterOperationService,
+  ) {}
+
   public cardProductForm = new FormGroup({
     lastName: new FormControl('', [
       Validators.required,
@@ -55,6 +63,7 @@ export class CardRegisterOperationComponent
     birthdate: new FormControl('', [Validators.required]),
     cardProduct: new FormControl('', [Validators.required]),
   });
+
   public releaseProductForm = new FormGroup({
     releaseType: new FormControl('', [Validators.required]),
   });
@@ -63,17 +72,9 @@ export class CardRegisterOperationComponent
   private cardProduct: CardProductValue | null = null;
   private programType: CardProgramTypeValue | null = null;
 
-  public inputData$ = new BehaviorSubject({} as ICardRegisterOperation);
   public showSpinner$ = new BehaviorSubject(false);
-  public operationInfo$ = new BehaviorSubject({} as IOperationInfo);
-
-  constructor(
-    private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute,
-    private readonly _userDataService: UserDataService,
-    private readonly _snackBar: MatSnackBar,
-    private readonly _cardRegisterOperationService: CardRegisterOperationService,
-  ) {}
+  public operationInfo$ = new BehaviorSubject<null | IOperationInfo>(null);
+  public inputData$ = new BehaviorSubject<null | ICardRegisterOperation>(null);
 
   ngAfterViewInit(): void {
     this.showSpinner$.next(true);

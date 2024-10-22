@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CardRegisterOperationService } from '../../services/card-register-operation/card-register-operation.service';
 import { Router } from '@angular/router';
@@ -12,24 +12,21 @@ import { IProductModel } from 'src/app/interfaces/mybank/product-model.interface
   styleUrls: ['./card-register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardRegisterComponent implements OnInit, OnDestroy {
+export class CardRegisterComponent implements OnDestroy {
   constructor(
     private readonly _cardRegisterOperationService: CardRegisterOperationService,
     private readonly _router: Router,
     private readonly _snackBar: MatSnackBar,
-    private readonly _showcaseService: ShowcaseService
+    private readonly _showcaseService: ShowcaseService,
   ) {}
 
   public showSpinner$ = new BehaviorSubject(false);
-  public debitCardInfo$!: Observable<IProductModel>;
-  public creditCardInfo$!: Observable<IProductModel>;
-  
-  private subscription: Subscription | null = null;
+  public debitCardInfo$: Observable<IProductModel> =
+    this._showcaseService.getProductInfo(3);
+  public creditCardInfo$: Observable<IProductModel> =
+    this._showcaseService.getProductInfo(4);
 
-  ngOnInit(): void {
-    this.debitCardInfo$ = this.getProductInfo(3);
-    this.creditCardInfo$ = this.getProductInfo(4);
-  }
+  private subscription: Subscription | null = null;
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
@@ -38,31 +35,29 @@ export class CardRegisterComponent implements OnInit, OnDestroy {
   onRedirectClick(event: Event) {
     const dataInfo = (event.currentTarget as HTMLElement).dataset?.['btn'];
 
-    if (dataInfo == 'credit') {
+    if (dataInfo === 'credit') {
       this.subscription && this.subscription.unsubscribe();
 
       this.showSpinner$.next(true);
-      this.subscription = this._cardRegisterOperationService.validateUser().subscribe({
-        next: (response) => {
-          this.showSpinner$.next(false);
+      this.subscription = this._cardRegisterOperationService
+        .validateUser()
+        .subscribe({
+          next: (response) => {
+            this.showSpinner$.next(false);
 
-          response
-            ? this._router.navigate(['/user-home/card-register-operation'], {
-                queryParams: { cardType: dataInfo },
-              })
-            : this._snackBar.open('Заказ кредитной карты недоступен', 'ок');
-        },
-      });
-    } else if (dataInfo == 'virtual') {
+            response
+              ? this._router.navigate(['/user-home/card-register-operation'], {
+                  queryParams: { cardType: dataInfo },
+                })
+              : this._snackBar.open('Заказ кредитной карты недоступен', 'ок');
+          },
+        });
+    } else if (dataInfo === 'virtual') {
       this._snackBar.open('Продукт пока не доступен. Ждите обновлений', 'ок');
-    } else {
+    } else if (dataInfo === 'debit') {
       this._router.navigate(['/user-home/card-register-operation'], {
         queryParams: { cardType: dataInfo },
       });
     }
-  }
-
-  private getProductInfo(productId: number): Observable<IProductModel> {
-    return this._showcaseService.getProductInfo(productId);
   }
 }

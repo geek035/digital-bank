@@ -1,12 +1,12 @@
 <section class="update-user-data-box">
     <h2 class="update-user-data-box__header">Обновление данных</h2>
+    <app-spinner [showSpinner]="showLoadingDataSpinner$ | async"></app-spinner>
 
-    <mat-stepper [linear]="true" orientation="vertical">
+    <mat-stepper *ngIf="userData$ | async" [linear]="true" orientation="vertical">
         <mat-step [stepControl]="userUpdateDataForm">
             <ng-template>Персональные данные</ng-template>
 
             <form [formGroup]="userUpdateDataForm" class="form">
-                <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
 
                 <!--phoneNumber Field-->
                 <mat-form-field class="form__field" floatLabel="always">
@@ -173,12 +173,19 @@
                 </div>
                 <div class="info-operation-block__field">
                     <mat-icon>calendar_month</mat-icon>
-                    <span class="info-operation-block__info">Дата рождения: {{inputData.birthdate | date : 'short'}}</span>
+                    <span class="info-operation-block__info">Дата рождения: {{inputData.birthdate | date :
+                        'short'}}</span>
                 </div>
                 <div class="info-operation-block__field">
                     <mat-icon>call</mat-icon>
                     <span class="info-operation-block__info">
                         Телефон: {{inputData.phoneNumber | telephoneNumber}}
+                    </span>
+                </div>
+                <div class="info-operation-block__field">
+                    <mat-icon>email</mat-icon>
+                    <span class="info-operation-block__info">
+                        Email: {{inputData.email}}
                     </span>
                 </div>
                 <div class="info-operation-block__field">

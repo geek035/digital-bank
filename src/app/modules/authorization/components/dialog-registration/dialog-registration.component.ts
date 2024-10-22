@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,10 +8,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogRegistrationComponent {
-
-  constructor(
-    private readonly _router: Router,
-  ) { }
+  constructor(private readonly _router: Router) {}
 
   onEnterClick() {
     this._router.navigate(['/logging']);
@@ -20,5 +17,4 @@ export class DialogRegistrationComponent {
   onCancelClick() {
     this._router.navigate(['/home']);
   }
-
 }
