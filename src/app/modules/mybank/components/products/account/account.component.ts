@@ -21,6 +21,8 @@ export class AccountComponent implements OnInit {
   getAccountClass() {
     if (this.account.name == 'Текущий счёт') {
       return 'current-account'
+    } else if (this.account.name.includes('Карточный счёт')) {
+      return 'card-account'
     }
 
     return 'savings-account'

@@ -39,13 +39,14 @@ $lg-card-register-box-width: 500px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    
     &__buttons-wrapper {
+        padding-top: .5rem;
         width: fit-content;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: .5rem;
 
         @media screen and (min-width: $md-width) {
             flex-direction: row;
@@ -54,6 +55,6 @@ $lg-card-register-box-width: 500px;
     }
 
     &__button {
-        width: fit-content;
+        width: 100%;
     }
 }

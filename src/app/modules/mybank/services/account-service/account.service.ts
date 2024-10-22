@@ -13,11 +13,7 @@ export class AccountService {
   getAccounts(): Observable<IAccountModel[]> {
     return this._http.get<IAccountModel[]>('/api/accounts').pipe(
       switchMap((allAccounts) => {
-        const accounts = allAccounts.filter((account, idx) => 
-          account.name === 'Накопительный счёт' ||
-          account.name === 'Текущий счёт'
-        );
-        return of(accounts)
+        return of(allAccounts)
       }),
       catchError((error) => throwError(error)),
     );

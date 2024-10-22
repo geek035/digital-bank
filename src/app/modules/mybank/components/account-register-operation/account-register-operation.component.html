@@ -135,9 +135,9 @@
         </mat-step>
 
         <mat-step>
-            <ng-template matStepLabel>Результат операции</ng-template>
             <app-spinner [showSpinner]="showSpinner$ | async"></app-spinner>
-
+            <ng-template matStepLabel>Результат операции</ng-template>
+            
             <article class="info-operation-block">
                 <mat-list *ngIf="operationInfo$ | async as operationInfo">
                     <mat-list-item>
@@ -160,9 +160,11 @@
                     </mat-list-item>
                     <mat-list-item role="listitem">
                         <mat-icon mat-list-icon>calendar_month</mat-icon>
-                        <span class="info-operation-block__info">
-                            Дата запроса: {{operationInfo.startDate | date : 'short'}}
-                        </span>
+                        <div class="info-operation-block__info">
+                            <span>
+                                Дата запроса: {{operationInfo.startDate | date : 'short'}}
+                            </span>
+                        </div>
                     </mat-list-item>
                 </mat-list>
                 <div class="info-operation-block__buttons-wrapper">

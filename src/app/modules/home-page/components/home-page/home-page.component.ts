@@ -29,7 +29,7 @@ export class HomePageComponent implements OnDestroy {
 
   onMainButtonClick() {
     if (this.isAuthorizated) {
-      this._router.navigate(['/user-home/home-page']);
+      this._router.navigate(['/user-home/my-bank']);
     } else {
       this._router.navigate(['/logging']);
     }

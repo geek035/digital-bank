@@ -59,6 +59,12 @@
         font-weight: 800;
         margin: 0;
 
+        display: -webkit-box;
+        -webkit-line-clamp: 1; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
         @media screen and (min-width: $md-width) {
             font-size: 1.2rem;
         }

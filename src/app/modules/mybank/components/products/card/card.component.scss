@@ -150,6 +150,7 @@
     background-color: $bg-card-clr-02;
     transition: background-color .3s ease-out;
     border: 1px solid #a083ff;
+    color: white;
 
     &:hover {
         background-color: $bg-card-clr-02-hover;
@@ -157,5 +158,13 @@
 
     &:active {
         background-color: $bg-card-clr-02-active;
+    }
+
+    &__term {
+        color: white;
+    }
+
+    &__number {
+        color: white;
     }
 }

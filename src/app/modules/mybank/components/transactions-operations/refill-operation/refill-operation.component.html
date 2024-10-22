@@ -5,7 +5,7 @@
             <ng-template matStepLabel>Данные перевода</ng-template>
             <form class="form" [formGroup]="refillOperationForm">
                 <mat-form-field class="form__field">
-                    <mat-label>Счет списания</mat-label>
+                    <mat-label>Счет пополнения</mat-label>
                     <input type="text" formControlName="account" matInput />
                     <mat-error *ngIf="_account.hasError('required')">
                         Заполните поле
@@ -16,7 +16,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="form__field">
-                    <mat-label>Сумма перевода</mat-label>
+                    <mat-label>Сумма</mat-label>
                     <input type="text" formControlName="amount" matInput />
                     <mat-error *ngIf="_amount.hasError('required')">
                         Заполните поле
