@@ -1,7 +1,7 @@
 {
-    "/api": {
-        "target": "https://fw-ib-8d981.psb-tech.ru",
-        "secure": true,
-        "changeOrigin": true
-    }
+  "/api": {
+    "target": "",
+    "secure": true,
+    "changeOrigin": true
+  }
 }
